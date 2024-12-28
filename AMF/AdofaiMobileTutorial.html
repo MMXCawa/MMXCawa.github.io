@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title>移动端常见问题解答 | Adofai Mobile Tutorial</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <h1>移动端常见问题解答</h1>
+    <h2>游戏在哪？</h2>
+    <p><a href="https://play.google.com/store/apps/details/A_Dance_of_Fire_and_Ice?id=com.fizzd.connectedworlds">安卓</a>
+        <a href="https://apps.apple.com/us/app/a-dance-of-fire-and-ice/id1456547302">iOS</a>
+    </p>
+    <h2>怎么导入谱面？</h2>
+    <h3>Andoid,iOS,HarmonyOS只能使用URL导入</h3>
+    <h4>方法1</h4>
+    <p>比如说你的谱面文件在/sdcard/Android/data/com.fizzd/leveleditor/files/Levels/1.zip
+        用URL导入 输入file://加上刚才的谱面路径 点击"下载"等一段时间即可载入关卡
+        附：不支持打开以adopac为后缀的谱面！
+        如果你的adofai有访问存储文件的权限可以导入存储卡内的任意路径 如file:///sdcard/Download/a8c32j.zip</p>
+    <h4>方法2</h4>
+    <p>一定要使用“夸克”浏览器输入任意有谱面的网盘地址，点击下载
+        此时不要点击"普通下载"应点击左下角小字"复制链接"此时复制的是谱面的直链(URL)
+        用URL导入 复制刚才的链接 点击"下载"等一段时间即可载入关卡</p>
+    <h2>没有音乐，导入失败，未发现关卡文件?</h2>
+    <p>试着把谱面文件解压在压缩 然后导入压缩名称最好全部包含Ascii码 如1.zip</p>
+    <h2>需要更新谱面文件? </h2>
+    <p>打开压缩包中的.adofai文件 找到"version"把值改为11即可，当然你也可以通过使用2.8游玩谱面来解决该问题。</p>
+    <h2>谱面载入失败:Error loading at...</h2> 可能是2.6以上的文件 需要用Hitmargin的降版本工具，当然你也可以通过使用2.8游玩谱面来解决该问题。
+    <p><a href="https://github.com/2228293026/ConvertToOld">点击下载Convert to old</a>
+        在文件菜单中找到需要转换的adofai文件并点击 你将会得到降过版本的文件。</p>
+    <h2>谱面特效太多，手机带不动？</h2>
+    <p>试试Hitmargin的去特效工具.
+        复制谱面adofai文件路径 点击去除特效按钮 你将会得到去掉特效的文件.</p>
+    <h2>我的谱面玩着玩着定格了？无敌和判定改不了了？</h2>
+    <p>不要按暂停键！用系统自带的退出 有键盘的按ESC</p>
+    <h2>如何更改行星颜色？</h2>
+    <p>通过修改"Android/data/安装包名(一般以com.fizzd开头)/files/data.sav"更改行星颜色
+        建议先了解json文件的格式
+        在文件末尾的打开后前复制粘贴以下内容：
+        colorRed:"overseer",
+        colorBlue:"rainbow",
+        其中overseer和"rainbow"可以换成你想要的颜色
+        比如"red","blue"
+        支持颜色代码,比如"#00FF00"
+
+        上次更新:202412281600</p>
+    <a href="../AMFMain.html">返回</a>
+</body>
+
+</html>
