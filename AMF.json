@@ -1,5 +1,5 @@
 {
-  "UpdateTime":"2024.12.8",
+  "UpdateTime":"202501010953",
   "\u8c31\u9762": {
     "0": "Dafikun - BPM=SUB/1450(Nerfed)",
     "1": "Ludicin - Bismuth (nerfed)",
@@ -84,7 +84,10 @@
     "80": "zsry - Jipper EX",
     "81": "Cardboard box -He He He(nerfed)",
     "82": "Daniwellp - Nyan Cat",
-    "83": "DUGGY - Endless Love"
+    "83": "DUGGY - Endless Love",
+    "84": "Cardboard Box - The Limit Does Not Exist",
+    "85": "Plum - Megamix2",
+    "86": "Plum - Nightingale"
   },
   "\u8c31\u5e08": {
     "0": "Gehuang",
@@ -119,7 +122,7 @@
     "29": "fastt",
     "30": "Silis I Avis",
     "31": "\ubb34\uc378\ub124\uc77c\ub7ec",
-    "32": "ChangU_KiM & SaJabe & IdentitySmile & Han_rang & Seoul_minsu & Ocbim_ & Star4th & BoOoOoRi etc.",
+    "32": "Big Person Collab",
     "33": "Irin",
     "34": "Irin",
     "35": "Nanocrotor",
@@ -170,7 +173,10 @@
     "80": "WLZJZ3",
     "81": "\uc544\ub098",
     "82": "Thiefcat",
-    "83": "IntersSnowFlake"
+    "83": "IntersSnowFlake",
+    "84": "HitMargin",
+    "85": "Alpha & Irin",
+    "86": "AMC Chart Team \u300aNightingales\u300b(waxiaokai & alarm74554 & MMXCawa)"
   },
   "\u89c6\u9891\u94fe\u63a5": {
     "0": "https://b23.tv/jsj87qx",
@@ -256,7 +262,10 @@
     "80": null,
     "81": "https://www.bilibili.com/video/BV12Z421Y7yU",
     "82": "https://b23.tv/sIb8eNM",
-    "83": "https://b23.tv/ij1paBr"
+    "83": "https://b23.tv/ij1paBr",
+    "84": "https://www.bilibili.com/video/BV1ZriyYJENj/",
+    "85": "https://b23.tv/gewkFiC",
+    "86": "https://www.kuaishou.com/f/X-30z9E8Ag6Zu1EA"
   },
   "\u4e0b\u8f7d\u94fe\u63a5": {
     "0": "http://download.sharkmc.cn",
@@ -305,7 +314,7 @@
     "43": "http://download.sharkmc.cn",
     "44": "https://wwp.lanzoup.com/iD1YZ1ngsdfc\n \u63d0\u53d6\u7801:4mf2",
     "45": "https://wwp.lanzoup.com/iHVG41nti49a\n \u63d0\u53d6\u7801:byuc",
-    "46": "https://wwp.lanzoup.com/iYO6D23zbzeb\n \u63d0\u53d6\u7801:4t7k",
+    "46": "https://wwp.lanzoup.com/iYO6D23zbzeb\n \u63d0\u53d6\u7801:4t7k",   
     "47": "http://download.sharkmc.cn",
     "48": "https://www.jianguoyun.com/p/DYy7fxMQq82dChjPxMoFIAA",
     "49": "https://www.jianguoyun.com/p/DdS2ZEsQq82dChiF88UFIAA",
@@ -342,12 +351,15 @@
     "80": "wwp.lanzoup.com/i7UKR2dfo18j",
     "81": "http://download.sharkmc.cn",
     "82": "https://wwp.lanzoup.com/iI8C22f99usj",
-    "83": "https://www.123pan.com/s/dO4LVv-IePZv.html"
+    "83": "https://www.123pan.com/s/dO4LVv-IePZv.html",
+    "84": "https://www.123684.com/s/8PmZVv-3k4hH",
+    "85": "http://download.sharkmc.cn",
+    "86": "www.123865.com/s/QvFcVv-3XAGA"
   },
   "\u6700\u7ec8\u8bc4\u7ea7": {
     "0": "U1",
     "1": "U6",
-    "2": "\u5f85\u8bc4",
+    "2": "G1",
     "3": "P15",
     "4": "P16",
     "5": "U5",
@@ -364,7 +376,7 @@
     "16": "G19",
     "17": "U5",
     "18": "G19",
-    "19": "U12",
+    "19": "U12",      
     "20": "U8",
     "21": "G18",
     "22": "U9",
@@ -415,7 +427,7 @@
     "67": "U1",
     "68": "P17",
     "69": "U11",
-    "70": "\u5f85\u8bc4",
+    "70": "G7",
     "71": "\u5f85\u8bc4",
     "72": "Tiny",
     "73": "\u5f85\u8bc4",
@@ -428,12 +440,15 @@
     "80": "\u91c7\u97f3",
     "81": "\u5f85\u8bc4",
     "82": "\u5f85\u8bc4",
-    "83": "\u5f85\u8bc4"
+    "83": "\u5f85\u8bc4",
+    "84": "\u5f85\u8bc4",
+    "85": "\u5f85\u8bc4",
+    "86": "P17"
   },
   "\u6570\u5b57\u8bc4\u7ea7": {
     "0": 21,
     "1": 21.125,
-    "2": "\u5f85\u8bc4",
+    "2": 20,
     "3": 16,
     "4": 17,
     "5": 21.1,
@@ -501,7 +516,7 @@
     "67": 21,
     "68": 18,
     "69": 21.25,
-    "70": "\u5f85\u8bc4",
+    "70": 20.3,
     "71": "\u5f85\u8bc4",
     "72": "Tiny",
     "73": "\u5f85\u8bc4",
@@ -514,7 +529,10 @@
     "80": -2,
     "81": "\u5f85\u8bc4",
     "82": "\u5f85\u8bc4",
-    "83": "\u5f85\u8bc4"
+    "83": "\u5f85\u8bc4",
+    "84": "\u5f85\u8bc4",
+    "85": "\u5f85\u8bc4",
+    "86": 18
   },
   "\u8c31\u9762\u5907\u6ce8": {
     "0": null,
@@ -600,6 +618,9 @@
     "80": "\u91c7\u97f3\u9519\u8bef",
     "81": null,
     "82": null,
-    "83": "\u9700\u8981\u9ea6\u5f53\u52b3"
+    "83": "\u9700\u8981\u9ea6\u5f53\u52b3",
+    "84": null,
+    "85": null,
+    "86": "AMC 3"
   }
 }
