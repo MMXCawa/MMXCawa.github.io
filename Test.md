@@ -3,12 +3,12 @@
 > 冰与火之舞移动端论坛（Adofai Mobile Forum）是一个基于冰与火之舞移动端的论坛(因为其下载方式和判定的特殊性，这个论坛是上不来台面的)，根据玩家在移动端打谱的体感进行难度评级
 
 ## 移动端入门
-点击此[按钮](https://mmxcawa.github.io/AMF/AdofaiMobileTutorial.html)阅读移动端常见问题解答
+点击此**[按钮](https://mmxcawa.github.io/AMF/AdofaiMobileTutorial.html)**阅读移动端常见问题解答
 
 ## 谱面
-* 点击此[按钮](https://www.kdocs.cn/l/ckv2iLFVwq37)**查看表格**
+* 点击此**[按钮](https://www.kdocs.cn/l/ckv2iLFVwq37)****查看表格**
 
-* 点击此[按钮](https://f.wps.cn/ksform/w/write/X4Nauv9J)**投稿谱面**
+* 点击此**[按钮]**(https://f.wps.cn/ksform/w/write/X4Nauv9J)**投稿谱面**
 
 ## 新闻
 * 冰与火之舞移动端周报
