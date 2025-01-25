@@ -1,11 +1,55 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh">
 
 <head>
-    <title>MMXCawa的个人网站</title>
-    <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MMXCawa的个人网站</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      color: #000000;
+      backdrop-filter: blur(10px);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    }
+
+    .content {
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px;
+      backdrop-filter: blur(10px);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    }
+
+    h1, h2 {
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    a {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.4);
+      color: #0066cc;
+      padding: 10px 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+      margin-top: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    a:hover {
+      background: rgba(255, 255, 255, 0.7);
+    }
+  </style>
 </head>
 
 <body>
+  <div class="content">
     <h1>项目列表</h1>
     <h2>个人主页</h2>
     <a href="https://space.bilibili.com/520585044">B站</a>
@@ -13,6 +57,26 @@
     <a href="AMFMain">点击跳转</a>
     <h2>冰与火之舞移动端论坛翻新版</h2>
     <a href="AMFNew">点击跳转</a>
+      <h2>冰与火之舞移动端论坛风听版</h2>
+    <a href="AMFFTWeb">点击跳转</a>
+  </div>
+
+  <script>
+    let currentImage = 1;
+    const totalImages = 8;
+
+    function changeBackground() {
+      currentImage = (currentImage % totalImages) + 1;
+      document.body.style.backgroundImage = `url('https://static.indienova.com/assets/template/site-adofai/img/gallery/${currentImage}.jpg')`;
+      document.body.classList.add('fade');
+      setTimeout(() => {
+        document.body.classList.remove('fade');
+      }, 1000);
+    }
+
+    setInterval(changeBackground, 6000);
+
+  </script>
 </body>
 
 </html>
