@@ -159,7 +159,7 @@
 
   function changeBackground() {
     currentImage = (currentImage % totalImages) + 1;
-    document.body.style.backgroundImage = `url('https://static.indienova.com/assets/template/site-adofai/img/gallery/${currentImage}.jpg')`;
+    document.body.style.backgroundImage = `url('images/${currentImage}.jpg')`;
     document.body.classList.add('fade');
     setTimeout(() => {
       document.body.classList.remove('fade');
