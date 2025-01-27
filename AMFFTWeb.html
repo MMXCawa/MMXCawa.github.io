@@ -155,11 +155,11 @@
   </div>
 <script>
   let currentImage = 1;
-  const totalImages = 6;
+  const totalImages = 9;
 
   function changeBackground() {
     currentImage = (currentImage % totalImages) + 1;
-    document.body.style.backgroundImage = `url('https://static.indienova.com/assets/template/site-adofai/img/gallery/${currentImage}.jpg')`;
+    document.body.style.backgroundImage = `url('images/${currentImage}.jpg')`;
     document.body.classList.add('fade');
     setTimeout(() => {
       document.body.classList.remove('fade');
@@ -184,7 +184,7 @@
 
   document.getElementById('playGame').addEventListener('click', function() {
     const gameContainer = document.createElement('iframe');
-    gameContainer.src = 'https://w8.snokido.com/games/unity-webgl/dance-fire-and-ice/index.html';
+    gameContainer.src = 'https://crazygames-poki.com/embed/a-dance-of-fire-and-ice';
     gameContainer.width = '100%';
     gameContainer.height = '600px';
     gameContainer.frameBorder = '0';
