@@ -66,24 +66,15 @@
     </div>
 
     <script>
-        // 玩家属性
-        var playerAttributes = {
-            health: 100
-        };
-
-        // 当前选择
-        var currentChoice = 0;
-
-        // 初始化物品栏
+        var playerAttributes = { health: 100 };
+        var currentChoice = "Intro";
         var inventory = {};
 
-        // 加载文件
         function loadGameFiles() {
             fetch('items.list')
                 .then(response => response.json())
                 .then(data => {
-                    inventory = data;
-                    updateInventory();
+                    validateItems(data);
                     logToConsole('items.list加载成功', 'debug');
                 })
                 .catch(error => logToConsole('items.list加载失败：' + error, 'error'));
@@ -93,30 +84,51 @@
                 .then(data => {
                     events = data;
                     logToConsole('events.json加载成功', 'debug');
-                    startGame();
+                    triggerEvent('Intro');
                 })
                 .catch(error => logToConsole('events.json加载失败：' + error, 'error'));
         }
 
-        // 更新物品栏显示
+        function validateItems(items) {
+            inventory = {};
+            items.forEach(item => {
+                if (!item.name || !item.displayName || !item.displayDescription || typeof item.index !== 'number') {
+                    logToConsole(`Error: 无效的物品 ${JSON.stringify(item)}`, 'error');
+                    return;
+                }
+                inventory[item.name] = {
+                    displayName: item.displayName,
+                    displayDescription: item.displayDescription,
+                    index: item.index,
+                    isTool: !!item.isTool,
+                    isFood: !!item.isFood,
+                    isArmour: !!item.isArmour,
+                    maxDurability: item.maxDurability || 0,
+                    breakingDurability: item.breakingDurability || 0,
+                    damage: item.damage || 0,
+                    isRandomDamage: !!item.isRandomDamage,
+                    maxDamage: item.maxDamage || 0,
+                    minDamage: item.minDamage || 0,
+                    satiety: item.satiety || 0,
+                    defenseValue: item.defenseValue || 0
+                };
+            });
+            updateInventory();
+        }
+
         function updateInventory() {
             var items = document.getElementById('items');
             items.innerHTML = '';
             for (var key in inventory) {
                 if (inventory.hasOwnProperty(key)) {
                     var item = inventory[key];
-                    items.innerHTML += `<p>${item.name}: ${item.quantity}</p>`;
+                    items.innerHTML += `<p>${item.displayName}: ${item.index}</p>`;
                 }
             }
         }
 
-        // 保存游戏
         function saveGame() {
-            var saveData = {
-                currentChoice: currentChoice,
-                inventory: inventory,
-                playerAttributes: playerAttributes
-            };
+            var saveData = { currentChoice: currentChoice, inventory: inventory, playerAttributes: playerAttributes };
             var saveDataStr = JSON.stringify(saveData);
             var blob = new Blob([saveDataStr], { type: "text/plain;charset=utf-8" });
             var url = URL.createObjectURL(blob);
@@ -139,7 +151,7 @@
                 inventory = saveData.inventory;
                 playerAttributes = saveData.playerAttributes;
                 updateInventory();
-                choose(currentChoice);
+                triggerEvent(currentChoice);
                 logToConsole('存档已加载', 'debug');
             };
             reader.readAsText(file);
@@ -148,42 +160,7 @@
         // 事件处理函数
         function choose(option) {
             currentChoice = option;
-            var story = document.getElementById('story');
-            var choices = document.getElementById('choices');
-
-            if (option === 1) {
-                story.innerHTML = "你走进了茂密的森林，手中握着木斧，开始砍伐树木。每次砍下一块树木，你都能收集到一些木材。渐渐地，你收集了足够的木材来建造一个简单的庇护所。";
-                inventory.wood.quantity += 20;
-                updateInventory();
-                logToConsole('玩家执行了选择：砍树收集木材', 'debug');
-                choices.innerHTML = `
-                    <button class="button" onclick="choose(5)">建造一个简易的庇护所</button>
-                    <button class="button" onclick="choose(6)">继续收集更多木材</button>
-                    <button class="button" onclick="choose(7)">探索森林深处，寻找更多资源</button>
-                    <button class="button" onclick="choose(8)">返回原地，计划下一步行动</button>
-                `;
-            } else if (option === 2) {
-                story.innerHTML = "你发现了一座山洞，里面似乎隐藏着许多资源，但也可能有危险。";
-                logToConsole('玩家执行了选择：探索附近的山洞', 'debug');
-                choices.innerHTML = `
-                    <button class="button" onclick="choose(9)">进入山洞</button>
-                    <button class="button" onclick="choose(10)">返回原地</button>
-                `;
-            } else if (option === 3) {
-                story.innerHTML = "你开始建造一个简易的庇护所，确保在夜晚来临前有地方躲避怪物。";
-                logToConsole('玩家执行了选择：建造一个简易的庇护所', 'debug');
-                choices.innerHTML = `
-                    <button class="button" onclick="choose(11)">继续建造庇护所</button>
-                    <button class="button" onclick="choose(12)">休息一会儿</button>
-                `;
-            } else if (option === 4) {
-                story.innerHTML = "你向湖泊进发，湖水清澈见底，周围有许多野生动物。";
-                logToConsole('玩家执行了选择：向湖泊进发', 'debug');
-                choices.innerHTML = `
-                    <button class="button" onclick="choose(13)">在湖边扎营</button>
-                    <button class="button" onclick="choose(14)">继续探索湖泊周围</button>
-                `;
-            }
+            triggerEvent(option);
         }
 
         // 读取并触发事件
@@ -192,6 +169,10 @@
                 .then(response => response.json())
                 .then(data => {
                     var event = data[eventName];
+                    if (!event) {
+                        logToConsole('Error: Event ' + eventName + ' not found', 'error');
+                        return;
+                    }
                     if (event.options.length > 6) {
                         logToConsole('Error: Event ' + eventName + ' options cannot > 6', 'error');
                         return;
@@ -199,7 +180,11 @@
                     document.getElementById('story').innerHTML = event.description;
                     var choicesHTML = '';
                     event.options.forEach(option => {
-                        choicesHTML += `<button class="button" onclick="triggerEvent('${option.action}')">${option.text}</button>`;
+                        var [name, probability] = option.action.split(':');
+                        var rand = Math.random() * 100;
+                        if (!probability || rand <= probability) {
+                            choicesHTML += `<button class="button" onclick="choose('${name}')">${option.text}</button>`;
+                        }
                     });
                     document.getElementById('choices').innerHTML = choicesHTML;
 
@@ -207,17 +192,44 @@
                     if (event.effects) {
                         if (event.effects.addItems) {
                             for (var addItem in event.effects.addItems) {
-                                inventory[addItem].quantity += event.effects.addItems[addItem];
+                                if (inventory.hasOwnProperty(addItem)) {
+                                    inventory[addItem].quantity += event.effects.addItems[addItem];
+                                } else {
+                                    logToConsole(`Error: Item ${addItem} not found, using ErrorItem`, 'error');
+                                    if (!inventory['ErrorItem']) {
+                                        inventory['ErrorItem'] = { name: 'ErrorItem', quantity: 0 };
+                                    }
+                                    inventory['ErrorItem'].quantity += event.effects.addItems[addItem];
+                                }
                             }
                         }
                         if (event.effects.removeItems) {
                             for (var removeItem in event.effects.removeItems) {
-                                inventory[removeItem].quantity -= event.effects.removeItems[removeItem];
+                                if (inventory.hasOwnProperty(removeItem)) {
+                                    inventory[removeItem].quantity -= event.effects.removeItems[removeItem];
+                                } else {
+                                    logToConsole(`Error: Item ${removeItem} not found, using ErrorItem`, 'error');
+                                    if (!inventory['ErrorItem']) {
+                                        inventory['ErrorItem'] = { name: 'ErrorItem', quantity: 0 };
+                                    }
+                                    inventory['ErrorItem'].quantity -= event.effects.removeItems[removeItem];
+                                }
                             }
                         }
-                        if (event.effects.playerAttributes) {
-                            for (var attribute in event.effects.playerAttributes) {
-                                playerAttributes[attribute] += event.effects.playerAttributes[attribute];
+                        if (event.effects.editAttributes) {
+                            for (var attribute in event.effects.editAttributes) {
+                                var operation = event.effects.editAttributes[attribute];
+                                var value = parseInt(operation.replace(/[^0-9-]/g, ''));
+                                var operator = operation.replace(/[0-9-]/g, '').trim();
+                                if (operator === '+') {
+                                    playerAttributes[attribute] += value;
+                                } else if (operator === '-') {
+                                    playerAttributes[attribute] -= value;
+                                } else if (operator === '*') {
+                                    playerAttributes[attribute] *= value;
+                                } else if (operator === '/') {
+                                    playerAttributes[attribute] /= value;
+                                }
                             }
                         }
                         updateInventory();
@@ -227,7 +239,8 @@
                 .catch(error => logToConsole('Error: ' + error, 'error'));
         }
 
-function logToConsole(message, type) {
+        // 日志记录
+        function logToConsole(message, type) {
             var consoleDiv = document.getElementById('console');
             var messageDiv = document.createElement('div');
             messageDiv.textContent = message;
@@ -241,14 +254,7 @@ function logToConsole(message, type) {
 
         // 初始化游戏
         function startGame() {
-            document.getElementById('story').innerHTML = "你进入了一个新的Minecraft世界。周围是茂密的森林，远处可以看到高耸的山脉，还有一个闪闪发光的湖泊。你的背包里有一些基本的物资：木斧、木镐和几块面包。";
-            var choicesHTML = `
-                <button class="button" onclick="choose(1)">砍树收集木材</button>
-                <button class="button" onclick="choose(2)">探索附近的山洞</button>
-                <button class="button" onclick="choose(3)">建造一个简易的庇护所</button>
-                <button class="button" onclick="choose(4)">向湖泊进发</button>
-            `;
-            document.getElementById('choices').innerHTML = choicesHTML;
+            triggerEvent('Intro');
         }
     </script>
 </body>
