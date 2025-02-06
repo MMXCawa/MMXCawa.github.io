@@ -66,15 +66,39 @@
     </div>
 
     <script>
-        var playerAttributes = { health: 100 };
+                // 玩家属性
+        var playerAttributes = {
+            health: 100
+        };
+
+        // 当前选择
         var currentChoice = "Intro";
+
+        // 初始化物品栏
         var inventory = {};
 
+        // 加载文件
         function loadGameFiles() {
             fetch('items.list')
-                .then(response => response.json())
+                .then(response => response.text())
+                .then(text => {
+                    const lines = text.split('\n').filter(line => !line.trim().startsWith('//'));
+                    return JSON.parse(lines.join('\n'));
+                })
                 .then(data => {
-                    validateItems(data);
+                    // 校验 items.list 数据
+                    for (var itemKey in data) {
+                        var item = data[itemKey];
+                        if (!item.name || !item.displayName || !item.displayDescription || !item.index) {
+                            logToConsole(`Error: Invalid item ${itemKey} in items.list`, 'error');
+                            continue;
+                        }
+                        inventory[item.name] = {
+                            quantity: 0,
+                            ...item
+                        };
+                    }
+                    updateInventory();
                     logToConsole('items.list加载成功', 'debug');
                 })
                 .catch(error => logToConsole('items.list加载失败：' + error, 'error'));
@@ -89,46 +113,25 @@
                 .catch(error => logToConsole('events.json加载失败：' + error, 'error'));
         }
 
-        function validateItems(items) {
-            inventory = {};
-            items.forEach(item => {
-                if (!item.name || !item.displayName || !item.displayDescription || typeof item.index !== 'number') {
-                    logToConsole(`Error: 无效的物品 ${JSON.stringify(item)}`, 'error');
-                    return;
-                }
-                inventory[item.name] = {
-                    displayName: item.displayName,
-                    displayDescription: item.displayDescription,
-                    index: item.index,
-                    isTool: !!item.isTool,
-                    isFood: !!item.isFood,
-                    isArmour: !!item.isArmour,
-                    maxDurability: item.maxDurability || 0,
-                    breakingDurability: item.breakingDurability || 0,
-                    damage: item.damage || 0,
-                    isRandomDamage: !!item.isRandomDamage,
-                    maxDamage: item.maxDamage || 0,
-                    minDamage: item.minDamage || 0,
-                    satiety: item.satiety || 0,
-                    defenseValue: item.defenseValue || 0
-                };
-            });
-            updateInventory();
-        }
-
+        // 更新物品栏显示
         function updateInventory() {
             var items = document.getElementById('items');
             items.innerHTML = '';
             for (var key in inventory) {
                 if (inventory.hasOwnProperty(key)) {
                     var item = inventory[key];
-                    items.innerHTML += `<p>${item.displayName}: ${item.index}</p>`;
+                    items.innerHTML += `<p>${item.displayName}: ${item.quantity}</p>`;
                 }
             }
         }
 
+        // 保存游戏
         function saveGame() {
-            var saveData = { currentChoice: currentChoice, inventory: inventory, playerAttributes: playerAttributes };
+            var saveData = {
+                currentChoice: currentChoice,
+                inventory: inventory,
+                playerAttributes: playerAttributes
+            };
             var saveDataStr = JSON.stringify(saveData);
             var blob = new Blob([saveDataStr], { type: "text/plain;charset=utf-8" });
             var url = URL.createObjectURL(blob);
