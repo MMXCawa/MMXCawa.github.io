@@ -1,0 +1,49 @@
+{
+    "event1": {
+        "description": "你走进了茂密的森林，手中握着木斧，开始砍伐树木。每次砍下一块树木，你都能收集到一些木材。渐渐地，你收集了足够的木材来建造一个简单的庇护所。",
+        "options": [
+            { "text": "建造一个简易的庇护所", "action": "buildShelter" },
+            { "text": "继续收集更多木材", "action": "collectMoreWood" },
+            { "text": "探索森林深处，寻找更多资源", "action": "exploreForest" },
+            { "text": "返回原地，计划下一步行动", "action": "returnToCamp" }
+        ],
+        "effects": {
+            "addItems": {
+                "wood": 20
+            }
+        }
+    },
+    "event2": {
+        "description": "你发现了一座山洞，里面似乎隐藏着许多资源，但也可能有危险。",
+        "options": [
+            { "text": "进入山洞", "action": "enterCave" },
+            { "text": "返回原地", "action": "returnToCamp" }
+        ]
+    },
+    "buildShelter": {
+        "description": "你开始建造一个简易的庇护所，确保在夜晚来临前有地方躲避怪物。",
+        "options": [
+            { "text": "继续建造庇护所", "action": "continueBuilding" },
+            { "text": "休息一会儿", "action": "rest" }
+        ]
+    },
+    "collectMoreWood": {
+        "description": "你继续在森林中砍伐树木，收集更多的木材。",
+        "effects": {
+            "addItems": {
+                "wood": 10
+            }
+        },
+        "options": [
+            { "text": "返回原地", "action": "returnToCamp" },
+            { "text": "探索森林深处，寻找更多资源", "action": "exploreForest" }
+        ]
+    },
+    "exploreForest": {
+        "description": "你在森林深处探索，发现了一些新的资源和路径。",
+        "options": [
+            { "text": "采集资源", "action": "collectResources" },
+            { "text": "继续探索", "action": "continueExploring" }
+        ]
+    }
+}

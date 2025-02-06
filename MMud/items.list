@@ -1,0 +1,14 @@
+{
+    "wood": {
+        "name": "木材",
+        "quantity": 0
+    },
+    "woodenSword": {
+        "name": "木剑",
+        "quantity": 0
+    },
+    "namelessBlade": {
+        "name": "无名刀「木偶」",
+        "quantity": 0
+    }
+}
