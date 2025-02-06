@@ -49,6 +49,5 @@
         "minDamage": 0,
         "satiety": 5,
         "defenseValue": 0
-    }
-    // 更多物品可以在这里添加
+     }
 }
