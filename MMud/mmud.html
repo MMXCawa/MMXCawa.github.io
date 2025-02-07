@@ -66,18 +66,17 @@
     </div>
 
     <script>
-                // 玩家属性
-        var playerAttributes = {
-            health: 100
+var playerAttributes = {
+            health: 100,
+            ExPoints: 0
         };
 
-        // 当前选择
         var currentChoice = "Intro";
 
-        // 初始化物品栏
-        var inventory = {};
+        var inventory = {
+            "wood": { name: "wood", displayName: "木材", quantity: 3 }
+        };
 
-        // 加载文件
         function loadGameFiles() {
             fetch('items.list')
                 .then(response => response.text())
@@ -86,17 +85,18 @@
                     return JSON.parse(lines.join('\n'));
                 })
                 .then(data => {
-                    // 校验 items.list 数据
                     for (var itemKey in data) {
                         var item = data[itemKey];
                         if (!item.name || !item.displayName || !item.displayDescription || !item.index) {
                             logToConsole(`Error: Invalid item ${itemKey} in items.list`, 'error');
                             continue;
                         }
-                        inventory[item.name] = {
-                            quantity: 0,
-                            ...item
-                        };
+                        if (!inventory[item.name]) {
+                            inventory[item.name] = {
+                                quantity: 0,
+                                ...item
+                            };
+                        }
                     }
                     updateInventory();
                     logToConsole('items.list加载成功', 'debug');
@@ -113,7 +113,6 @@
                 .catch(error => logToConsole('events.json加载失败：' + error, 'error'));
         }
 
-        // 更新物品栏显示
         function updateInventory() {
             var items = document.getElementById('items');
             items.innerHTML = '';
@@ -125,7 +124,6 @@
             }
         }
 
-        // 保存游戏
         function saveGame() {
             var saveData = {
                 currentChoice: currentChoice,
@@ -143,7 +141,6 @@
             logToConsole('游戏已保存', 'debug');
         }
 
-        // 读取游戏
         function loadGame() {
             var fileInput = document.getElementById('loadFile');
             var file = fileInput.files[0];
@@ -160,13 +157,11 @@
             reader.readAsText(file);
         }
 
-        // 事件处理函数
         function choose(option) {
             currentChoice = option;
             triggerEvent(option);
         }
 
-        // 读取并触发事件
         function triggerEvent(eventName) {
             fetch('events.json')
                 .then(response => response.json())
@@ -180,6 +175,19 @@
                         logToConsole('Error: Event ' + eventName + ' options cannot > 6', 'error');
                         return;
                     }
+
+                    if (event.trigger) {
+                        for (var triggerName in event.trigger) {
+                            var trigger = event.trigger[triggerName];
+                            if (evaluateTrigger(trigger)) {
+                                applyEffects(trigger.effects);
+                                document.getElementById('story').innerHTML += `<p style="color:gray">${trigger.description}</p>`;
+                                logToConsole('Trigger ' + triggerName + ' executed', 'debug');
+                                return;
+                            }
+                        }
+                    }
+
                     document.getElementById('story').innerHTML = event.description;
                     var choicesHTML = '';
                     event.options.forEach(option => {
@@ -191,58 +199,93 @@
                     });
                     document.getElementById('choices').innerHTML = choicesHTML;
 
-                    // 处理事件效果
                     if (event.effects) {
-                        if (event.effects.addItems) {
-                            for (var addItem in event.effects.addItems) {
-                                if (inventory.hasOwnProperty(addItem)) {
-                                    inventory[addItem].quantity += event.effects.addItems[addItem];
-                                } else {
-                                    logToConsole(`Error: Item ${addItem} not found, using ErrorItem`, 'error');
-                                    if (!inventory['ErrorItem']) {
-                                        inventory['ErrorItem'] = { name: 'ErrorItem', quantity: 0 };
-                                    }
-                                    inventory['ErrorItem'].quantity += event.effects.addItems[addItem];
-                                }
-                            }
-                        }
-                        if (event.effects.removeItems) {
-                            for (var removeItem in event.effects.removeItems) {
-                                if (inventory.hasOwnProperty(removeItem)) {
-                                    inventory[removeItem].quantity -= event.effects.removeItems[removeItem];
-                                } else {
-                                    logToConsole(`Error: Item ${removeItem} not found, using ErrorItem`, 'error');
-                                    if (!inventory['ErrorItem']) {
-                                        inventory['ErrorItem'] = { name: 'ErrorItem', quantity: 0 };
-                                    }
-                                    inventory['ErrorItem'].quantity -= event.effects.removeItems[removeItem];
-                                }
-                            }
-                        }
-                        if (event.effects.editAttributes) {
-                            for (var attribute in event.effects.editAttributes) {
-                                var operation = event.effects.editAttributes[attribute];
-                                var value = parseInt(operation.replace(/[^0-9-]/g, ''));
-                                var operator = operation.replace(/[0-9-]/g, '').trim();
-                                if (operator === '+') {
-                                    playerAttributes[attribute] += value;
-                                } else if (operator === '-') {
-                                    playerAttributes[attribute] -= value;
-                                } else if (operator === '*') {
-                                    playerAttributes[attribute] *= value;
-                                } else if (operator === '/') {
-                                    playerAttributes[attribute] /= value;
-                                }
-                            }
-                        }
-                        updateInventory();
+                        applyEffects(event.effects);
                     }
                     logToConsole('玩家执行了事件：' + eventName, 'debug');
                 })
                 .catch(error => logToConsole('Error: ' + error, 'error'));
         }
 
-        // 日志记录
+        function evaluateTrigger(trigger) {
+            for (var i = 1; trigger[`type_${i}`]; i++) {
+                var type = trigger[`type_${i}`];
+                var defined = trigger[`defined_${i}`];
+                var value = trigger[`value_${i}`];
+                if (type === 'over' && playerAttributes[defined] <= value) {
+                    return false;
+                }
+                if (type === 'less' && playerAttributes[defined] >= value) {
+                    return false;
+                }
+                if (type === 'equal' && playerAttributes[defined] !== value) {
+                    return false;
+                }
+            }
+
+            for (var i = 1; trigger[`itemtype_${i}`]; i++) {
+                var itemType = trigger[`itemtype_${i}`];
+                var item = trigger[`item_${i}`];
+                var itemValue = trigger[`itemvalue_${i}`];
+                if (itemType === 'over' && inventory[item].quantity <= itemValue) {
+                    return false;
+                }
+                if (itemType === 'less' && inventory[item].quantity >= itemValue) {
+                    return false;
+                }
+                if (itemType === 'equal' && inventory[item].quantity !== itemValue) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function applyEffects(effects) {
+            if (effects.addItems) {
+                for (var addItem in effects.addItems) {
+                    if (inventory.hasOwnProperty(addItem)) {
+                        inventory[addItem].quantity += effects.addItems[addItem];
+                    } else {
+                        logToConsole(`Error: Item ${addItem} not found, using ErrorItem`, 'error');
+                        if (!inventory['ErrorItem']) {
+                            inventory['ErrorItem'] = { name: 'ErrorItem', quantity: 0 };
+                        }
+                        inventory['ErrorItem'].quantity += effects.addItems[addItem];
+                    }
+                }
+            }
+            if (effects.removeItems) {
+                for (var removeItem in effects.removeItems) {
+                    if (inventory.hasOwnProperty(removeItem)) {
+                        inventory[removeItem].quantity -= effects.removeItems[removeItem];
+                    } else {
+                        logToConsole(`Error: Item ${removeItem} not found, using ErrorItem`, 'error');
+                        if (!inventory['ErrorItem']) {
+                            inventory['ErrorItem'] = { name: 'ErrorItem', quantity: 0 };
+                        }
+                        inventory['ErrorItem'].quantity -= effects.removeItems[removeItem];
+                    }
+                }
+            }
+            if (effects.editAttributes) {
+                for (var attribute in effects.editAttributes) {
+                    var operation = effects.editAttributes[attribute];
+                    var value = parseInt(operation.replace(/[^0-9-]/g, ''));
+                    var operator = operation.replace(/[0-9-]/g, '').trim();
+                    if (operator === '+') {
+                        playerAttributes[attribute] += value;
+                    } else if (operator === '-') {
+                        playerAttributes[attribute] -= value;
+                    } else if (operator === '*') {
+                        playerAttributes[attribute] *= value;
+                    } else if (operator === '/') {
+                        playerAttributes[attribute] /= value;
+                    }
+                }
+            }
+            updateInventory();
+        }
+
         function logToConsole(message, type) {
             var consoleDiv = document.getElementById('console');
             var messageDiv = document.createElement('div');
@@ -255,7 +298,6 @@
             consoleDiv.appendChild(messageDiv);
         }
 
-        // 初始化游戏
         function startGame() {
             triggerEvent('Intro');
         }

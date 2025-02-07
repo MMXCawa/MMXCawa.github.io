@@ -49,5 +49,22 @@
         "minDamage": 0,
         "satiety": 5,
         "defenseValue": 0
-     }
+    },
+        "ErrorItem": {
+        "name": "ErrorItem",
+        "displayName": "错误",
+        "displayDescription": "错误",
+        "index": 404,
+        "isTool": false,
+        "isFood": false,
+        "isArmour": false,
+        "maxDurability": 0,
+        "breakingDurability": 0,
+        "damage": 0,
+        "isRandomDamage": false,
+        "maxDamage": 0,
+        "minDamage": 0,
+        "satiety": 0,
+        "defenseValue": 0
+    }
 }

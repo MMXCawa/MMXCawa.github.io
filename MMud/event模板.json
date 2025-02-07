@@ -1,0 +1,84 @@
+{
+    "EpicBattle": {
+        "description": "你遇到了一只强大的怪物，你决定进行一场史诗般的战斗。",
+        "define": [
+            "isWeapon:bool",
+            "ExPoints:int"
+        ],
+        "options": [
+            { "text": "使用木剑攻击", "action": "attackWithWoodenSword" },
+            { "text": "逃跑", "action": "runAway" },
+            { "text": "使用无名刀「木偶」攻击", "action": "attackWithNamelessBlade" }
+        ],
+        "effects": {
+            "addItems": {
+                "treasure": 1
+            },
+            "removeItems": {
+                "woodenSword": 1
+            },
+            "editAttributes": {
+                "health": "health-20",
+                "ExPoints": "ExPoints+50"
+            }
+        },
+        "trigger": {
+            "weakMonster": {
+                "type_1": "over",
+                "defined_1": "ExPoints",
+                "value_1": 100,
+                "description": "由于你的经验值高于100，这只怪物看起来并不是特别强大。",
+                "effects": {
+                    "addItems": {
+                        "gold": 10
+                    },
+                    "editAttributes": {
+                        "ExPoints": "ExPoints+10"
+                    }
+                }
+            },
+            "strongMonster": {
+                "type_1": "over",
+                "defined_1": "ExPoints",
+                "value_1": 300,
+                "description": "由于你的经验值高于300，这只怪物变得非常强大。",
+                "effects": {
+                    "addItems": {
+                        "diamond": 5
+                    },
+                    "editAttributes": {
+                        "health": "health-30",
+                        "ExPoints": "ExPoints+100"
+                    }
+                }
+            }
+        }
+    },
+    "attackWithWoodenSword": {
+        "description": "你用木剑攻击了怪物，怪物受伤了。",
+        "options": [
+            { "text": "继续战斗", "action": "EpicBattle" },
+            { "text": "逃跑", "action": "runAway" },
+            { "text": "使用无名刀「木偶」攻击", "action": "attackWithNamelessBlade" }
+        ]
+    },
+    "runAway": {
+        "description": "你决定逃跑，成功地逃离了怪物。",
+        "options": [
+            { "text": "回到营地", "action": "returnToCamp" }
+        ]
+    },
+    "attackWithNamelessBlade": {
+        "description": "你用无名刀「木偶」攻击了怪物，造成了巨大伤害。",
+        "effects": {
+            "editAttributes": {
+                "health": "health-10",
+                "ExPoints": "ExPoints+20"
+            }
+        },
+        "options": [
+            { "text": "继续战斗", "action": "EpicBattle" },
+            { "text": "逃跑", "action": "runAway" }
+        ]
+    }
+}
