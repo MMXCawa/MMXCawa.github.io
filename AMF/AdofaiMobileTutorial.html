@@ -1,70 +1,172 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>移动端常见问题解答 | Adofai Mobile Tutorial</title>
-    <meta charset="utf-8" />
     <link rel="icon" href="https://github.com/MMXCawa/MMXCawa.github.io/blob/main/AMF.jpeg?raw=true">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #000000;
+            backdrop-filter: blur(10px);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        code {
+        background: rgba(205, 205, 205, 1);
+        font-size: 10px;
+        line-height: 32px;
+        background-color: gray;
+        color: #ffffff;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        redcode {
+        background: rgba(205, 205, 205, 1);
+        font-size: 20px;
+        line-height: 32px;
+        color: #ff0000;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+
+        .content {
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            backdrop-filter: blur(10px);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        h1, h2, h3, h4 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        lightsky {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            color: #00FF00;
+        }
+
+        a {
+background-color: white;
+  color: black;
+  border-radius: 2px;
+  border: 2px solid #04AA6D;
+   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+   
+   display: inline-block;
+            
+            padding: 10px 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            margin-top: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        a:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+    </style>
 </head>
 
 <body>
-    <h1>移动端常见问题解答</h1>
-    <h2>游戏在哪？</h2>
-    <p><a href="https://play.google.com/store/apps/details/A_Dance_of_Fire_and_Ice?id=com.fizzd.connectedworlds">安卓</a>
-        <a href="https://apps.apple.com/us/app/a-dance-of-fire-and-ice/id1456547302">iOS</a>
-    </p>
-    <h2>怎么导入谱面？</h2>
-    <h3>Andoid,iOS,HarmonyOS只能使用URL导入</h3>
-    <h4>方法1</h4>
-    <p>比如说你的谱面文件在/sdcard/Android/data/com.fizzd/leveleditor/files/Levels/1.zip
-        用URL导入 输入file://加上刚才的谱面路径 点击"下载"等一段时间即可载入关卡
-        附：不支持打开以adopac为后缀的谱面！
-        如果你的adofai有访问存储文件的权限可以导入存储卡内的任意路径 如file:///sdcard/Download/a8c32j.zip</p>
-    <h4>方法2</h4>
-    <p>一定要使用“夸克”浏览器输入任意有谱面的网盘地址，点击下载
-        此时不要点击"普通下载"应点击左下角小字"复制链接"此时复制的是谱面的直链(URL)
-        用URL导入 复制刚才的链接 点击"下载"等一段时间即可载入关卡</p>
-    <h2>没有音乐，导入失败，未发现关卡文件?</h2>
-    <p>试着把谱面文件解压在压缩 然后导入压缩名称最好全部包含Ascii码 如1.zip</p>
-    <h2>需要更新谱面文件? </h2>
-    <p>打开压缩包中的.adofai文件 找到"version"把值改为11即可，当然你也可以通过使用2.8游玩谱面来解决该问题。</p>
-    <h2>谱面载入失败:Error loading at...</h2>
-    <p>可能是2.6以上的文件 需要用Hitmargin的降版本工具，当然你也可以通过使用2.8游玩谱面来解决该问题。
+    <div class="content">
+        <h1>移动端常见问题解答</h1>
+        <h2>游戏在哪？</h2>
+        <strong>
+        <p><a href="https://play.google.com/store/apps/details/A_Dance_of_Fire_and_Ice?id=com.fizzd.connectedworlds">安卓</a>
+                <img src="android.png" alt="AndroidIcon" style="width:28px; height:28px;">
 
-    在文件菜单中找到需要转换的adofai文件并点击 你将会得到降过版本的文件。</p>
-    <h2>谱面特效太多，手机带不动？</h2>
-    <p>试试Hitmargin的去特效工具.
-        复制谱面adofai文件路径 点击去除特效按钮 你将会得到去掉特效的文件.</p>
-    <a href="https://b23.tv/pbh7xGg">点击下载Convert to old和去特效</a>
-    <h2>我的谱面玩着玩着定格了？无敌和判定改不了了？</h2>
-    <p>不要按暂停键！用系统自带的退出 有键盘的按ESC</p>
-    <h2>如何更改行星颜色？</h2>
-    <p>通过修改"Android/data/安装包名(一般以com.fizzd开头)/files/data.sav"更改行星颜色
-        建议先了解json文件的格式
-        在文件末尾的大括号前复制粘贴以下内容：
-        colorRed:"overseer",
-        colorBlue:"rainbow",
-        其中overseer和"rainbow"可以换成你想要的颜色
-        比如"red","blue"
-        支持颜色代码,比如"#00FF00"</p>
-    <h2>谱子都在哪里？</h2>
-    <h3>推荐几个可以下载到谱子的网页：</h3>
-    <h4>网站类：</h4>
-    <a href="https://server.sharkmc.cn:8087/pc/download.html">鲨鱼谱面下载站</a>
-    <a href="https://tuforums.com">TUF网站</a>
-    <a href="https://tufstaging.online/">TUF翻新版网站</a>
-    <a href="https://adofai.gg">AdofaiGG网站</a>
-    <a href="https://adofaiaqr.top">AQR网站</a>
-    <a href="https://www.cloudtown.wiki/h-col-117.html">ADOFAI.WIKI网站</a>
-    <a href="https://adofaivef.github.io">VEF网站</a>
-    <a href="https://mmxcawa.github.io/AMFMain">AMF网站</a>
-    <a href="https://aclc.top/">ACL网站</a>
-    <h4>表格类：</h4>
-    <a href="https://www.kdocs.cn/l/caxtFMt3ocmi">AQR表格</a>
-    <a href="https://www.kdocs.cn/l/cbYDqKaOOKPp">ADOFAI.WIKI表格</a>
-    <a href="https://docs.qq.com/sheet/DWUtlT1hiR0l3TFlz">VEF表格</a>
-    <a href="https://www.kdocs.cn/l/ckv2iLFVwq37">AMF表格</a>
-<p>上次更新:202501241725</p>
+        </strong>
+        <strong>
+            <a href="https://apps.apple.com/us/app/a-dance-of-fire-and-ice/id1456547302">iOS</a>
+                            <img src="ios.png" alt="IOSIcon" style="width:28px; height:28px;">
+        </p></strong>
+        <h2>怎么导入谱面？</h2>
+        <h3>Andoid, iOS, HarmonyOS只能使用URL导入</h3>
+        <h4>方法1</h4>
+        <p>比如说你的谱面文件在</p>
+        <code>/sdcard/Android/data/com.fizzd/leveleditor/files/Levels/1.zip</code>
+        <p>用URL导入 输入</p><code>file://</code><p>加上刚才的谱面路径 点击"下载"等一段时间即可载入关卡</p>
+            <p>附：不支持打开以adopac为后缀的谱面！</p>
+            <p>如果你的adofai有访问存储文件的权限可以导入存储卡内的任意路径 如file:///sdcard/Download/a8c32j.zip</p>
+        <h4>方法2</h4>
+        <p>一定要使用“夸克”浏览器输入任意有谱面的网盘地址，点击下载</p>
+            <p>此时不要点击"普通下载"应点击左下角小字"复制链接"此时复制的是谱面的直链(URL)</p>
+            <p>用URL导入 复制刚才的链接 点击"下载"等一段时间即可载入关卡</p>
 
+        <h2>没有音乐，导入失败，未发现关卡文件?</h2>
+        <p>试着把谱面文件解压在压缩 然后导入压缩名称最好全部包含Ascii码 如1.zip</p>
+        <h2>需要更新谱面文件? </h2>
+        <p>打开压缩包中的.adofai文件 找到"version"把值改为11即可，当然你也可以通过使用2.8游玩谱面来解决该问题。</p>
+        <h2>谱面载入失败:</h2><redcode>Error loading at...</redcode></color>
+        <p>可能是2.6以上的文件 需要用Hitmargin的降版本工具，当然你也可以通过使用2.8游玩谱面来解决该问题。</p>
+        <br>
+        <p>在文件菜单中找到需要转换的adofai文件并点击 你将会得到降过版本的文件。</p>
+        <h2>谱面特效太多，手机带不动？</h2>
+        <p>试试Hitmargin的去特效工具.
+            复制谱面adofai文件路径 点击去除特效按钮 你将会得到去掉特效的文件.</p>
+            <object data="https://b23.tv/pbh7xGg" width="1080" height="600"></object>
+        <h2>我的谱面玩着玩着定格了？无敌和判定改不了了？</h2>
+        <p>不要按暂停键！用系统自带的退出 有键盘的按ESC</p>
+        <h2>如何更改行星颜色？</h2>
+        <p>通过修改<code>"Android/data/com.fizzd.connectedworlds/files/data.sav"</code>更改行星颜色
+            建议先了解json文件的格式
+            在文件末尾的大括号前复制粘贴以下内容：
+            colorRed:"overseer",
+            colorBlue:"rainbow",
+            其中overseer和"rainbow"可以换成你想要的颜色
+            比如"red","blue"
+            支持颜色代码,比如<lightsky>"#00FF00"</lightsky></p>
+        <h2>谱子都在哪里？</h2>
+        <h3>推荐几个可以下载到谱子的网页：</h3>
+        <h4>网站类：</h4>
+        <a href="https://server.sharkmc.cn:8087/pc/download.html">鲨鱼谱面下载站</a>
+        <a href="https://tuforums.com">TUF网站</a>
+        <a href="https://tufstaging.online/">TUF翻新版网站</a>
+        <a href="https://adofai.gg">AdofaiGG网站</a>
+        <a href="https://adofaiaqr.top">AQR网站</a>
+        <a href="https://www.cloudtown.wiki/h-col-117.html">ADOFAI.WIKI网站</a>
+        <a href="https://adofaivef.github.io">VEF网站</a>
+        <a href="https://mmxcawa.github.io/AMFMain">AMF网站</a>
+        <a href="https://aclc.top/">ACL网站</a>
+        <h4>表格类：</h4>
+        <a href="https://www.kdocs.cn/l/caxtFMt3ocmi">AQR表格</a>
+        <a href="https://www.kdocs.cn/l/cbYDqKaOOKPp">ADOFAI.WIKI表格</a>
+        <a href="https://docs.qq.com/sheet/DWUtlT1hiR0l3TFlz">VEF表格</a>
+        <a href="https://www.kdocs.cn/l/ckv2iLFVwq37">AMF表格</a>
+        <br>
+        <br>
+        <a href="https://MMXCawa.github.io/">
+        
+                        回去(这不是表格🤯)         
+        
+        </a>
+    </div>
+
+    <script>
+        let currentImage = 1;
+        const totalImages = 8;
+
+        function changeBackground() {
+            currentImage = (currentImage % totalImages) + 1;
+            document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${currentImage}.jpg')`;
+            document.body.classList.add('fade');
+            setTimeout(() => {
+                document.body.classList.remove('fade');
+            }, 1000);
+        }
+
+        setInterval(changeBackground, 2000);
+
+    </script>
 </body>
 
 </html>
