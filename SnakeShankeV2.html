@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>贪吃蛇游戏 V2</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            flex-direction: column;
+        }
+        body-dark {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #cfcfcf;
+            margin: 0;
+            flex-direction: column;
+        }
+        .game-area {
+            display: grid;
+            grid-template-columns: repeat(10, 20px);
+            grid-template-rows: repeat(10, 20px);
+            gap: 2px;
+            background-color: #dcdcdc;
+            padding: 10px;
+        }
+        .cell {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        #controls {
+            margin-top: 10px;
+        }
+        #controls button {
+            font-size: 16px;
+            width: 100px;
+            height: 40px;
+            margin: 5px;
+        }
+        #hidden-controls {
+            display: none;
+            margin-top: 20px;
+        }
+        #hidden-controls label,
+        #hidden-controls input {
+            display: block;
+            margin-top: 10px;
+        }
+        #direction-controls button {
+            font-size: 20px;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+        }
+        #settings-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 15px;
+            height: 15px;
+            font-size: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        #win-message {
+            font-size: 45px;
+            display: none;
+            position: fixed;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            z-index: 1000;
+        }
+        #tips1 {
+            font-size: 15px;
+            background-color: #dcdcdc;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-area" id="grid"></div>
+    <div id="controls">
+        <label>选择运行速度:</label>
+        <button onclick="setSpeed(50)">(非常困难)</button>
+        <button onclick="setSpeed(75)">(困难)</button>
+        <button onclick="setSpeed(100)">(难)</button>
+        <button onclick="setSpeed(130)">(标准)</button>
+        <button onclick="setSpeed(250)">(简单)</button>
+        <button onclick="setSpeed('manual')">(非常简单)</button>
+        <button onclick="toggleAutoPlay()">自动播放</button>
+    </div>
+    <div id="direction-controls">
+        <button onclick="changeDirection({x: -1, y: 0})">←</button>
+        <button onclick="changeDirection({x: 0, y: -1})">↑</button>
+        <button onclick="changeDirection({x: 0, y: 1})">↓</button>
+        <button onclick="changeDirection({x: 1, y: 0})">→</button>
+    </div>
+    <div id="stats">
+        <p id="score">樱桃数: 0</p>
+        <p id="pp">分数: 0</p>
+        <p id="tips1">(分数达到-50会死亡)</p>
+    </div>
+    <div id="hidden-controls">
+        <label for="snake-head">蛇头:</label>
+        <input type="text" id="snake-head" value="🐍" onchange="snakeHead = this.value;">
+        <label for="snake-body">蛇身:</label>
+        <input type="text" id="snake-body" value="🍀" onchange="snakeBody = this.value;">
+        <label for="cherry-emoji">樱桃:</label>
+        <input type="text" id="cherry-emoji" value="🌺" onchange="cherryEmoji = this.value;">
+        <button onclick="setSpeed(1)">开启1ms</button>
+    </div>
+    <div id="win-message">恭喜，你赢了🎉</div>
+    <button onclick="restartGame()">重新启动(在胜利后失效)</button>
+    <button id="settings-button" onclick="showHiddenControls()">🔧</button>
+
+    <script>
+        let snake = [
+            {x: 4, y: 4},
+            {x: 5, y: 4},
+            {x: 6, y: 4}
+        ];
+        let direction = {x: 1, y: 0};
+        let cherry = {x: 5, y: 5};
+        let score = 0;
+        let steps = 0;
+        let movesSinceCherry = 0;
+        let intervalId = null;
+        let isAutoPlay = false;
+        let snakeHead = "🐍";
+        let snakeBody = "🍀";
+        let cherryEmoji = "🌺";
+        const gridSize = 10;
+        let speed = 130; // 默认速度为标准
+        let cheatCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
+        let cheatIndex = 0;
+        let cheatTimeout;
+        let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'pink'];
+        let colorIndex = 0;
+        let winIntervalId = null;
+
+        function moveSnake() {
+            const head = {x: snake[0].x + direction.x, y: snake[0].y + direction.y};
+
+            // Wrap around walls
+            if (head.x < 0) head.x = gridSize - 1;
+            if (head.x >= gridSize) head.x = 0;
+            if (head.y < 0) head.y = gridSize - 1;
+            if (head.y >= gridSize) head.y = 0;
+
+            // Avoid collision with self
+            if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                // Optional: Add logic to handle self-collision if needed
+            }
+
+            snake.unshift(head);
+            if (head.x === cherry.x && head.y === cherry.y) {
+                score++;
+                movesSinceCherry = 0; // Reset moves since last cherry
+                cherry = generateCherry();
+            } else {
+                snake.pop();
+                movesSinceCherry++;
+            }
+            steps++;
+            updateGrid();
+            updateStats();
+
+            if (isAutoPlay) {
+                // Simple auto-play strategy: move towards the cherry
+                if (cherry.x > head.x) direction = {x: 1, y: 0};
+                else if (cherry.x < head.x) direction = {x: -1, y: 0};
+                else if (cherry.y > head.y) direction = {x: 0, y: 1};
+                else if (cherry.y < head.y) direction = {x: 0, y: -1};
+            }
+        }
+
+        function changeDirection(newDirection) {
+            // Prevent snake from reversing
+            if (newDirection.x !== -direction.x && newDirection.y !== -direction.y) {
+                direction = newDirection;
+                if (speed === 'manual' || isAutoPlay) {
+                    moveSnake();
+                }
+            }
+        }
+
+        function setSpeed(newSpeed) {
+            clearInterval(intervalId);
+            if (newSpeed !== 'manual') {
+                speed = newSpeed;
+                intervalId = setInterval(moveSnake, speed);
+            } else {
+                speed = 'manual';
+                intervalId = null;
+            }
+        }
+
+        function toggleAutoPlay() {
+            isAutoPlay = !isAutoPlay;
+            if (isAutoPlay) {
+                clearInterval(intervalId);
+                intervalId = setInterval(moveSnake, speed);
+            } else {
+                clearInterval(intervalId);
+                intervalId = setInterval(moveSnake, speed);
+            }
+        }
+
+        function generateCherry() {
+            let newCherry;
+            do {
+                newCherry = {x: Math.floor(Math.random() * gridSize), y: Math.floor(Math.random() * gridSize)};
+            } while (snake.some(segment => segment.x === newCherry.x && segment.y === newCherry.y));
+            return newCherry;
+        }
+
+        function updateGrid() {
+            const grid = document.getElementById("grid");
+            grid.innerHTML = "";
+            for (let y = 0; y < 10; y++) {
+                for (let x = 0; x < 10; x++) {
+                    const cell = document.createElement("div");
+                    cell.className = "cell";
+                    const isSnake = snake.some(segment => segment.x === x && segment.y === y);
+                    const isCherry = cherry.x === x && cherry.y === y;
+                    if (isSnake) {
+                        cell.textContent = snake[0].x === x && snake[0].y === y ? snakeHead : snakeBody;
+                    } else if (isCherry) {
+                        cell.textContent = cherryEmoji;
+                    } else {
+                        cell.textContent = "";
+                    }
+                    grid.appendChild(cell);
+                }
+            }
+        }
+
+                function updateStats() {
+            let pp = 0;
+
+            // Calculate pp based on the mode
+            switch (speed) {
+                case 50:
+                    pp = steps + score * 1.05;
+                    if (movesSinceCherry > 5) {
+                        pp -= 5 / (1.05 + Math.random() * 0.45);
+                    }
+                    break;
+                case 75:
+                    pp = steps + score * 1.15;
+                    if (movesSinceCherry > 5) {
+                        pp -= 5 / (1.01 + Math.random() * 0.24);
+                    }
+                    break;
+                case 100:
+                    pp = steps + score * 1.25;
+                    if (movesSinceCherry > 5) {
+                        pp -= 5 / (1 + Math.random() * 0.25);
+                    }
+                    break;
+                case 130:
+                    pp = steps + score * (1.45 + Math.random() * 0.13);
+                    if (movesSinceCherry > 5) {
+                        pp -= 5;
+                    }
+                    break;
+                case 250:
+                    pp = steps + score * 0.85;
+                    if (movesSinceCherry > 5) {
+                        pp -= 5 / (1.05 + Math.random() * 0.15);
+                    }
+                    break;
+                case 'manual':
+                    pp = 0;
+                    break;
+            }
+
+            if (isAutoPlay) {
+                pp = score * 10;
+            }
+
+            if (movesSinceCherry > 5 && movesSinceCherry <= 20) {
+                pp -= 5 * (movesSinceCherry - 5);
+            }
+            if (movesSinceCherry > 20) {
+                pp /= 2;
+            }
+
+            document.getElementById("score").textContent = `樱桃数: ${score}`;
+            document.getElementById("pp").textContent = isAutoPlay ? `自动播放分数: ${pp.toFixed(2)}` : `分数: ${pp.toFixed(2)}`;
+
+            checkWinOrLose();
+        }
+
+        function checkWinOrLose() {
+            if (pp < 50) {
+                restartGame();
+            } else if (score >= 163) {
+                clearInterval(intervalId);
+                document.getElementById("win-message").style.display = "block";
+                winIntervalId = setInterval(() => {
+                    document.getElementById("win-message").style.color = colors[colorIndex];
+                    colorIndex = (colorIndex + 1) % colors.length;
+                }, 100);
+            }
+        }
+
+        function checkCheatCode(event) {
+            if (event.key === cheatCode[cheatIndex]) {
+                cheatIndex++;
+                if (cheatIndex === cheatCode.length) {
+                    document.getElementById("hidden-controls").style.display = "block";
+                    cheatIndex = 0;
+                }
+                clearTimeout(cheatTimeout);
+                cheatTimeout = setTimeout(() => cheatIndex = 0, 8000);
+            } else {
+                cheatIndex = 0;
+            }
+        }
+
+        window.onload = function() {
+            document.addEventListener("keydown", function(event) {
+                switch (event.key) {
+                    case "ArrowUp":
+                        changeDirection({x: 0, y: -1});
+                        break;
+                    case "ArrowDown":
+                        changeDirection({x: 0, y: 1});
+                        break;
+                    case "ArrowLeft":
+                        changeDirection({x: -1, y: 0});
+                        break;
+                    case "ArrowRight":
+                        changeDirection({x: 1, y: 0});
+                        break;
+                }
+                checkCheatCode(event);
+            });
+            setSpeed(500);
+            updateGrid();
+            updateStats();
+        };
+
+        function showHiddenControls() {
+            document.getElementById("hidden-controls").style.display = "block";
+        }
+        
+        function restartGame() {
+        snake = [
+            {x: 4, y: 4},
+            {x: 5, y: 4},
+            {x: 6, y: 4}
+        ];
+        direction = {x: 1, y: 0};
+        cherry = {x: 5, y: 5};
+        score = 0;
+        steps = 0;
+        movesSinceCherry = 0;
+        intervalId = null;
+        isAutoPlay = false;
+        speed = 130;
+        let cheatIndex = 0;
+        let cheatTimeout;
+        let colorIndex = 0;
+        let winIntervalId = null;
+        
+        }
+    </script>
+</body>
+</html>
