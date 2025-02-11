@@ -96,11 +96,11 @@
 <body>
     <div class="content">
         <h1>谱面检索站</h1>
-        <p>测试版本，不代表最终效果</p>
         <h2>目前一共有 <span id="level-count">0</span> 个谱面</h2>
         <input type="text" id="search-box" placeholder="输入作者、歌曲名或谱师名字进行搜索">
         <div class="search-results" id="search-results"></div>
         <button id="download-button" style="display: none;" onclick="downloadLevel()">下载谱面</button>
+        <p>测试版本，不代表最终效果</p>
     </div>
     <div id="error-message" class="error"></div>
 
@@ -109,45 +109,27 @@
         let currentLink = "";
 
         async function fetchJSONFiles(url) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('网络响应失败');
+            let files = [];
+            for (let i = 1; i < 10000; i++) {
+                const fileName = `amf${String(i).padStart(4, '0')}.json`;
+                try {
+                    const response = await fetch(`${url}${fileName}`);
+                    if (!response.ok) {
+                        break;
+                    }
+                    const jsonData = await response.json();
+                    jsonData.fileName = fileName;
+                    files.push(jsonData);
+                } catch (error) {
+                    displayError('读取文件时出错: ' + error.message);
+                    break;
                 }
-                const files = await response.json();
-                return files.filter(file => file.endsWith('.json'));
-            } catch (error) {
-                displayError('获取JSON文件时出错: ' + error.message);
-                return [];
             }
-        }
-
-        async function readJSONFile(url, file) {
-            try {
-                const response = await fetch(`${url}${file}`);
-                if (!response.ok) {
-                    throw new Error('读取文件失败');
-                }
-                return await response.json();
-            } catch (error) {
-                displayError('读取JSON文件时出错: ' + error.message);
-                return null;
-            }
+            return files;
         }
 
         async function loadLevels() {
-            let jsonFiles = await fetchJSONFiles('http://MMXCawa.github.io/AMF/Levels/');
-            if (jsonFiles.length === 0) {
-                jsonFiles = await fetchJSONFiles('Levels/');
-                if (jsonFiles.length === 0) return;
-            }
-            for (const file of jsonFiles) {
-                const level = await readJSONFile('http://MMXCawa.github.io/AMF/Levels/', file) || await readJSONFile('Levels/', file);
-                if (level) {
-                    level.fileName = file;
-                    levels.push(level);
-                }
-            }
+            levels = await fetchJSONFiles('http://MMXCawa.github.io/AMF/Levels/') || await fetchJSONFiles('Levels/');
             document.getElementById("level-count").textContent = levels.length;
         }
 
@@ -218,7 +200,7 @@
             }, 1000);
         }
 
-        setInterval(changeBackground, 6000);
+        setInterval(changeBackground,        setInterval(changeBackground, 6000);
     </script>
 </body>
 
