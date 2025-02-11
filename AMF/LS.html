@@ -10,10 +10,11 @@
         body {
             font-family: Arial, sans-serif;
             background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             margin: 0;
             padding: 0;
             color: #000000;
-            backdrop-filter: blur(10px);
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
         }
 
@@ -23,8 +24,9 @@
             border-radius: 10px;
             padding: 20px;
             margin: 20px;
-            backdrop-filter: blur(10px);
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            height: calc(100vh - 40px);
+            overflow-y: auto;
         }
 
         h1, h2 {
@@ -62,10 +64,19 @@
             width: 100%;
             z-index: 1000;
             transition: transform 0.5s;
+            transform: translateY(-100%);
+            display: none;
         }
 
         .fade {
             transition: transform 1s ease-in-out;
+        }
+
+        .search-results {
+            background: rgba(128, 128, 128, 0.4);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
         }
 
         .search-result {
@@ -85,20 +96,21 @@
 <body>
     <div class="content">
         <h1>谱面检索站</h1>
+        <p>测试版本，不代表最终效果</p>
         <h2>目前一共有 <span id="level-count">0</span> 个谱面</h2>
         <input type="text" id="search-box" placeholder="输入作者、歌曲名或谱师名字进行搜索">
-        <div id="search-results"></div>
+        <div class="search-results" id="search-results"></div>
         <button id="download-button" style="display: none;" onclick="downloadLevel()">下载谱面</button>
     </div>
-    <div id="error-message" class="error" style="transform: translateY(-100%);"></div>
+    <div id="error-message" class="error"></div>
 
     <script>
         let levels = [];
         let currentLink = "";
 
-        async function fetchJSONFiles() {
+        async function fetchJSONFiles(url) {
             try {
-                const response = await fetch('http://MMXCawa.github.io/AMF/Levels/');
+                const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error('网络响应失败');
                 }
@@ -110,9 +122,9 @@
             }
         }
 
-        async function readJSONFile(file) {
+        async function readJSONFile(url, file) {
             try {
-                const response = await fetch(`http://MMXCawa.github.io/AMF/Levels/${file}`);
+                const response = await fetch(`${url}${file}`);
                 if (!response.ok) {
                     throw new Error('读取文件失败');
                 }
@@ -124,9 +136,13 @@
         }
 
         async function loadLevels() {
-            const jsonFiles = await fetchJSONFiles();
+            let jsonFiles = await fetchJSONFiles('http://MMXCawa.github.io/AMF/Levels/');
+            if (jsonFiles.length === 0) {
+                jsonFiles = await fetchJSONFiles('Levels/');
+                if (jsonFiles.length === 0) return;
+            }
             for (const file of jsonFiles) {
-                const level = await readJSONFile(file);
+                const level = await readJSONFile('http://MMXCawa.github.io/AMF/Levels/', file) || await readJSONFile('Levels/', file);
                 if (level) {
                     level.fileName = file;
                     levels.push(level);
@@ -138,11 +154,13 @@
         function displayError(message) {
             const errorMessage = document.getElementById("error-message");
             errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
             errorMessage.style.transform = "translateY(0)";
             setTimeout(() => {
                 errorMessage.style.transform = "translateY(-100%)";
                 setTimeout(() => {
-                    errorMessage.style.transform = "";
+                    errorMessage.style.display = 'none';
+                    errorMessage.textContent = '';
                 }, 1000);
             }, 3000);
         }
@@ -191,6 +209,9 @@
         function changeBackground() {
             currentImage = (currentImage % totalImages) + 1;
             document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${currentImage}.jpg')`;
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "center";
+            document.body.style.backgroundRepeat = "no-repeat";
             document.body.classList.add('fade');
             setTimeout(() => {
                 document.body.classList.remove('fade');
