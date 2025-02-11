@@ -90,17 +90,27 @@
         .search-result:hover {
             background: rgba(255, 255, 255, 0.7);
         }
+
+        .disclaimer {
+            background: yellow;
+            color: black;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="disclaimer">测试版本，不代表最终效果</div>
     <div class="content">
         <h1>谱面检索站</h1>
         <h2>目前一共有 <span id="level-count">0</span> 个谱面</h2>
         <input type="text" id="search-box" placeholder="输入作者、歌曲名或谱师名字进行搜索">
         <div class="search-results" id="search-results"></div>
         <button id="download-button" style="display: none;" onclick="downloadLevel()">下载谱面</button>
-        <p>测试版本，不代表最终效果</p>
     </div>
     <div id="error-message" class="error"></div>
 
@@ -200,7 +210,7 @@
             }, 1000);
         }
 
-        setInterval(changeBackground,        setInterval(changeBackground, 6000);
+        setInterval(changeBackground, 6000);
     </script>
 </body>
 
