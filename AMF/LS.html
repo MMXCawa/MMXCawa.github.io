@@ -97,22 +97,40 @@
         let currentLink = "";
 
         async function fetchJSONFiles() {
-            const response = await fetch('http://MMXCawa.github.io/AMF/Levels/');
-            const files = await response.json();
-            return files.filter(file => file.endsWith('.json'));
+            try {
+                const response = await fetch('http://MMXCawa.github.io/AMF/Levels/');
+                if (!response.ok) {
+                    throw new Error('网络响应失败');
+                }
+                const files = await response.json();
+                return files.filter(file => file.endsWith('.json'));
+            } catch (error) {
+                displayError('获取JSON文件时出错: ' + error.message);
+                return [];
+            }
         }
 
         async function readJSONFile(file) {
-            const response = await fetch(`/Levels/${file}`);
-            return await response.json();
+            try {
+                const response = await fetch(`http://MMXCawa.github.io/AMF/Levels/${file}`);
+                if (!response.ok) {
+                    throw new Error('读取文件失败');
+                }
+                return await response.json();
+            } catch (error) {
+                displayError('读取JSON文件时出错: ' + error.message);
+                return null;
+            }
         }
 
         async function loadLevels() {
             const jsonFiles = await fetchJSONFiles();
             for (const file of jsonFiles) {
                 const level = await readJSONFile(file);
-                level.fileName = file;
-                levels.push(level);
+                if (level) {
+                    level.fileName = file;
+                    levels.push(level);
+                }
             }
             document.getElementById("level-count").textContent = levels.length;
         }
