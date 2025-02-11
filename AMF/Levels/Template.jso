@@ -3,5 +3,5 @@
     "downloadLink": "DownloadURL",
     "name": "SongName",
     "difficulty": "DifficultyLevel",
-    "auther": "AuthorName"
+    "author": "AuthorName"
 }
