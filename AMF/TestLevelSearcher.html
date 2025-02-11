@@ -97,7 +97,7 @@
         let currentLink = "";
 
         async function fetchJSONFiles() {
-            const response = await fetch('/Levels/');
+            const response = await fetch('http://MMXCawa.github.io/AMF/Levels/');
             const files = await response.json();
             return files.filter(file => file.endsWith('.json'));
         }
@@ -172,7 +172,7 @@
 
         function changeBackground() {
             currentImage = (currentImage % totalImages) + 1;
-            document.body.style.backgroundImage = `url('https://static.indienova.com/assets/template/site-adofai/img/gallery/${currentImage}.jpg')`;
+            document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${currentImage}.jpg')`;
             document.body.classList.add('fade');
             setTimeout(() => {
                 document.body.classList.remove('fade');
