@@ -1,0 +1,7 @@
+{
+    "artist": "ArtistName",
+    "downloadLink": "DownloadURL",
+    "name": "SongName",
+    "difficulty": "DifficultyLevel",
+    "auther": "AuthorName"
+}
