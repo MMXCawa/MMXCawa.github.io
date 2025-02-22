@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜字母游戏</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            font-family: 'Arial', sans-serif;
+            transition: background 0.5s, color 0.5s;
+        }
+        body.night-mode {
+            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+            color: #ffffff;
+        }
+        .game-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: background 0.5s, color 0.5s;
+        }
+        .night-mode .game-container {
+            background: #2a2a40;
+            color: #ffffff;
+        }
+        .hint-animation {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+        .hint-animation div {
+            margin: 0 10px;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            animation: float 3s infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .btn-custom {
+            background: #007bff;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-custom:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+        .hidden {
+            display: none;
+        }
+        .result-popup {
+            position: fixed;
+            top: 50%;
+            left: -100%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: left 0.5s ease;
+        }
+        .night-mode .result-popup {
+            background: #2a2a40;
+            color: #ffffff;
+        }
+        .result-popup.show {
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+                .result-popup2 {
+            position: fixed;
+            top: 50%;
+            left: -100%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: left 0.5s ease;
+        }
+        .night-mode .result-popup2 {
+            background: #2a2a40;
+            color: #ffffff;
+        }
+        .result-popup2.show {
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .custom-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .night-mode .custom-alert {
+            background: #2a2a40;
+            color: #ffffff;
+        }
+        .custom-alert button {
+            margin: 5px;
+        }
+        .hard-mode-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 0, 0, 0.15), rgba(255, 0, 0, 0.01));
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+        .hard-mode-overlay.show {
+            opacity: 1;
+        }
+        .infinite-hint {
+            background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080, #ff0000);
+            background-size: 200% 200%;
+            animation: rainbow 5s linear infinite;
+        }
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .hard-mode-label {
+            color: red;
+            order: 2;
+        }
+        .hint-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        .hint-buttons button {
+            flex: 1;
+            margin: 5px;
+        }
+        .night-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="night-mode-toggle" id="night-mode-toggle">🌙</div>
+    <div class="game-container">
+        <h1 class="text-center mb-4">猜字母游戏</h1>
+        <div id="pre-game">
+            <div class="mb-3">
+                <label for="game-list" class="form-label">选择列表</label>
+                <select id="game-list" class="form-select">
+                    <option value="ADOFAI">ADOFAI[官谱]</option>
+                    <option value="Phigros">Phigros</option>
+                </select>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="symbol-mode" class="form-check-input">
+                <label for="symbol-mode" class="form-check-label">符号模式</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="infinite-mode" class="form-check-input">
+                <label for="infinite-mode" class="form-check-label infinite-hint">无限提示</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="hard-mode" class="form-check-input">
+                <label for="hard-mode" class="form-check-label hard-mode-label">困难模式</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="free-hint-mode" class="form-check-input">
+                <label for="free-hint-mode" class="form-check-label">自由提示</label>
+            </div>
+            <div class="mb-3">
+                <label for="hint-count" class="form-label">提示次数</label>
+                <select id="hint-count" class="form-select">
+                    <option value="1">1</option>
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="error-count" class="form-label">错误次数</label>
+                <select id="error-count" class="form-select">
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+            <button id="start-button" class="btn btn-custom w-100" disabled>开始游戏</button>
+        </div>
+        <div id="game-area" class="hidden mt-4">
+            <h2 id="display-word" class="text-center mb-4"></h2>
+            <div class="input-group mb-3">
+                <input type="text" id="guess-input" class="form-control" placeholder="输入你的猜测">
+                <button id="check-button" class="btn btn-custom">检测</button>
+            </div>
+            <div class="mb-3">
+                <p>可用提示次数: <span id="hint-count-display"></span></p>
+                <p>剩余错误次数: <span id="error-count-display"></span></p>
+            </div>
+            <button id="hint-button" class="btn btn-custom w-100 mb-3">💭 随机提示💡</button>
+            <div id="hint-buttons" class="hint-buttons hidden">
+                <button id="hint-type-1" class="btn btn-custom">打一字</button>
+                <button id="hint-type-2" class="btn btn-custom">解密尾字</button>
+                <button id="hint-type-3" class="btn btn-custom">解密首字</button>
+                <button id="hint-type-4" class="btn btn-custom">解密随机字</button>
+            </div>
+            <div id="hint-animation" class="hint-animation hidden">
+                <div>打一字</div>
+                <div>解密尾字</div>
+                <div>解密首字</div>
+                <div>解密随机字</div>
+            </div>
+            <div id="result" class="text-center mt-4"></div>
+        </div>
+    </div>
+    <div id="result-popup" class="result-popup"></div>
+    <div id="result-popup2" class="result-popup2"></div>
+    <div id="custom-alert" class="custom-alert hidden">
+        <p id="alert-message"></p>
+        <button id="retry-button" class="btn btn-custom">重试</button>
+        <button id="preload-button" class="btn btn-custom">本地文本</button>
+    </div>
+    <div id="hard-mode-overlay" class="hard-mode-overlay"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="pre.js"></script>
+    <script>
+        const gameList = document.getElementById('game-list');
+        const symbolMode = document.getElementById('symbol-mode');
+        const infiniteMode = document.getElementById('infinite-mode');
+        const hardMode = document.getElementById('hard-mode');
+        const freeHintMode = document.getElementById('free-hint-mode');
+        const hintCount = document.getElementById('hint-count');
+        const errorCount = document.getElementById('error-count');
+        const startButton = document.getElementById('start-button');
+        const preGame = document.getElementById('pre-game');
+        const gameArea = document.getElementById('game-area');
+        const displayWord = document.getElementById('display-word');
+        const guessInput = document.getElementById('guess-input');
+        const checkButton = document.getElementById('check-button');
+        const hintButton = document.getElementById('hint-button');
+        const hintButtons = document.getElementById('hint-buttons');
+        const hintAnimation = document.getElementById('hint-animation');
+        const result = document.getElementById('result');
+        const resultPopup = document.getElementById('result-popup');
+        const resultPopup2 = document.getElementById('result-popup2');
+        const customAlert = document.getElementById('custom-alert');
+        const alertMessage = document.getElementById('alert-message');
+        const retryButton = document.getElementById('retry-button');
+        const preloadButton = document.getElementById('preload-button');
+        const hardModeOverlay = document.getElementById('hard-mode-overlay');
+        const hintCountDisplay = document.getElementById('hint-count-display');
+        const errorCountDisplay = document.getElementById('error-count-display');
+        const nightModeToggle = document.getElementById('night-mode-toggle');
+
+        const gameData = {
+            ADOFAI: [],
+            Phigros: []
+        };
+
+        let currentWord = '';
+        let hiddenWord = '';
+        let hintsUsed = 0;
+        let errorsMade = 0;
+        let hintOptions = ['打一字', '解密尾字', '解密首字', '解密随机字'];
+        let selectedHint = '';
+        let isGameOver = false;
+
+        function loadPreloadData() {
+            if (typeof Ad !== 'undefined') {
+                gameData.ADOFAI = Ad.split('\n').map(line => line.trim()).filter(line => line);
+            }
+            if (typeof Ph !== 'undefined') {
+                gameData.Phigros = Ph.split('\n').map(line => line.trim()).filter(line => line);
+            }
+        }
+
+        async function loadFile(filename, listName) {
+            try {
+                const response = await fetch(filename);
+                if (!response.ok) throw new Error('文件加载失败');
+                const text = await response.text();
+                gameData[listName] = text.split('\n').map(line => line.trim()).filter(line => line);
+                return true;
+            } catch (error) {
+                console.error(`无法加载文件: ${filename}`, error);
+                return false;
+            }
+        }
+
+        async function initGameData() {
+            const adoLoaded = await loadFile('ado.txt', 'ADOFAI');
+            if (!adoLoaded) {
+                showCustomAlert('无法读取实时文本，您可尝试本地文本', 'ADOFAI');
+                return;
+            }
+
+            const phiLoaded = await loadFile('phi.txt', 'Phigros');
+            if (!phiLoaded) {
+                showCustomAlert('无法读取实时文本，您可尝试本地文本', 'Phigros');
+                return;
+            }
+
+            updateStartButton();
+        }
+
+        function showCustomAlert(message, listName) {
+            alertMessage.textContent = message;
+            customAlert.classList.remove('hidden');
+            retryButton.onclick = async () => {
+                customAlert.classList.add('hidden');
+                await initGameData();
+            };
+            preloadButton.onclick = () => {
+                customAlert.classList.add('hidden');
+                loadPreloadData();
+                updateStartButton();
+            };
+        }
+
+        function updateStartButton() {
+            if (hardMode.checked) {
+                symbolMode.checked = true;
+                hintCount.value = 1;
+                errorCount.value = 5;
+                hintCount.disabled = true;
+                errorCount.disabled = true;
+                freeHintMode.checked = false;
+                freeHintMode.disabled = true;
+                hardModeOverlay.classList.add('show');
+            } else {
+                hintCount.disabled = infiniteMode.checked;
+                errorCount.disabled = infiniteMode.checked;
+                freeHintMode.disabled = false;
+                hardModeOverlay.classList.remove('show');
+            }
+            startButton.disabled = false;
+        }
+
+        function startGame() {
+            const list = gameList.value;
+            const words = gameData[list];
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            hiddenWord = currentWord.split('').map(char => char === ' ' ? ' ' : '*').join('');
+            displayWord.textContent = hiddenWord;
+            hintsUsed = 0;
+            errorsMade = 0;
+            hintCountDisplay.textContent = infiniteMode.checked ? '无限' : hintCount.value;
+            errorCountDisplay.textContent = infiniteMode.checked ? '无限' : errorCount.value;
+            preGame.classList.add('hidden');
+            gameArea.classList.remove('hidden');
+            result.textContent = '';
+            isGameOver = false;
+        }
+
+        function checkGuess() {
+            if (isGameOver) return;
+
+            const guess = guessInput.value;
+            if (guess === currentWord) {
+                isGameOver = true;
+                showResultPopup(`👑 胜利！使用了${hintsUsed}次提示，错了${errorsMade}次。${hardMode.checked ? '<br><span style="color: red;">困难模式通关</span>' : ''}`);
+            } else {
+                errorsMade++;
+                if (errorsMade >= parseInt(errorCount.value)) {
+                    isGameOver = true;
+                    showResultPopup(`😭 失败！正确答案是：${currentWord}`);
+                } else {
+                    errorCountDisplay.textContent = infiniteMode.checked ? '无限' : parseInt(errorCount.value) - errorsMade;
+                    result.textContent = `错误！还有${parseInt(errorCount.value) - errorsMade}次机会。`;
+                }
+            }
+        }
+
+        function showResultPopup(message) {
+            resultPopup.innerHTML = message;
+            resultPopup.classList.add('show');
+            setTimeout(() => {
+                resultPopup.classList.remove('show');
+                preGame.classList.remove('hidden');
+                gameArea.classList.add('hidden');
+            }, 3000);
+        }
+        
+        function showResultPopup2(message) {
+            resultPopup2.innerHTML = message;
+            resultPopup2.classList.add('show');
+            setTimeout(() => {
+                resultPopup2.classList.remove('show');
+            }, 3000);
+        }
+
+        function showHint() {
+            if (isGameOver) return;
+
+            if (hintsUsed >= hintCount.value && !infiniteMode.checked) {
+                showResultPopup2('没有提示次数了');
+                return;
+            }
+
+            if (freeHintMode.checked && !hardMode.checked) {
+                hintButtons.classList.remove('hidden');
+            } else {
+                hintAnimation.classList.remove('hidden');
+                let currentIndex = 0;
+                const interval = setInterval(() => {
+                    hintAnimation.children[currentIndex].textContent = hintOptions[currentIndex];
+                    currentIndex = (currentIndex + 1) % hintOptions.length;
+                }, 300);
+                setTimeout(() => {
+                    clearInterval(interval);
+                    selectedHint = hintOptions[Math.floor(Math.random() * hintOptions.length)];
+                    applyHint(selectedHint);
+                    hintAnimation.classList.add('hidden');
+                }, 3000);
+            }
+        }
+
+function applyHint(hint) {
+    hintsUsed++;
+    hintCountDisplay.textContent = infiniteMode.checked ? '无限' : hintCount.value - hintsUsed;
+    switch (hint) {
+        case '打一字':
+            const char = prompt('请输入一个字：');
+            if (char && currentWord.includes(char)) {
+                hiddenWord = hiddenWord.split('').map((h, i) => currentWord[i] === char ? char : h).join('');
+                displayWord.textContent = hiddenWord;
+            }
+            break;
+        case '解密尾字':
+            const lastChar = currentWord[currentWord.length - 1];
+            hiddenWord = hiddenWord.substring(0, hiddenWord.length - 1) + lastChar;
+            displayWord.textContent = hiddenWord;
+            break;
+        case '解密首字':
+            const firstChar = currentWord[0];
+            hiddenWord = firstChar + hiddenWord.substring(1);
+            displayWord.textContent = hiddenWord;
+            break;
+        case '解密随机字':
+            const indices = [];
+            for (let i = 0; i < currentWord.length; i++) {
+                if (hiddenWord[i] === '*') indices.push(i);
+            }
+            if (indices.length > 0) {
+                const randomIndex = indices[Math.floor(Math.random() * indices.length)];
+                hiddenWord = hiddenWord.substring(0, randomIndex) + currentWord[randomIndex] + hiddenWord.substring(randomIndex + 1);
+                displayWord.textContent = hiddenWord;
+            }
+            break;
+    }
+    if (hiddenWord === currentWord) {
+        isGameOver = true;
+        showResultPopup(`👑 胜利！使用了${hintsUsed}次提示，错了${errorsMade}次。${hardMode.checked ? '<br><span style="color: red;">困难模式通关</span>' : ''}`);
+    }
+}
+
+hintButtons.querySelectorAll('button').forEach((button, index) => {
+    button.addEventListener('click', () => {
+        if (hintsUsed >= hintCount.value && !infiniteMode.checked) {
+            showResultPopup2('没有提示次数了');
+            return;
+        }
+        applyHint(hintOptions[index]);
+        hintButtons.classList.add('hidden');
+    });
+});
+
+function toggleNightMode() {
+    document.body.classList.toggle('night-mode');
+    const isNightMode = document.body.classList.contains('night-mode');
+    nightModeToggle.textContent = isNightMode ? '🌞' : '🌙';
+}
+
+nightModeToggle.addEventListener('click', toggleNightMode);
+
+initGameData();
+symbolMode.addEventListener('change', updateStartButton);
+infiniteMode.addEventListener('change', updateStartButton);
+hardMode.addEventListener('change', updateStartButton);
+freeHintMode.addEventListener('change', updateStartButton);
+startButton.addEventListener('click', startGame);
+checkButton.addEventListener('click', checkGuess);
+hintButton.addEventListener('click', showHint);
+    </script>
+</body>
+</html>
