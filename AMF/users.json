@@ -16,5 +16,24 @@
         "ppscore": 0,
         "lastc": "V0lkanik Erupxi0n:20.9:18:48:164:3921:16:1:0:970.6352:0",
         "lastt": "Ranked"
+    },
+    {
+        "name": "冰与火之舞So",
+        "icon": "so.png",
+        "p": 1,
+        "score":0,
+        "ppscore": 0,
+        "lastc": "Banned:0:0:0:0:0:0:0:0:0:0",
+        "lastt": "Banned"
+    },
+    {
+        "name": "艾莲的咸鱼布",
+        "icon": "aldxyb.png",
+        "p": 1,
+        "score":1994.9169,
+        "ppscore": 0,
+        "lastc": "Playaphonk - Phonky Town:Unknown:11:17:71:2598:31:2:0:708.9519:0",
+        "lastt": "Ranked"
     }
+    
 ]
