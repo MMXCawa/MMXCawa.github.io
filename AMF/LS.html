@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMF 谱面检索站</title>
+    <link rel="icon" href="https://github.com/MMXCawa/MMXCawa.github.io/blob/main/AMF.jpeg?raw=true">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #000000;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            overflow-y: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .update-time {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: calc(100% - 24px);
+        }
+
+        .search-result {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 5px;
+            margin: 5px 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .search-result:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            margin-left: 5px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: rgba(200, 200, 200, 0.8);
+        }
+
+        .video-container {
+            margin: 20px 0;
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>AMF 谱面检索站</h1>
+        <div id="update-time" class="update-time"></div>
+        <input type="text" id="search-box" placeholder="输入作曲者、谱面名或谱师进行搜索">
+        <div id="search-results"></div>
+    </div>
+
+    <script>
+        let charts = [];
+
+        async function fetchData() {
+            try {
+                const response = await fetch('https://mmxcawa.github.io/AMF.json');
+                if (!response.ok) throw new Error('无法读取数据');
+                const data = await response.json();
+                document.getElementById("update-time").textContent = `上次更新时间: ${formatUpdateTime(data.Updatetime)}`;
+                charts = data.slice(1); // 跳过Updatetime
+            } catch (error) {
+                console.error('加载数据出错:', error);
+            }
+        }
+
+        function formatUpdateTime(timestamp) {
+            return timestamp.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, '$1年$2月$3日 $4时$5分$6秒');
+        }
+
+        function searchCharts() {
+            const searchTerm = document.getElementById("search-box").value.toLowerCase();
+            const results = charts.filter(chart =>
+                chart.composer.toLowerCase().includes(searchTerm) ||
+                chart.chart.toLowerCase().includes(searchTerm) ||
+                chart.author.toLowerCase().includes(searchTerm)
+            );
+
+            const searchResults = document.getElementById("search-results");
+            searchResults.innerHTML = "";
+            results.forEach(result => {
+                const div = document.createElement("div");
+                div.className = "search-result";
+                div.innerHTML = `
+                    作曲者: ${result.composer} | 谱面名: ${result.chart} | 谱师: ${result.author} | 难度: ${result.difficulty} | ${result.id}
+                    <button onclick="handleDownload('${result.download_link}')">下载</button>
+                    ${result.video_link !== "none" ? `<button onclick="openVideo('${result.video_link}')">跳转视频</button>` : ""}
+                    ${result.video_link !== "none" ? `<button onclick="embedVideo('${result.video_link}', this)">在线视频</button>` : ""}
+                `;
+                searchResults.appendChild(div);
+            });
+        }
+
+        function handleDownload(link) {
+            if (link === "noauth") {
+                alert("AMF不提供无授权谱面");
+            } else if (link === "none") {
+                alert("AMF未提供下载链接");
+            } else {
+                window.location.href = link;
+            }
+        }
+
+        function openVideo(link) {
+            window.open(link, '_blank');
+        }
+
+        function embedVideo(link, button) {
+            const parentDiv = button.parentElement;
+            const videoContainer = document.createElement('div');
+            videoContainer.className = 'video-container';
+            videoContainer.innerHTML = `<object data="${link}" width="800" height="600"></object>`;
+            parentDiv.appendChild(videoContainer);
+            button.remove();
+        }
+
+        document.getElementById("search-box").addEventListener("input", searchCharts);
+
+        window.onload = fetchData;
+    </script>
+</body>
+
+</html>
