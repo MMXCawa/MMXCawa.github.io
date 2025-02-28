@@ -9,9 +9,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-image: url('http://MMXCawa.github.io/images/1.jpg');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            background-repeat: repeat;
             margin: 0;
             padding: 0;
             color: #000000;
@@ -26,6 +27,7 @@
             margin: 20px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
             overflow-y: auto;
+            min-height: 100vh;
         }
 
         h1 {
@@ -40,7 +42,7 @@
 
         .user-entry {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             background: rgba(255, 255, 255, 0.4);
             margin: 10px 0;
             padding: 10px;
@@ -59,8 +61,18 @@
             flex: 1;
         }
 
-        .user-entry .score {
+        .user-entry .name {
             font-weight: bold;
+        }
+
+        .user-entry .admin {
+            color: #FF4500;
+        }
+
+        .user-entry .lastc {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
         }
 
         .submit {
@@ -118,32 +130,32 @@
         <div class="leaderboard" id="leaderboard"></div>
     </div>
     <div class="submit" onclick="openSubmitModal()">提交成绩</div>
-<div id="submit-modal">
-    <h2>发送邮件至 2360881635@qq.com</h2>
-    <p>标题: 成绩提交</p>
-    <p>正文要求:</p>
-    <ul>
-        <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
-        <li>等级:</li>
-        <li>精准度:</li>
-        <li>详细结果 [
-            <ul>
-                <li>空敲:</li>
-                <li>太快:</li>
-                <li>稍快:</li>
-                <li>完美:</li>
-                <li>稍慢:</li>
-                <li>太慢:</li>
-            </ul>
-            ]
-        </li>
-        <li>角度判定(是/否):</li>
-        <li>判定(角度判定可为标):</li>
-    </ul>
-    <p>- 提供视频，截图</p>
-    <p>- 第一次提交可提供頭像</p>
-    <button onclick="closeSubmitModal()">关闭</button>
-</div>
+    <div id="submit-modal">
+        <h2>发送邮件至 2360881635@qq.com</h2>
+        <p>标题: 成绩提交</p>
+        <p>正文要求:</p>
+        <ul>
+            <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
+            <li>等级:</li>
+            <li>精准度:</li>
+            <li>详细结果 [
+                <ul>
+                    <li>空敲:</li>
+                    <li>太快:</li>
+                    <li>稍快:</li>
+                    <li>完美:</li>
+                    <li>稍慢:</li>
+                    <li>太慢:</li>
+                </ul>
+                ]
+            </li>
+            <li>角度判定(是/否):</li>
+            <li>判定(角度判定可为标):</li>
+            <li>首次投稿可提供头像 (PNG格式)</li>
+        </ul>
+        <p>- 提供视频，截图</p>
+        <button onclick="closeSubmitModal()">关闭</button>
+    </div>
 
     <script>
         async function fetchUsers() {
@@ -166,6 +178,13 @@
             return `<div style="width:50px; height:50px; background:#ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;">${name[0]}</div>`;
         }
 
+        function formatLastc(lastc) {
+            const [title, level, ...stats] = lastc.split(':');
+            const colorMap = ["红色", "橙色", "黄色", "绿色", "黄色", "橙色", "红色"];
+            const statsDisplay = stats.slice(0, 7).map((val, i) => `${colorMap[i]}: ${val}`).join(':');
+            return `最近成绩: (曲名: ${title}, 等级: ${level}, ${statsDisplay} +分数: ${stats[7]}, +完美无瑕分: ${stats[8]})`;
+        }
+
         async function loadLeaderboard() {
             const users = await fetchUsers();
             const sortedUsers = calculateRank(users);
@@ -178,8 +197,8 @@
                 userEntry.className = 'user-entry';
                 userEntry.innerHTML = `
                     ${generateIcon(user.name, user.icon)}
-                    <span>#${index + 1} ${user.name} (权限: ${user.p === 2 ? '管理员' : '用户'})</span>
-                    <span class="score">得分: ${(user.ppscore * 2 + user.score).toFixed(2)}</span>
+                    <span class="name ${user.p === 2 ? 'admin' : ''}">${user.name}</span>
+                    ${user.lastc ? `<span class="lastc">${formatLastc(user.lastc)}</span>` : ''}
                 `;
                 leaderboard.appendChild(userEntry);
             });
@@ -206,7 +225,7 @@
             document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${currentImage}.jpg')`;
             document.body.style.backgroundSize = "cover";
             document.body.style.backgroundPosition = "center";
-            document.body.style.backgroundRepeat = "no-repeat";
+            document.body.style.backgroundRepeat = "repeat";
             document.body.classList.add('fade');
             setTimeout(() => {
                 document.body.classList.remove('fade');
