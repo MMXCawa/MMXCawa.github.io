@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排行榜 | 周榜</title>
+    <link rel="icon" href="https://github.com/MMXCawa/MMXCawa.github.io/blob/main/AMF.jpeg?raw=true">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            color: #000000;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            overflow-y: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .leaderboard {
+            margin: 20px 0;
+        }
+
+        .user-entry {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.4);
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .user-entry img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .user-entry span {
+            flex: 1;
+        }
+
+        .user-entry .score {
+            font-weight: bold;
+        }
+
+        .submit {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .submit:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        #submit-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #submit-modal h2 {
+            margin-top: 0;
+        }
+
+        #submit-modal button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            background: #ff4c4c;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #submit-modal button:hover {
+            background: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>此为周榜，一周更新一次</h1>
+        <div class="leaderboard" id="leaderboard"></div>
+    </div>
+    <div class="submit" onclick="openSubmitModal()">提交成绩</div>
+<div id="submit-modal">
+    <h2>发送邮件至 2360881635@qq.com</h2>
+    <p>标题: 成绩提交</p>
+    <p>正文要求:</p>
+    <ul>
+        <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
+        <li>等级:</li>
+        <li>精准度:</li>
+        <li>详细结果 [
+            <ul>
+                <li>空敲:</li>
+                <li>太快:</li>
+                <li>稍快:</li>
+                <li>完美:</li>
+                <li>稍慢:</li>
+                <li>太慢:</li>
+            </ul>
+            ]
+        </li>
+        <li>角度判定(是/否):</li>
+        <li>判定(角度判定可为标):</li>
+    </ul>
+    <p>- 提供视频，截图</p>
+    <p>- 第一次提交可提供頭像</p>
+    <button onclick="closeSubmitModal()">关闭</button>
+</div>
+
+    <script>
+        async function fetchUsers() {
+            try {
+                const response = await fetch('users.json');
+                if (!response.ok) throw new Error('无法读取用户数据');
+                return await response.json();
+            } catch (error) {
+                console.error('加载用户数据出错:', error);
+                return [];
+            }
+        }
+
+        function calculateRank(users) {
+            return users.sort((a, b) => (b.ppscore * 2 + b.score) - (a.ppscore * 2 + a.score));
+        }
+
+        function generateIcon(name, icon) {
+            if (icon) return `<img src="${icon}" alt="${name}">`;
+            return `<div style="width:50px; height:50px; background:#ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;">${name[0]}</div>`;
+        }
+
+        async function loadLeaderboard() {
+            const users = await fetchUsers();
+            const sortedUsers = calculateRank(users);
+
+            const leaderboard = document.getElementById('leaderboard');
+            leaderboard.innerHTML = '';
+
+            sortedUsers.forEach((user, index) => {
+                const userEntry = document.createElement('div');
+                userEntry.className = 'user-entry';
+                userEntry.innerHTML = `
+                    ${generateIcon(user.name, user.icon)}
+                    <span>#${index + 1} ${user.name} (权限: ${user.p === 2 ? '管理员' : '用户'})</span>
+                    <span class="score">得分: ${(user.ppscore * 2 + user.score).toFixed(2)}</span>
+                `;
+                leaderboard.appendChild(userEntry);
+            });
+        }
+
+        function openSubmitModal() {
+            document.getElementById('submit-modal').style.display = 'block';
+        }
+
+        function closeSubmitModal() {
+            document.getElementById('submit-modal').style.display = 'none';
+        }
+
+        window.onload = () => {
+            loadLeaderboard();
+            changeBackground();
+        };
+
+        let currentImage = 1;
+        const totalImages = 8;
+
+        function changeBackground() {
+            currentImage = (currentImage % totalImages) + 1;
+            document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${currentImage}.jpg')`;
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "center";
+            document.body.style.backgroundRepeat = "no-repeat";
+            document.body.classList.add('fade');
+            setTimeout(() => {
+                document.body.classList.remove('fade');
+            }, 1000);
+
+            setInterval(changeBackground, 6000);
+        }
+    </script>
+</body>
+
+</html>
