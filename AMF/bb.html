@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMF排行榜 | 周榜</title>
+    <title>AMF排行榜 | AMF Ranking List</title>
     <link rel="icon" href="https://github.com/MMXCawa/MMXCawa.github.io/blob/main/AMF.jpeg?raw=true">
     <style>
         body {
@@ -66,12 +66,8 @@
         }
 
         .user-entry .lastc {
-            font-size: 14px;
-            color: #555;
             margin-top: 5px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+            font-size: 14px;
         }
 
         .user-entry .lastc span {
@@ -109,6 +105,38 @@
         .submit:hover {
             background: rgba(255, 255, 255, 0.7);
         }
+
+        #submit-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #submit-modal h2 {
+            margin-top: 0;
+        }
+
+        #submit-modal button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            background: #ff4c4c;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #submit-modal button:hover {
+            background: #ff0000;
+        }
     </style>
 </head>
 
@@ -116,6 +144,33 @@
     <div class="content">
         <h1>此为周榜，一周更新一次</h1>
         <div class="leaderboard" id="leaderboard"></div>
+    </div>
+    <div class="submit" onclick="openSubmitModal()">提交成绩</div>
+    <div id="submit-modal">
+        <h2>发送邮件至 2360881635@qq.com</h2>
+        <p>标题: 成绩提交</p>
+        <p>正文要求:</p>
+        <ul>
+            <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
+            <li>等级:</li>
+            <li>精准度:</li>
+            <li>详细结果 [
+                <ul>
+                    <li>空敲:</li>
+                    <li>太快:</li>
+                    <li>稍快:</li>
+                    <li>完美:</li>
+                    <li>稍慢:</li>
+                    <li>太慢:</li>
+                </ul>
+                ]
+            </li>
+            <li>角度判定(是/否):</li>
+            <li>判定(角度判定可为标):</li>
+            <li>首次投稿可提供头像 (PNG格式)</li>
+        </ul>
+        <p>- 提供视频，截图</p>
+        <button onclick="closeSubmitModal()">关闭</button>
     </div>
 
     <script>
@@ -142,8 +197,13 @@
         function formatLastc(lastc) {
             const [title, level, ...stats] = lastc.split(':');
             const colorClasses = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
-            const statsDisplay = stats.slice(0, 7).map((val, i) => `<span class="${colorClasses[i]}">[${val}]</span>`).join('');
-            return `最近成绩: 曲名: ${title}, 等级: ${level}, ${statsDisplay} +分数: ${stats[7]}, +完美无瑕分: ${stats[8]}`;
+            const statsDisplay = stats.slice(0, 7).map((val, i) => `<span class="${colorClasses[i]}">${val}</span>`).join(' ');
+            return `
+                <div>最近成绩:</div>
+                <div>曲名: ${title}</div>
+                <div>[${statsDisplay}]</div>
+                <div>+${stats[7]} | +${stats[8]}</div>
+            `;
         }
 
         async function loadLeaderboard() {
@@ -165,7 +225,35 @@
             });
         }
 
-        window.onload = () => loadLeaderboard();
+        function openSubmitModal() {
+            document.getElementById('submit-modal').style.display = 'block';
+        }
+
+        function closeSubmitModal() {
+            document.getElementById('submit-modal').style.display = 'none';
+        }
+
+        window.onload = () => {
+            loadLeaderboard();
+            changeBackground();
+        };
+
+        let currentImage = 1;
+        const totalImages = 8;
+
+        function changeBackground() {
+            currentImage = (currentImage % totalImages) + 1;
+            document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${currentImage}.jpg')`;
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "center";
+            document.body.style.backgroundRepeat = "repeat";
+            document.body.classList.add('fade');
+            setTimeout(() => {
+                document.body.classList.remove('fade');
+            }, 1000);
+
+            setInterval(changeBackground, 6000);
+        }
     </script>
 </body>
 
