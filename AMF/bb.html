@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMF排行榜 | AMF Ranking List</title>
+    <title>AMF排行榜 | AMF RankingList</title>
     <link rel="icon" href="https://github.com/MMXCawa/MMXCawa.github.io/blob/main/AMF.jpeg?raw=true">
     <style>
         body {
@@ -32,8 +32,17 @@
 
         h1 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            font-size: 32px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 14px;
+            font-weight: normal;
+            color: #555;
+            margin-top: 0;
         }
 
         .leaderboard {
@@ -43,11 +52,45 @@
         .user-entry {
             display: flex;
             flex-direction: column;
+            position: relative;
             background: rgba(255, 255, 255, 0.4);
             margin: 10px 0;
             padding: 10px;
             border-radius: 5px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .user-entry.rank-1::before {
+            content: "1st";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: gold;
+            text-shadow: 0 0 8px gold;
+        }
+
+        .user-entry.rank-2::before {
+            content: "2nd";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: silver;
+            text-shadow: 0 0 8px silver;
+        }
+
+        .user-entry.rank-3::before {
+            content: "3rd";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #cd7f32;
+            text-shadow: 0 0 8px #cd7f32;
         }
 
         .user-entry img {
@@ -63,6 +106,43 @@
 
         .user-entry .admin {
             color: #FF4500;
+        }
+
+        .user-entry .title {
+            margin-left: 10px;
+            font-weight: bold;
+            text-shadow: 0 0 8px;
+        }
+
+        .title.failed {
+            color: red;
+            text-shadow: 0 0 8px red;
+        }
+
+        .title.unranking,
+        .title.cheated,
+        .title.faked {
+            color: gray;
+            text-shadow: 0 0 8px gray;
+        }
+
+        .title.ranking {
+            color: green;
+            text-shadow: 0 0 8px green;
+        }
+
+        .title.banned {
+            color: purple;
+            text-shadow: 0 0 8px purple;
+        }
+
+        .user-entry .score {
+            margin-left: 10px;
+        }
+
+        .user-entry .score ppscore {
+            color: gold;
+            text-shadow: 0 0 8px gold;
         }
 
         .user-entry .lastc {
@@ -142,7 +222,8 @@
 
 <body>
     <div class="content">
-        <h1>此为周榜，一周更新一次</h1>
+        <h1>排行榜</h1>
+        <h2>此为周榜，一周更新一次</h2>
         <div class="leaderboard" id="leaderboard"></div>
     </div>
     <div class="submit" onclick="openSubmitModal()">提交成绩</div>
@@ -197,12 +278,15 @@
         function formatLastc(lastc) {
             const [title, level, ...stats] = lastc.split(':');
             const colorClasses = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
-            const statsDisplay = stats.slice(0, 7).map((val, i) => `<span class="${colorClasses[i]}">${val}</span>`).join(' ');
+             const statsDisplay = stats.slice(0, 7).map((val, i) => `<span class="${colorClasses[i]}">[${val}]</span>`).join(' ');
+            const scoreDisplay = stats[7] < 0 ? `<span style="color: red;">-${Math.abs(stats[7])}</span>` : `<span>+${stats[7]}</span>`;
+            const ppscoreDisplay = stats[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${stats[8]}</span>` : `<span>+0</span>`;
+
             return `
                 <div>最近成绩:</div>
                 <div>曲名: ${title}</div>
                 <div>[${statsDisplay}]</div>
-                <div>+${stats[7]} | +${stats[8]}</div>
+                <div>${scoreDisplay} | ${ppscoreDisplay}</div>
             `;
         }
 
@@ -215,10 +299,14 @@
 
             sortedUsers.forEach((user, index) => {
                 const userEntry = document.createElement('div');
-                userEntry.className = 'user-entry';
+                userEntry.className = `user-entry ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : ''}`;
                 userEntry.innerHTML = `
                     ${generateIcon(user.name, user.icon)}
                     <span class="name ${user.p === 2 ? 'admin' : ''}">${user.name}</span>
+                    ${user.lastt && user.lastt !== 'none' ? `<span class="title ${user.lastt.toLowerCase()}">${user.lastt}</span>` : ''}
+                    <div class="score">
+                        得分: ${user.score} | <span class="ppscore">${user.ppscore}</span>
+                    </div>
                     ${user.lastc ? `<div class="lastc">${formatLastc(user.lastc)}</div>` : ''}
                 `;
                 leaderboard.appendChild(userEntry);
