@@ -66,9 +66,9 @@
         "name": "天穹",
         "icon": "tianqiong.png",
         "p": 1,
-        "score":749.0126,
+        "score":1373.9741,
         "ppscore": 0,
-        "lastc": "We Want To Run（nerf):21.1:39:95:319:3812:46:7:0:749.0126:0",
+        "lastc": "Phonky Town（nerf）（1.3）:20.1:10:27:170:2440:73:9:0:684.9615:0",
         "lastt": "Ranked"
     },
     {
@@ -78,6 +78,24 @@
         "score":767.6193,
         "ppscore": 0,
         "lastc": "terminal11-Postmanic Candybar Overdose:U11:50:82:202:5213:31:6:0:767.6193:0",
+        "lastt": "Ranked"
+    },
+    {
+        "name": "almigu",
+        "icon": "almigu.png",
+        "p": 1,
+        "score":466.4017,
+        "ppscore": 0,
+        "lastc": "goreshit - mulligan:U2:736:731:717:1752:16:2:0:466.4017:0",
+        "lastt": "Ranked"
+    },
+    {
+        "name": "XF_ouo",
+        "icon": "xfouo.png",
+        "p": 1,
+        "score":0,
+        "ppscore": 978,
+        "lastc": "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:978",
         "lastt": "Ranked"
     }
     
