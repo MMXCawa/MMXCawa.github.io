@@ -54,12 +54,21 @@
         "lastt": "Failed"
     },
     {
-        "name": "Danln",
+        "name": "DanIn",
         "icon": "DanIn.png",
         "p": 1,
         "score":607.8448,
         "ppscore": 0,
         "lastc": "ALL MY FELLAS:17:2:0:3:1590:1:0:0:607.8448:0",
+        "lastt": "Ranked"
+    },
+    {
+        "name": "天穹",
+        "icon": "tianqiong.png",
+        "p": 1,
+        "score":749.0126,
+        "ppscore": 0,
+        "lastc": "We Want To Run（nerf):21.1:39:95:319:3812:46:7:0:749.0126:0",
         "lastt": "Ranked"
     }
     
