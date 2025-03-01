@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -222,39 +221,48 @@
         #sm-m button:hover {
             background: #ff0000;
         }
+
         .user-detail {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    padding: 20px;
-    width: 90%;
-    max-width: 600px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-}
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
 
-.user-detail h2.adm {
-    color: #FF4500;
-}
+        .user-detail h2.adm {
+            color: #FF4500;
+        }
 
-.ttx {
-    margin-left: 10px;
-    font-weight: bold;
-    color: #555;
-}
+        .ttx {
+            margin-left: 10px;
+            font-weight: bold;
+            color: #555;
+        }
 
-hr {
-    border: 0;
-    height: 1px;
-    background: #ccc;
-    margin: 10px 0;
-}
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ccc;
+            margin: 10px 0;
+        }
+
+        #version {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #555;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
     </style>
 </head>
-
 <body>
     <div class="ct">
         <h1>排行榜</h1>
@@ -288,147 +296,146 @@ hr {
         <p>- 提供视频，截图</p>
         <button onclick="csm()">关闭</button>
     </div>
+    <div id="version">版本号: V2</div>
 
     <script>
-async function fusers() {
-    try {
-        const r = await fetch('users.json');
-        if (!r.ok) throw new Error('无法读取用户数据');
-        return await r.json();
-    } catch (e) {
-        console.error('加载用户数据出错:', e);
-        return [];
-    }
-}
+        async function fusers() {
+            try {
+                const r = await fetch('users.json');
+                if (!r.ok) throw new Error('无法读取用户数据');
+                return await r.json();
+            } catch (e) {
+                console.error('加载用户数据出错:', e);
+                return [];
+            }
+        }
 
-function cr(users) {
-    return users.sort((a, b) => (b.ppscore * 2 + b.score) - (a.ppscore * 2 + a.score));
-}
+        function cr(users) {
+            return users.sort((a, b) => (b.ppscore * 2 + b.score) - (a.ppscore * 2 + a.score));
+        }
 
-function gi(nm, ic) {
-    if (ic) return `<img src="${ic}" alt="${nm}">`;
-    return `<div style="width:50px; height:50px; background:#ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;">${nm[0]}</div>`;
-}
+        function gi(nm, ic) {
+            if (ic) return `<img src="${ic}" alt="${nm}">`;
+            return `<div style="width:50px; height:50px; background:#ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;">${nm[0]}</div>`;
+        }
 
-function flc(lstc) {
-    const [t, l, ...st] = lstc.split(':');
-    const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
-    const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
-    const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
-    const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
+        function flc(lstc) {
+            const [t, l, ...st] = lstc.split(':');
+            const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
+            const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
+            const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
+            const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
 
-    return `
-        <div>最近成绩:</div>
-        <div>曲名: ${t}</div>
-        <div>[${stD}]</div>
-        <div>${scD} | ${ppscD}</div>
-    `;
-}
+            return `
+                <div>最近成绩:</div>
+                <div>曲名: ${t}</div>
+                <div>[${stD}]</div>
+                <div>${scD} | ${ppscD}</div>
+            `;
+        }
 
-function fallc(allc) {
-    if (allc === "none") return `<div>未记入任何成绩</div>`;
-    return allc.map(c => {
-        const [t, l, ...st] = c.split(':');
-        const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
-        const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
-        const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
-        const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
-        return `
-            <div>曲名: ${t}</div>
-            <div>[${stD}]</div>
-            <div>${scD} | ${ppscD}</div>
-            <hr>
-        `;
-    }).join('');
-}
+        function fallc(allc) {
+            if (allc === "none") return `<div>未记入任何成绩</div>`;
+            return allc.map(c => {
+                const [t, l, ...st] = c.split(':');
+                const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
+                const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
+                const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
+                const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
+                return `
+                    <div>曲名: ${t}</div>
+                    <div>[${stD}]</div>
+                    <div>${scD} | ${ppscD}</div>
+                    <hr>
+                `;
+            }).join('');
+        }
 
-function fttx(ttx) {
-    if (ttx === "none") return ''; // 如果没有头衔，返回空字符串
-    return ttx.sort((a, b) => Object.values(a)[0] - Object.values(b)[0])
-              .map(t => `<span class="ttx">${Object.keys(t)[0]}</span>`)
-              .join(' ');
-}
+        function fttx(ttx) {
+            if (ttx === "none") return ''; // 如果没有头衔，返回空字符串
+            return ttx.sort((a, b) => Object.values(a)[0] - Object.values(b)[0])
+                      .map(t => `<span class="ttx">${Object.keys(t)[0]}</span>`)
+                      .join(' ');
+        }
 
-async function llb() {
-    const users = await fusers();
-    const sortedUsers = cr(users);
+        async function llb() {
+            const users = await fusers();
+            const sortedUsers = cr(users);
 
-    const lb = document.getElementById('lb');
-    lb.innerHTML = '';
+            const lb = document.getElementById('lb');
+            lb.innerHTML = '';
 
-    sortedUsers.forEach((user, index) => {
-        const ue = document.createElement('div');
-        ue.className = `ue ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : ''}`;
-        ue.innerHTML = `
-            ${gi(user.name, user.icon)}
-            <span class="nm ${user.p === 2 ? 'adm' : ''}" onclick="showUserDetail('${user.name}', ${user.p}, ${JSON.stringify(user.TTX)}, ${JSON.stringify(user.allc)})">${user.name}</span>
-            ${user.TTX !== "none" ? fttx(user.TTX) : ''}
-            ${user.lastt && user.lastt !== 'none' ? `<span class="ttl ${user.lastt.toLowerCase()}" onclick="showDesc('${user.lastt}')">${user.lastt}</span>` : ''}
-            <div class="scr">
-                得分: ${user.score} | <span class="ppscr">${user.ppscore}</span>
-            </div>
-            ${user.lastc ? `<div class="lstc">${flc(user.lastc)}</div>` : ''}
-        `;
-        lb.appendChild(ue);
-    });
-}
+            sortedUsers.forEach((user, index) => {
+                const ue = document.createElement('div');
+                ue.className = `ue ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : ''}`;
+                ue.innerHTML = `
+                    ${gi(user.name, user.icon)}
+                    <span class="nm ${user.p === 2 ? 'adm' : ''}" onclick="showUserDetail('${user.name}', ${user.p}, ${JSON.stringify(user.TTX)}, ${JSON.stringify(user.allc)})">${user.name}</span>
+                    ${user.TTX !== "none" ? fttx(user.TTX) : ''}
+                    ${user.lastt && user.lastt !== 'none' ? `<span class="ttl ${user.lastt.toLowerCase()}" onclick="showDesc('${user.lastt}')">${user.lastt}</span>` : ''}
+                    <div class="scr">
+                        得分: ${user.score} | <span class="ppscr">${user.ppscore}</span>
+                    </div>
+                    ${user.lastc ? `<div class="lstc">${flc(user.lastc)}</div>` : ''}
+                `;
+                lb.appendChild(ue);
+            });
+        }
 
-function showUserDetail(name, isAdmin, ttx, allc) {
-    const detail = document.createElement('div');
-    detail.className = 'user-detail';
-    detail.innerHTML = `
-        <h2 class="${isAdmin === 2 ? 'adm' : ''}">${name} ${isAdmin === 2 ? '<span class="adm">[管理员]</span>' : ''}</h2>
-        <div>${ttx === "none" ? '无头衔' : ttx.sort((a, b) => Object.values(a)[0] - Object.values(b)[0]).map(t => `<div>${Object.keys(t)[0]}</div>`).join('')}</div>
-        <div>历史成绩(2025.3.2开始记入):</div>
-        <div>${fallc(allc)}</div>
-    `;
-    document.body.appendChild(detail);
-}
+        function showUserDetail(name, isAdmin, ttx, allc) {
+            const detail = document.createElement('div');
+            detail.className = 'user-detail';
+            detail.innerHTML = `
+                <h2 class="${isAdmin === 2 ? 'adm' : ''}">${name} ${isAdmin === 2 ? '<span class="adm">[管理员]</span>' : ''}</h2>
+                <div>${ttx === "none" ? '无头衔' : ttx.sort((a, b) => Object.values(a)[0] - Object.values(b)[0]).map(t => `<div>${Object.keys(t)[0]}</div>`).join('')}</div>
+                <div>历史成绩(2025.3.2开始记入):</div>
+                <div>${fallc(allc)}</div>
+                <button onclick="this.parentElement.remove()">关闭</button>
+            `;
+            document.body.appendChild(detail);
+        }
 
-function osm() {
-    document.getElementById('sm-m').style.display = 'block';
-}
+        function osm() {
+            document.getElementById('sm-m').style.display = 'block';
+        }
 
-function csm() {
-    document.getElementById('sm-m').style.display = 'none';
-}
+        function csm() {
+            document.getElementById('sm-m').style.display = 'none';
+        }
 
-function showDesc(title) {
-    const descriptions = {
-        "Ranked": "合规成绩",
-        "UnRanked": "暂定通过",
-        "Failed": "失败提交",
-        "Cheated": "作弊成绩，挂出来丢人",
-        "Faked": "伪造/虚假成绩，挂出来丢人",
-        "Banned": "该用户已被封禁，成绩无效 (最後的成績,bushi)"
-    };
-    alert(descriptions[title] || "无描述");
-}
+        function showDesc(title) {
+            const descriptions = {
+                "Ranked": "合规成绩",
+                "UnRanked": "暂定通过",
+                "Failed": "失败提交，不合格",
+                "Cheated": "作弊成绩",
+                "Faked": "伪造/虚假成绩",
+                "Banned": "该用户已被封禁"
+            };
+            alert(descriptions[title] || "未知(一看就是bydN9错别字发力了)");
+        }
 
-window.onload = () => {
-    llb();
-    chbg();
-};
+        window.onload = () => {
+            llb();
+            chbg();
+        };
 
-let ci = 1;
-const ti = 8;
+        let ci = 1;
+        const ti = 8;
 
-function chbg() {
-    ci = (ci % ti) + 1;
-    document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${ci}.jpg')`;
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
-    document.body.style.backgroundRepeat = "repeat";
-    document.body.classList.add('fade');
-    setTimeout(() => {
-        document.body.classList.remove('fade');
-    }, 1000);
+        function chbg() {
+            ci = (ci % ti) + 1;
+            document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${ci}.jpg')`;
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "center";
+            document.body.style.backgroundRepeat = "repeat";
+            document.body.classList.add('fade');
+            setTimeout(() => {
+                document.body.classList.remove('fade');
+            }, 1000);
 
-    setInterval(chbg, 6000);
-}
+            setInterval(chbg, 6000);
+        }
     </script>
 </body>
-
 </html>
-
-
