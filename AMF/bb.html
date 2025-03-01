@@ -354,7 +354,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="ct">
         <h1>排行榜</h1>
@@ -370,252 +369,251 @@
         <input type="range" id="progress" min="0" max="100" value="0">
     </div>
 
-
     <script>
-// 加载动画
-setTimeout(() => {
-    document.getElementById('loading').remove();
-    document.querySelector('.ct').style.display = 'block';
-}, 1000);
+        // 加载动画
+        setTimeout(() => {
+            document.getElementById('loading').remove();
+            document.querySelector('.ct').style.display = 'block';
+        }, 1000);
 
-// 主题切换
-function toggleTheme() {
-    document.body.classList.toggle('night-mode');
-}
+        // 主题切换
+        function toggleTheme() {
+            document.body.classList.toggle('night-mode');
+        }
 
-// 背景音乐
-const audio = new Audio('bgm.ogg');
-audio.autoplay = true;
-audio.loop = true;
+        // 背景音乐
+        const audio = new Audio('bgm.mp4'); // 支持 .wav 或 .mp4
+        audio.autoplay = true;
+        audio.loop = true;
 
-const playPauseButton = document.getElementById('play-pause');
-const progressBar = document.getElementById('progress');
+        const playPauseButton = document.getElementById('play-pause');
+        const progressBar = document.getElementById('progress');
 
-playPauseButton.addEventListener('click', () => {
-    if (audio.paused) {
-        audio.play();
-        playPauseButton.textContent = '❙❙';
-    } else {
-        audio.pause();
-        playPauseButton.textContent = '▶︎';
-    }
-});
+        playPauseButton.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseButton.textContent = '❙❙';
+            } else {
+                audio.pause();
+                playPauseButton.textContent = '▶︎';
+            }
+        });
 
-audio.addEventListener('timeupdate', () => {
-    progressBar.value = (audio.currentTime / audio.duration) * 100;
-});
+        audio.addEventListener('timeupdate', () => {
+            progressBar.value = (audio.currentTime / audio.duration) * 100;
+        });
 
-progressBar.addEventListener('input', () => {
-    audio.currentTime = (progressBar.value / 100) * audio.duration;
-});
+        progressBar.addEventListener('input', () => {
+            audio.currentTime = (progressBar.value / 100) * audio.duration;
+        });
 
-// 弹窗逻辑
-const modal = document.createElement('div');
-modal.id = 'modal';
-modal.style.display = 'none';
-modal.style.position = 'fixed';
-modal.style.top = '50%';
-modal.style.left = '50%';
-modal.style.transform = 'translate(-50%, -50%)';
-modal.style.background = 'rgba(255, 255, 255, 0.9)';
-modal.style.borderRadius = '10px';
-modal.style.padding = '20px';
-modal.style.width = '90%';
-modal.style.maxWidth = '600px';
-modal.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.3)';
-modal.style.animation = 'slideIn 0.5s ease-out';
-document.body.appendChild(modal);
-
-// 关闭弹窗
-function closeModal() {
-    modal.style.animation = 'slideOut 0.5s ease-in';
-    setTimeout(() => {
+        // 弹窗逻辑
+        const modal = document.createElement('div');
+        modal.id = 'modal';
         modal.style.display = 'none';
-        modal.innerHTML = ''; // 清除内容
-    }, 500);
-}
+        modal.style.position = 'fixed';
+        modal.style.top = '50%';
+        modal.style.left = '50%';
+        modal.style.transform = 'translate(-50%, -50%)';
+        modal.style.background = 'rgba(255, 255, 255, 0.9)';
+        modal.style.borderRadius = '10px';
+        modal.style.padding = '20px';
+        modal.style.width = '90%';
+        modal.style.maxWidth = '600px';
+        modal.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.3)';
+        modal.style.animation = 'slideIn 0.5s ease-out';
+        document.body.appendChild(modal);
 
-// 显示提交成绩弹窗
-function osm() {
-    modal.innerHTML = `
-        <h2>发送邮件至 2360881635@qq.com</h2>
-        <p>标题: 成绩提交</p>
-        <p>正文要求:</p>
-        <ul>
-            <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
-            <li>等级:</li>
-            <li>精准度:</li>
-            <li>详细结果 [
+        // 关闭弹窗
+        function closeModal() {
+            modal.style.animation = 'slideOut 0.5s ease-in';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modal.innerHTML = ''; // 清除内容
+            }, 500);
+        }
+
+        // 显示提交成绩弹窗
+        function osm() {
+            modal.innerHTML = `
+                <h2>发送邮件至 2360881635@qq.com</h2>
+                <p>标题: 成绩提交</p>
+                <p>正文要求:</p>
                 <ul>
-                    <li>空敲:</li>
-                    <li>太快:</li>
-                    <li>稍快:</li>
-                    <li>完美:</li>
-                    <li>稍慢:</li>
-                    <li>太慢:</li>
+                    <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
+                    <li>等级:</li>
+                    <li>精准度:</li>
+                    <li>详细结果 [
+                        <ul>
+                            <li>空敲:</li>
+                            <li>太快:</li>
+                            <li>稍快:</li>
+                            <li>完美:</li>
+                            <li>稍慢:</li>
+                            <li>太慢:</li>
+                        </ul>
+                        ]
+                    </li>
+                    <li>角度判定(是/否):</li>
+                    <li>判定(角度判定可为标):</li>
+                    <li>首次投稿可提供头像 (PNG格式)</li>
                 </ul>
-                ]
-            </li>
-            <li>角度判定(是/否):</li>
-            <li>判定(角度判定可为标):</li>
-            <li>首次投稿可提供头像 (PNG格式)</li>
-        </ul>
-        <p>- 提供视频，截图</p>
-        <button onclick="closeModal()">关闭</button>
-    `;
-    modal.style.display = 'block';
-    modal.style.animation = 'slideIn 0.5s ease-out';
-}
+                <p>- 提供视频，截图</p>
+                <button onclick="closeModal()">关闭</button>
+            `;
+            modal.style.display = 'block';
+            modal.style.animation = 'slideIn 0.5s ease-out';
+        }
 
-// 显示用户详细信息弹窗
-function showUserDetail(name, isAdmin, ttx, allc) {
-    modal.innerHTML = `
-        <h2 class="${isAdmin === 2 ? 'adm' : ''}">${name} ${isAdmin === 2 ? '<span class="adm">[管理员]</span>' : ''}</h2>
-        <div>总分: ${isAdmin.score} | <span class="ppscr">${isAdmin.ppscore}</span></div>
-        <div>头衔:</div>
-        <div>${fttx(ttx)}</div>
-        <div>历史成绩(2025.3.2开始记入):</div>
-        <div>${fallc(allc)}</div>
-        <button onclick="closeModal()">关闭</button>
-    `;
-    modal.style.display = 'block';
-    modal.style.animation = 'slideIn 0.5s ease-out';
-}
+        // 显示用户详细信息弹窗
+        function showUserDetail(name, isAdmin, ttx, allc) {
+            modal.innerHTML = `
+                <h2 class="${isAdmin === 2 ? 'adm' : ''}">${name} ${isAdmin === 2 ? '<span class="adm">[管理员]</span>' : ''}</h2>
+                <div>总分: ${isAdmin.score} | <span class="ppscr">${isAdmin.ppscore}</span></div>
+                <div>头衔:</div>
+                <div>${fttx(ttx)}</div>
+                <div>历史成绩(2025.3.2开始记入):</div>
+                <div>${fallc(allc)}</div>
+                <button onclick="closeModal()">关闭</button>
+            `;
+            modal.style.display = 'block';
+            modal.style.animation = 'slideIn 0.5s ease-out';
+        }
 
-// 加载用户数据
-async function fusers() {
-    try {
-        const r = await fetch('users.json');
-        if (!r.ok) throw new Error('无法读取用户数据');
-        return await r.json();
-    } catch (e) {
-        console.error('加载用户数据出错:', e);
-        return [];
-    }
-}
+        // 加载用户数据
+        async function fusers() {
+            try {
+                const r = await fetch('users.json');
+                if (!r.ok) throw new Error('无法读取用户数据');
+                return await r.json();
+            } catch (e) {
+                console.error('加载用户数据出错:', e);
+                return [];
+            }
+        }
 
-// 排序用户
-function cr(users) {
-    return users.sort((a, b) => (b.ppscore * 2 + b.score) - (a.ppscore * 2 + a.score));
-}
+        // 排序用户
+        function cr(users) {
+            return users.sort((a, b) => (b.ppscore * 2 + b.score) - (a.ppscore * 2 + a.score));
+        }
 
-// 生成用户头像
-function gi(nm, ic) {
-    if (ic) return `<img src="${ic}" alt="${nm}">`;
-    return `<div style="width:50px; height:50px; background:#ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;">${nm[0]}</div>`;
-}
+        // 生成用户头像
+        function gi(nm, ic) {
+            if (ic) return `<img src="${ic}" alt="${nm}">`;
+            return `<div style="width:50px; height:50px; background:#ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;">${nm[0]}</div>`;
+        }
 
-// 格式化最近成绩
-function flc(lstc) {
-    const [t, l, ...st] = lstc.split(':');
-    const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
-    const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
-    const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
-    const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
+        // 格式化最近成绩
+        function flc(lstc) {
+            const [t, l, ...st] = lstc.split(':');
+            const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
+            const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
+            const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
+            const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
 
-    return `
-        <div>最近成绩:</div>
-        <div>曲名: ${t}</div>
-        <div>[${stD}]</div>
-        <div>${scD} | ${ppscD}</div>
-    `;
-}
+            return `
+                <div>最近成绩:</div>
+                <div>曲名: ${t}</div>
+                <div>[${stD}]</div>
+                <div>${scD} | ${ppscD}</div>
+            `;
+        }
 
-// 格式化历史成绩
-function fallc(allc) {
-    if (allc === "none") return `<div>未记入任何成绩</div>`;
-    return allc.map(c => {
-        const [t, l, ...st] = c.split(':');
-        const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
-        const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
-        const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
-        const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
-        return `
-            <div>曲名: ${t}</div>
-            <div>[${stD}]</div>
-            <div>${scD} | ${ppscD}</div>
-            <hr>
-        `;
-    }).join('');
-}
+        // 格式化历史成绩
+        function fallc(allc) {
+            if (allc === "none") return `<div>未记入任何成绩</div>`;
+            return allc.map(c => {
+                const [t, l, ...st] = c.split(':');
+                const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
+                const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
+                const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
+                const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
+                return `
+                    <div>曲名: ${t}</div>
+                    <div>[${stD}]</div>
+                    <div>${scD} | ${ppscD}</div>
+                    <hr>
+                `;
+            }).join('');
+        }
 
-// 格式化头衔
-function fttx(ttx) {
-    if (ttx === "none") return ''; // 如果没有头衔，返回空字符串
-    return ttx.sort((a, b) => Object.values(a)[0] - Object.values(b)[0])
-              .map(t => `<div>${Object.keys(t)[0]}</div>`)
-              .join('');
-}
+        // 格式化头衔
+        function fttx(ttx) {
+            if (ttx === "none") return ''; // 如果没有头衔，返回空字符串
+            return ttx.sort((a, b) => Object.values(a)[0] - Object.values(b)[0])
+                      .map(t => `<div>${Object.keys(t)[0]}</div>`)
+                      .join('');
+        }
 
-// 加载排行榜
-async function llb() {
-    const users = await fusers();
-    const sortedUsers = cr(users);
+        // 加载排行榜
+        async function llb() {
+            const users = await fusers();
+            const sortedUsers = cr(users);
 
-    const lb = document.getElementById('lb');
-    lb.innerHTML = '';
+            const lb = document.getElementById('lb');
+            lb.innerHTML = '';
 
-    sortedUsers.forEach((user, index) => {
-        const ue = document.createElement('div');
-        ue.className = `ue ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : ''}`;
-        ue.innerHTML = `
-            ${gi(user.name, user.icon)}
-            <span class="nm ${user.p === 2 ? 'adm' : ''}" onclick="showUserDetail('${user.name}', ${user.p}, ${JSON.stringify(user.TTX)}, ${JSON.stringify(user.allc)})">${user.name}</span>
-            ${user.lastt && user.lastt !== 'none' ? `<span class="ttl ${user.lastt.toLowerCase()}" onclick="showDesc('${user.lastt}')">${user.lastt}</span>` : ''}
-            <div class="scr">
-                得分: ${user.score} | <span class="ppscr">${user.ppscore}</span>
-            </div>
-            ${user.lastc ? `<div class="lstc">${flc(user.lastc)}</div>` : ''}
-        `;
-        lb.appendChild(ue);
-    });
-}
+            sortedUsers.forEach((user, index) => {
+                const ue = document.createElement('div');
+                ue.className = `ue ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : ''}`;
+                ue.innerHTML = `
+                    ${gi(user.name, user.icon)}
+                    <span class="nm ${user.p === 2 ? 'adm' : ''}" onclick="showUserDetail('${user.name}', ${user.p}, ${JSON.stringify(user.TTX)}, ${JSON.stringify(user.allc)})">${user.name}</span>
+                    ${user.lastt && user.lastt !== 'none' ? `<span class="ttl ${user.lastt.toLowerCase()}" onclick="showDesc('${user.lastt}')">${user.lastt}</span>` : ''}
+                    <div class="scr">
+                        得分: ${user.score} | <span class="ppscr">${user.ppscore}</span>
+                    </div>
+                    ${user.lastc ? `<div class="lstc">${flc(user.lastc)}</div>` : ''}
+                `;
+                lb.appendChild(ue);
+            });
+        }
 
-// 显示描述提示
-function showDesc(title) {
-    const descriptions = {
-        "Ranked": "合规成绩",
-        "UnRanked": "暂定通过",
-        "Failed": "失败提交，不合格",
-        "Cheated": "作弊成绩",
-        "Faked": "伪造/虚假成绩",
-        "Banned": "该用户已被封禁"
-    };
-    const alertDiv = document.createElement('div');
-    alertDiv.className = 'custom-alert';
-    alertDiv.textContent = descriptions[title] || "未知(一看就是bydN9错别字发力了)";
-    document.body.appendChild(alertDiv);
-    setTimeout(() => {
-        alertDiv.remove();
-    }, 3000);
-}
+        // 显示描述提示
+        function showDesc(title) {
+            const descriptions = {
+                "Ranked": "合规成绩",
+                "UnRanked": "暂定通过",
+                "Failed": "失败提交，不合格",
+                "Cheated": "作弊成绩",
+                "Faked": "伪造/虚假成绩",
+                "Banned": "该用户已被封禁"
+            };
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'custom-alert';
+            alertDiv.textContent = descriptions[title] || "未知(一看就是bydN9错别字发力了)";
+            document.body.appendChild(alertDiv);
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 3000);
+        }
 
-// 初始化
-window.onload = () => {
-    llb();
-    chbg();
-};
+        // 初始化
+        window.onload = () => {
+            llb();
+            chbg();
+        };
 
-// 背景切换
-let ci = 1;
-const ti = 8;
-let bgInterval;
+        // 背景切换
+        let ci = 1;
+        const ti = 8;
+        let bgInterval;
 
-function chbg() {
-    ci = (ci % ti) + 1;
-    document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${ci}.jpg')`;
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
-    document.body.style.backgroundRepeat = "repeat";
-    document.body.classList.add('fade');
-    setTimeout(() => {
-        document.body.classList.remove('fade');
-    }, 1000);
+        function chbg() {
+            ci = (ci % ti) + 1;
+            document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${ci}.jpg')`;
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "center";
+            document.body.style.backgroundRepeat = "repeat";
+            document.body.classList.add('fade');
+            setTimeout(() => {
+                document.body.classList.remove('fade');
+            }, 1000);
 
-    // 清除旧的定时器
-    if (bgInterval) clearInterval(bgInterval);
-    bgInterval = setInterval(chbg, 6000);
-}
+            // 清除旧的定时器
+            if (bgInterval) clearInterval(bgInterval);
+            bgInterval = setInterval(chbg, 6000);
+        }
     </script>
 </body>
 </html>
