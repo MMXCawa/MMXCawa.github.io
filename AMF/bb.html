@@ -354,6 +354,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="ct">
         <h1>排行榜</h1>
@@ -361,32 +362,6 @@
         <div class="lb" id="lb"></div>
     </div>
     <div class="sm" onclick="osm()">提交成绩</div>
-    <div id="sm-m">
-        <h2>发送邮件至 2360881635@qq.com</h2>
-        <p>标题: 成绩提交</p>
-        <p>正文要求:</p>
-        <ul>
-            <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
-            <li>等级:</li>
-            <li>精准度:</li>
-            <li>详细结果 [
-                <ul>
-                    <li>空敲:</li>
-                    <li>太快:</li>
-                    <li>稍快:</li>
-                    <li>完美:</li>
-                    <li>稍慢:</li>
-                    <li>太慢:</li>
-                </ul>
-                ]
-            </li>
-            <li>角度判定(是/否):</li>
-            <li>判定(角度判定可为标):</li>
-            <li>首次投稿可提供头像 (PNG格式)</li>
-        </ul>
-        <p>- 提供视频，截图</p>
-        <button onclick="csm()">关闭</button>
-    </div>
     <div id="version">版本号: V2.1</div>
     <div class="theme-toggle" onclick="toggleTheme()">🌌</div>
     <div class="loading" id="loading">正在加载中...</div>
@@ -394,6 +369,7 @@
         <button id="play-pause">❙❙</button>
         <input type="range" id="progress" min="0" max="100" value="0">
     </div>
+
 
     <script>
 // 加载动画
@@ -408,7 +384,7 @@ function toggleTheme() {
 }
 
 // 背景音乐
-const audio = new Audio('bgm.wav');
+const audio = new Audio('bgm.ogg');
 audio.autoplay = true;
 audio.loop = true;
 
@@ -433,37 +409,77 @@ progressBar.addEventListener('input', () => {
     audio.currentTime = (progressBar.value / 100) * audio.duration;
 });
 
-// 提交成绩弹窗动画
-function osm() {
-    const sm = document.getElementById('sm-m');
-    sm.style.display = 'block';
-    sm.style.animation = 'slideIn 0.5s ease-out';
-}
+// 弹窗逻辑
+const modal = document.createElement('div');
+modal.id = 'modal';
+modal.style.display = 'none';
+modal.style.position = 'fixed';
+modal.style.top = '50%';
+modal.style.left = '50%';
+modal.style.transform = 'translate(-50%, -50%)';
+modal.style.background = 'rgba(255, 255, 255, 0.9)';
+modal.style.borderRadius = '10px';
+modal.style.padding = '20px';
+modal.style.width = '90%';
+modal.style.maxWidth = '600px';
+modal.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.3)';
+modal.style.animation = 'slideIn 0.5s ease-out';
+document.body.appendChild(modal);
 
-function csm() {
-    const sm = document.getElementById('sm-m');
-    sm.style.animation = 'slideOut 0.5s ease-in';
+// 关闭弹窗
+function closeModal() {
+    modal.style.animation = 'slideOut 0.5s ease-in';
     setTimeout(() => {
-        sm.style.display = 'none';
+        modal.style.display = 'none';
+        modal.innerHTML = ''; // 清除内容
     }, 500);
 }
 
-// 用户详细信息弹窗
+// 显示提交成绩弹窗
+function osm() {
+    modal.innerHTML = `
+        <h2>发送邮件至 2360881635@qq.com</h2>
+        <p>标题: 成绩提交</p>
+        <p>正文要求:</p>
+        <ul>
+            <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
+            <li>等级:</li>
+            <li>精准度:</li>
+            <li>详细结果 [
+                <ul>
+                    <li>空敲:</li>
+                    <li>太快:</li>
+                    <li>稍快:</li>
+                    <li>完美:</li>
+                    <li>稍慢:</li>
+                    <li>太慢:</li>
+                </ul>
+                ]
+            </li>
+            <li>角度判定(是/否):</li>
+            <li>判定(角度判定可为标):</li>
+            <li>首次投稿可提供头像 (PNG格式)</li>
+        </ul>
+        <p>- 提供视频，截图</p>
+        <button onclick="closeModal()">关闭</button>
+    `;
+    modal.style.display = 'block';
+    modal.style.animation = 'slideIn 0.5s ease-out';
+}
+
+// 显示用户详细信息弹窗
 function showUserDetail(name, isAdmin, ttx, allc) {
-    const detail = document.createElement('div');
-    detail.className = 'user-detail';
-    detail.innerHTML = `
+    modal.innerHTML = `
         <h2 class="${isAdmin === 2 ? 'adm' : ''}">${name} ${isAdmin === 2 ? '<span class="adm">[管理员]</span>' : ''}</h2>
         <div>总分: ${isAdmin.score} | <span class="ppscr">${isAdmin.ppscore}</span></div>
         <div>头衔:</div>
         <div>${fttx(ttx)}</div>
         <div>历史成绩(2025.3.2开始记入):</div>
         <div>${fallc(allc)}</div>
-        <button onclick="this.parentElement.remove()">关闭</button>
+        <button onclick="closeModal()">关闭</button>
     `;
-    document.body.appendChild(detail);
-    detail.style.display = 'block';
-    detail.style.animation = 'slideIn 0.5s ease-out';
+    modal.style.display = 'block';
+    modal.style.animation = 'slideIn 0.5s ease-out';
 }
 
 // 加载用户数据
@@ -583,6 +599,7 @@ window.onload = () => {
 // 背景切换
 let ci = 1;
 const ti = 8;
+let bgInterval;
 
 function chbg() {
     ci = (ci % ti) + 1;
@@ -595,7 +612,9 @@ function chbg() {
         document.body.classList.remove('fade');
     }, 1000);
 
-    setInterval(chbg, 6000);
+    // 清除旧的定时器
+    if (bgInterval) clearInterval(bgInterval);
+    bgInterval = setInterval(chbg, 6000);
 }
     </script>
 </body>
