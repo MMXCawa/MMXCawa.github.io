@@ -23,7 +23,7 @@
         "p": 1,
         "score":0,
         "ppscore": 0,
-        "lastc": "Banned:0:0:0:0:0:0:0:0:0:0",
+        "lastc": "0:0:0:0:0:0:0:0:0:0:0",
         "lastt": "Banned"
     },
     {
@@ -69,6 +69,15 @@
         "score":749.0126,
         "ppscore": 0,
         "lastc": "We Want To Run（nerf):21.1:39:95:319:3812:46:7:0:749.0126:0",
+        "lastt": "Ranked"
+    },
+    {
+        "name": "751",
+        "icon": "751.png",
+        "p": 1,
+        "score":0,
+        "ppscore": 0,
+        "lastc": "terminal11-Postmanic Candybar Overdose:U11:50:82:202:5213:31:6:0:767.6193:0",
         "lastt": "Ranked"
     }
     
