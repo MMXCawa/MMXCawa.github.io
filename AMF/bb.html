@@ -101,6 +101,7 @@
 
         .ue .nm {
             font-weight: bold;
+            cursor: pointer;
         }
 
         .ue .adm {
@@ -261,6 +262,29 @@
             color: #555;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
         }
+
+        .custom-alert {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease-out, slideOut 0.5s ease-in 2.5s;
+        }
+
+        @keyframes slideIn {
+            from { top: -50px; }
+            to { top: 10px; }
+        }
+
+        @keyframes slideOut {
+            from { top: 10px; }
+            to { top: -50px; }
+        }
     </style>
 </head>
 <body>
@@ -296,7 +320,7 @@
         <p>- 提供视频，截图</p>
         <button onclick="csm()">关闭</button>
     </div>
-    <div id="version">版本号: V2</div>
+    <div id="version">版本号: V2.1</div>
 
     <script>
         async function fusers() {
@@ -354,8 +378,8 @@
         function fttx(ttx) {
             if (ttx === "none") return ''; // 如果没有头衔，返回空字符串
             return ttx.sort((a, b) => Object.values(a)[0] - Object.values(b)[0])
-                      .map(t => `<span class="ttx">${Object.keys(t)[0]}</span>`)
-                      .join(' ');
+                      .map(t => `<div>${Object.keys(t)[0]}</div>`)
+                      .join('');
         }
 
         async function llb() {
@@ -371,7 +395,6 @@
                 ue.innerHTML = `
                     ${gi(user.name, user.icon)}
                     <span class="nm ${user.p === 2 ? 'adm' : ''}" onclick="showUserDetail('${user.name}', ${user.p}, ${JSON.stringify(user.TTX)}, ${JSON.stringify(user.allc)})">${user.name}</span>
-                    ${user.TTX !== "none" ? fttx(user.TTX) : ''}
                     ${user.lastt && user.lastt !== 'none' ? `<span class="ttl ${user.lastt.toLowerCase()}" onclick="showDesc('${user.lastt}')">${user.lastt}</span>` : ''}
                     <div class="scr">
                         得分: ${user.score} | <span class="ppscr">${user.ppscore}</span>
@@ -387,20 +410,14 @@
             detail.className = 'user-detail';
             detail.innerHTML = `
                 <h2 class="${isAdmin === 2 ? 'adm' : ''}">${name} ${isAdmin === 2 ? '<span class="adm">[管理员]</span>' : ''}</h2>
-                <div>${ttx === "none" ? '无头衔' : ttx.sort((a, b) => Object.values(a)[0] - Object.values(b)[0]).map(t => `<div>${Object.keys(t)[0]}</div>`).join('')}</div>
+                <div>总分: ${isAdmin.score} | <span class="ppscr">${isAdmin.ppscore}</span></div>
+                <div>头衔:</div>
+                <div>${fttx(ttx)}</div>
                 <div>历史成绩(2025.3.2开始记入):</div>
                 <div>${fallc(allc)}</div>
                 <button onclick="this.parentElement.remove()">关闭</button>
             `;
             document.body.appendChild(detail);
-        }
-
-        function osm() {
-            document.getElementById('sm-m').style.display = 'block';
-        }
-
-        function csm() {
-            document.getElementById('sm-m').style.display = 'none';
         }
 
         function showDesc(title) {
@@ -412,7 +429,21 @@
                 "Faked": "伪造/虚假成绩",
                 "Banned": "该用户已被封禁"
             };
-            alert(descriptions[title] || "未知(一看就是bydN9错别字发力了)");
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'custom-alert';
+            alertDiv.textContent = descriptions[title] || "未知(一看就是bydN9错别字发力了)";
+            document.body.appendChild(alertDiv);
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 3000);
+        }
+
+        function osm() {
+            document.getElementById('sm-m').style.display = 'block';
+        }
+
+        function csm() {
+            document.getElementById('sm-m').style.display = 'none';
         }
 
         window.onload = () => {
