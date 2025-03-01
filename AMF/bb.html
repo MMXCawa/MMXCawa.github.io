@@ -352,6 +352,48 @@
         .music-controls input[type="range"] {
             width: 100px;
         }
+        .difficulty {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            min-width: 24px;
+        }
+
+        .difficulty.unknown {
+            background: black;
+            color: white;
+        }
+
+        .difficulty.p1 { background: #00ff00; }
+        .difficulty.p2 { background: #00cc00; }
+        .difficulty.p3 { background: #009900; }
+        .difficulty.p4 { background: #006600; }
+        .difficulty.p5 { background: #003300; }
+        .difficulty.p6 { background: #0000cc; }
+        .difficulty.p7 { background: #000099; }
+        .difficulty.p8 { background: #000066; }
+        .difficulty.p9 { background: #000033; }
+        .difficulty.p10 { background: #0000ff; }
+        .difficulty.p11 { background: #ffff00; }
+        .difficulty.p12 { background: #ffcc00; }
+        .difficulty.p13 { background: #ff9900; }
+        .difficulty.p14 { background: #ff6600; }
+        .difficulty.p15 { background: #ff3300; }
+        .difficulty.p16 { background: #ff0000; }
+        .difficulty.p17 { background: #cc0000; }
+        .difficulty.p18 { background: #990000; }
+        .difficulty.p19 { background: #660000; }
+        .difficulty.p20 { background: #330000; }
+        .difficulty.g1 { background: #000000; color: red; }
+        .difficulty.g2 { background: #000000; color: red; }
+        .difficulty.u1 { background: #000000; color: red; }
+        .difficulty.u2 { background: #000000; color: red; }
+        .difficulty.unknown { background: black; color: white; }
+        .difficulty.unknown::after { content: "?"; }
     </style>
 </head>
 <body>
@@ -382,7 +424,7 @@
         }
 
         // 背景音乐
-        const audio = new Audio('bgm.mp4'); // 支持 .wav 或 .mp4
+        const audio = new Audio('bgm.wav'); // 固定为 bgm.wav
         audio.autoplay = true;
         audio.loop = true;
 
@@ -441,6 +483,8 @@
                 <p>正文要求:</p>
                 <ul>
                     <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
+                    <li>曲名:</li>
+                    <li>谱师:</li>
                     <li>等级:</li>
                     <li>精准度:</li>
                     <li>详细结果 [
@@ -513,7 +557,7 @@
 
             return `
                 <div>最近成绩:</div>
-                <div>曲名: ${t}</div>
+                <div>曲名: ${t} <span class="difficulty ${getDifficultyClass(l)}">${l}</span></div>
                 <div>[${stD}]</div>
                 <div>${scD} | ${ppscD}</div>
             `;
@@ -529,7 +573,7 @@
                 const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
                 const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
                 return `
-                    <div>曲名: ${t}</div>
+                    <div>曲名: ${t} <span class="difficulty ${getDifficultyClass(l)}">${l}</span></div>
                     <div>[${stD}]</div>
                     <div>${scD} | ${ppscD}</div>
                     <hr>
@@ -537,9 +581,23 @@
             }).join('');
         }
 
+        // 获取难度样式类
+        function getDifficultyClass(level) {
+            if (level.toLowerCase() === 'unknown') return 'unknown';
+            const num = parseFloat(level.replace(/[^0-9.]/g, ''));
+            if (isNaN(num)) return 'unknown';
+            if (num >= 1 && num <= 10) return `p${Math.floor(num)}`;
+            if (num >= 11 && num <= 17) return `p${Math.floor(num)}`;
+            if (num >= 18 && num <= 19.9) return `p${Math.floor(num)}`;
+            if (num >= 20 && num <= 20.99) return `p${Math.floor(num)}`;
+            if (num >= 21 && num <= 21.99) return `g${Math.floor(num - 20)}`;
+            if (num >= 22 && num <= 100) return 'unknown';
+            return 'unknown';
+        }
+
         // 格式化头衔
         function fttx(ttx) {
-            if (ttx === "none") return ''; // 如果没有头衔，返回空字符串
+            if (ttx === "null") return '';
             return ttx.sort((a, b) => Object.values(a)[0] - Object.values(b)[0])
                       .map(t => `<div>${Object.keys(t)[0]}</div>`)
                       .join('');
