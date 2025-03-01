@@ -4,14 +4,28 @@
         "icon": "n9.png",
         "p": 2,
         "score": 1060.8314,
-        "ppscore": 127.0,
-        "lastc": "XF-X 第三波旋转:8:0:0:0:355:0:0:0:0:74",
+        "ppscore": 209.0,
+        "TTX": [
+            { "排行榜管理员": 1 },
+            { "废物": 2 }
+        ],
+        "allc": [
+            "Frums - Great Great:8:0:0:0:355:0:0:0:0:82"
+        ],
+        "lastc": "Frums - Great Great:8:0:0:0:355:0:0:0:0:82",
         "lastt": "Ranked"
     },
     {
         "name": "MMXCawa",
         "icon": "mmxc.png",
         "p": 2,
+        "TTX": [
+            { "排行榜管理员": 1 },
+            { "冰火宗师(": 2 }
+        ],
+        "allc": [
+            "goreshit - You are everything:21.125:35:62:144:4255:13:7:0:782.3920:2250"
+        ],
         "score":5713.8877,
         "ppscore": 2250.0,
         "lastc": "goreshit - You are everything:21.125:35:62:144:4255:13:7:0:782.3920:2250",
@@ -20,6 +34,8 @@
     {
         "name": "冰与火之舞So",
         "icon": "so.png",
+        "TTX": none,
+        "allc": none,
         "p": 1,
         "score":0,
         "ppscore": 0,
@@ -30,6 +46,10 @@
         "name": "艾莲的咸鱼布",
         "icon": "aldxyb.png",
         "p": 1,
+        "TTX": none,
+        "allc": [
+            "Playaphonk - Phonky Town:Unknown:11:17:71:2598:31:2:0:708.9519:0"
+        ],
         "score":1994.9169,
         "ppscore": 0,
         "lastc": "Playaphonk - Phonky Town:Unknown:11:17:71:2598:31:2:0:708.9519:0",
@@ -39,15 +59,21 @@
         "name": "菜柚_",
         "icon": "cy_.png",
         "p": 1,
+        "TTX": none,
+        "allc": [
+            "Playaphonk - Phonky Town:20.7:3:11:173:4576:35:6:0:802.3097:0"
+        ],
         "score":1561.8056,
         "ppscore": 0,
-        "lastc": "V0W4N - Phonky Town:20.7:3:11:173:4576:35:6:0:802.3097:0",
+        "lastc": "Playaphonk - Phonky Town:20.7:3:11:173:4576:35:6:0:802.3097:0",
         "lastt": "Ranked"
     },
     {
         "name": "牢梦单推人🤔",
         "icon": "lmdtr.png",
         "p": 1,
+        "TTX": none,
+        "allc": none,
         "score":0,
         "ppscore": 0,
         "lastc": "0:0:0:0:0:0:0:0:0:0:0",
@@ -57,6 +83,10 @@
         "name": "Danln",
         "icon": "DanIn.png",
         "p": 1,
+        "TTX": none,
+        "allc": [
+            "ALL MY FELLAS:17:2:0:3:1590:1:0:0:607.8448:0"
+        ],
         "score":607.8448,
         "ppscore": 0,
         "lastc": "ALL MY FELLAS:17:2:0:3:1590:1:0:0:607.8448:0",
@@ -66,15 +96,23 @@
         "name": "天穹",
         "icon": "tianqiong.png",
         "p": 1,
+        "TTX": none,
+        "allc": [
+            "Playaphonk - Phonky Town（nerf）（1.3）:20.1:10:27:170:2440:73:9:0:684.9615:0"
+        ],
         "score":1373.9741,
         "ppscore": 0,
-        "lastc": "Phonky Town（nerf）（1.3）:20.1:10:27:170:2440:73:9:0:684.9615:0",
+        "lastc": "Playaphonk - Phonky Town（nerf）（1.3）:20.1:10:27:170:2440:73:9:0:684.9615:0",
         "lastt": "Ranked"
     },
     {
         "name": "751",
         "icon": "751.png",
         "p": 1,
+        "TTX": none,
+        "allc": [
+            "terminal11-Postmanic Candybar Overdose:U11:50:82:202:5213:31:6:0:767.6193:0"
+        ],
         "score":767.6193,
         "ppscore": 0,
         "lastc": "terminal11-Postmanic Candybar Overdose:U11:50:82:202:5213:31:6:0:767.6193:0",
@@ -84,6 +122,10 @@
         "name": "almigu",
         "icon": "almigu.png",
         "p": 1,
+        "TTX": none,
+        "allc": [
+            "goreshit - mulligan:U2:736:731:717:1752:16:2:0:466.4017:0"
+        ],
         "score":466.4017,
         "ppscore": 0,
         "lastc": "goreshit - mulligan:U2:736:731:717:1752:16:2:0:466.4017:0",
@@ -93,6 +135,10 @@
         "name": "XF_ouo",
         "icon": "xfouo.png",
         "p": 1,
+        "TTX": none,
+        "allc": [
+            "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:978"
+        ],
         "score":0,
         "ppscore": 978,
         "lastc": "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:978",
