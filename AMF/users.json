@@ -145,5 +145,18 @@
         "ppscore": 978,
         "lastc": "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:978",
         "lastt": "Ranked"
+    },
+    {
+        "name": "愛玩遊戲的小說",
+        "icon": "awyxdxs.png",
+        "p": 1,
+        "TTX": null,
+        "allc": [
+            "Turkish March:P12:24:46:121:1108:6:2:0:504.4489:0"
+        ],
+        "score": 504.4489,
+        "ppscore": 0,
+        "lastc": "Turkish March:P12:24:46:121:1108:6:2:0:504.4489:0",
+        "lastt": "Ranked"
     }
 ]
