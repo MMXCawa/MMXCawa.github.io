@@ -24,11 +24,16 @@
             { "冰火宗师": 2 }
         ],
         "allc": [
-            "goreshit - You are everything:21.125:35:62:144:4255:13:7:0:782.3920:2250"
+            "goreshit - You are everything:21.125:35:62:144:4255:13:7:0:782.3920:2250",
+            "Playaphonk - Phonky Town (Nerfed):G6:0:0:0:2719:0:0:0:0:558.51",
+            "Dafikun - BPM = SUB / 1450 (Nerfed):G3:0:0:0:1934:0:0:0:0:521.86",
+            "megawolf77 - Happyyyy~★♥♪!!:P17:0:0:0:2220:0:0:0:0:493.80",
+            "F-777 - Ludicrous Speed:P17:0:0:0:2133:0:0:0:0:468.57",
+            "Camellia - First Town of This Journey:P17:0:0:0:1920:0:0:0:0:406.80"
         ],
         "score": 5713.8877,
-        "ppscore": 2250.0,
-        "lastc": "goreshit - You are everything:21.125:35:62:144:4255:13:7:0:782.3920:2250",
+        "ppscore": 4699.03,
+        "lastc": "Camellia - First Town of This Journey:P17:0:0:0:1920:0:0:0:0:406.80",
         "lastt": "Ranked"
     },
     {
@@ -112,11 +117,13 @@
         "p": 1,
         "TTX": null,
         "allc": [
-            "terminal11-Postmanic Candybar Overdose:U11:50:82:202:5213:31:6:0:767.6193:0"
+            "terminal11-Postmanic Candybar Overdose:U11:50:82:202:5213:31:6:0:767.6193:0",
+            "The World Revolving:U2:9:9:73:5045:21:1:0:4313.56:0",
+            "burning aquamarine:U1:7:10:51:4083:12:3:0:3483.55:0"
         ],
-        "score": 767.6193,
+        "score": 8564.7293,
         "ppscore": 0,
-        "lastc": "terminal11-Postmanic Candybar Overdose:U11:50:82:202:5213:31:6:0:767.6193:0",
+        "lastc": "burning aquamarine:U1:7:10:51:4083:12:3:0:3483.55:0",
         "lastt": "Ranked"
     },
     {
@@ -126,11 +133,12 @@
         "TTX": null,
         "allc": [
             "Xyris - A prompted error:G13:9:19:90:2763:27:5:0:720.4067:0",
-            "goreshit - mulligan:U2:736:731:717:1752:16:2:0:466.4017:0"
+            "goreshit - mulligan:U2:736:731:717:1752:16:2:0:466.4017:0",
+            "Kobaryo - True hero:G1:0:1:13:1562:10:1:0:603.7207:0"
         ],
-        "score": 1790.5291,
+        "score": 2967.9791,
         "ppscore": 0,
-        "lastc": "Kobaryo - True hero:G1:0:1:13:1562:10:1:0:603.7207:0",
+        "lastc": "goreshit - Give me something:G18:335:454:529:1809:28:9:0:877.45:0",
         "lastt": "Ranked"
     },
     {
@@ -139,11 +147,12 @@
         "p": 1,
         "TTX": null,
         "allc": [
-            "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:978"
+            "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:978",
+            "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:1075"
         ],
         "score": 0,
-        "ppscore": 978,
-        "lastc": "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:978",
+        "ppscore": 2053,
+        "lastc": "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:1075",
         "lastt": "Ranked"
     },
     {
@@ -157,6 +166,19 @@
         "score": 504.4489,
         "ppscore": 0,
         "lastc": "Turkish March:P12:24:46:121:1108:6:2:0:504.4489:0",
+        "lastt": "Ranked"
+    },
+    {
+        "name": "qiuqiuadofai",
+        "icon": "qqado.png",
+        "p": 1,
+        "TTX": null,
+        "allc": [
+            "Cardboard Box - He he he:U6:15:105:387:4419:68:5:0:3723.59:0"
+        ],
+        "score": 3723.59,
+        "ppscore": 0,
+        "lastc": "Cardboard Box - He he he:U6:15:105:387:4419:68:5:0:3723.59:0",
         "lastt": "Ranked"
     }
 ]

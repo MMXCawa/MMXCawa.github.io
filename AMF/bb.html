@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +5,7 @@
     <title>AMF排行榜 | AMF RankingList</title>
     <link rel="icon" href="https://github.com/MMXCawa/MMXCawa.github.io/blob/main/AMF.jpeg?raw=true">
     <style>
-        body {
+body {
             font-family: Arial, sans-serif;
             background-image: url('http://MMXCawa.github.io/images/1.jpg');
             background-size: cover;
@@ -352,16 +351,33 @@
         .music-controls input[type="range"] {
             width: 100px;
         }
+        .expand-btn {
+            cursor: pointer;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .expand-btn:hover {
+            text-decoration: underline;
+        }
+        .all-scores {
+            margin-top: 10px;
+        }
+        .all-scores hr {
+            border: 0;
+            height: 1px;
+            background: #ccc;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
     <div class="ct">
-        <h1>排行榜</h1>
-        <h2>此为周榜，一周更新一次</h2>
+        <h1>AMF排行榜</h1>
+        <h2>因为特殊原因:排行榜可能仅在周末接受成绩</h2>
         <div class="lb" id="lb"></div>
     </div>
-    <div class="sm" onclick="osm()">提交成绩</div>
-    <div id="version">版本号: V2.1</div>
+    <div class="sm" onclick="osm()">🤠提交成绩</div>
+    <div id="version">版本号: V2.2</div>
     <div class="theme-toggle" onclick="toggleTheme()">🌌</div>
     <div class="loading" id="loading">正在加载中...</div>
     <div class="music-controls" id="music-controls">
@@ -434,13 +450,14 @@
         }
 
         // 显示提交成绩弹窗
-        function osm() {
+function osm() {
             modal.innerHTML = `
                 <h2>发送邮件至 2360881635@qq.com</h2>
                 <p>标题: 成绩提交</p>
                 <p>正文要求:</p>
                 <ul>
-                    <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
+                    <li>用户名:</li>
+                    <li><strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
                     <li>曲名:</li>
                     <li>谱师:</li>
                     <li>精准度:</li>
@@ -499,7 +516,7 @@
 
             return `
                 <div>最近成绩:</div>
-                <div>曲名: ${t} <span class="difficulty ${getDifficultyClass(l)}">${l}</span></div>
+                <div>曲名: ${t} <img src="https://MMXCawa.github.io/AMF/Icons/${l}.png" alt="${l}" style="width: 24px; height: 24px; vertical-align: middle;"></div>
                 <div>[${stD}]</div>
                 <div>${scD} | ${ppscD}</div>
             `;
@@ -507,7 +524,7 @@
 
         // 格式化历史成绩
         function fallc(allc) {
-            if (allc === "none") return `<div>未记入任何成绩</div>`;
+            if (allc === "none") return '';
             return allc.map(c => {
                 const [t, l, ...st] = c.split(':');
                 const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
@@ -515,7 +532,7 @@
                 const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
                 const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
                 return `
-                    <div>曲名: ${t} <span class="difficulty ${getDifficultyClass(l)}">${l}</span></div>
+                    <div>曲名: ${t} <img src="https://MMXCawa.github.io/AMF/Icons/${l}.png" alt="${l}" style="width: 24px; height: 24px; vertical-align: middle;"></div>
                     <div>[${stD}]</div>
                     <div>${scD} | ${ppscD}</div>
                     <hr>
@@ -523,18 +540,23 @@
             }).join('');
         }
 
-        // 获取难度样式类
-        function getDifficultyClass(level) {
-            if (level.toLowerCase() === 'unk') return 'unk';
-            const num = parseFloat(level.replace(/[^0-9.]/g, ''));
-            if (isNaN(num)) return 'unk';
-            if (num >= 1 && num <= 10) return `p${Math.floor(num)}`;
-            if (num >= 11 && num <= 17) return `p${Math.floor(num)}`;
-            if (num >= 18 && num <= 19.9) return `p${Math.floor(num)}`;
-            if (num >= 20 && num <= 20.99) return `p${Math.floor(num)}`;
-            if (num >= 21 && num <= 21.99) return `g${Math.floor(num - 20)}`;
-            if (num >= 22 && num <= 100) return 'unk';
-            return 'unk';
+        // 显示用户头衔弹窗
+        function showTitles(ttx) {
+            if (ttx === "none" || ttx.length === 0) {
+                modal.innerHTML = `
+                    <h2>头衔</h2>
+                    <div>该用户没有头衔~</div>
+                    <button onclick="closeModal()">关闭</button>
+                `;
+            } else {
+                modal.innerHTML = `
+                    <h2>头衔</h2>
+                    <div>${ttx.map(t => `<div>${Object.keys(t)[0]}</div>`).join('')}</div>
+                    <button onclick="closeModal()">关闭</button>
+                `;
+            }
+            modal.style.display = 'block';
+            modal.style.animation = 'slideIn 0.5s ease-out';
         }
 
         // 加载排行榜
@@ -550,15 +572,31 @@
                 ue.className = `ue ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : ''}`;
                 ue.innerHTML = `
                     ${gi(user.name, user.icon)}
-                    <span class="nm ${user.p === 2 ? 'adm' : ''}">${user.name}</span>
+                    <span class="nm ${user.p === 2 ? 'adm' : ''}" onclick="showTitles(${JSON.stringify(user.TTX)})">${user.name}</span>
                     ${user.lastt && user.lastt !== 'none' ? `<span class="ttl ${user.lastt.toLowerCase()}" onclick="showDesc('${user.lastt}')">${user.lastt}</span>` : ''}
                     <div class="scr">
                         得分: ${user.score} | <span class="ppscr">${user.ppscore}</span>
                     </div>
                     ${user.lastc ? `<div class="lstc">${flc(user.lastc)}</div>` : ''}
+                    ${user.allc !== "none" ? `
+                        <div class="expand-btn" onclick="toggleAllScores(this, ${JSON.stringify(user.allc)})">全部成绩: ▶︎展开</div>
+                        <div class="all-scores" style="display: none;">${fallc(user.allc)}</div>
+                    ` : ''}
                 `;
                 lb.appendChild(ue);
             });
+        }
+
+        // 切换全部成绩显示
+        function toggleAllScores(btn, allc) {
+            const allScoresDiv = btn.nextElementSibling;
+            if (allScoresDiv.style.display === 'none') {
+                allScoresDiv.style.display = 'block';
+                btn.innerHTML = '全部成绩: ❙收起';
+            } else {
+                allScoresDiv.style.display = 'none';
+                btn.innerHTML = '全部成绩: ▶︎展开';
+            }
         }
 
         // 显示描述提示
