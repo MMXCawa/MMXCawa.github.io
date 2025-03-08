@@ -352,48 +352,6 @@
         .music-controls input[type="range"] {
             width: 100px;
         }
-        .difficulty {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 50%;
-            font-size: 14px;
-            font-weight: bold;
-            color: white;
-            text-align: center;
-            min-width: 24px;
-        }
-
-        .difficulty.unknown {
-            background: black;
-            color: white;
-        }
-
-        .difficulty.p1 { background: #00ff00; }
-        .difficulty.p2 { background: #00cc00; }
-        .difficulty.p3 { background: #009900; }
-        .difficulty.p4 { background: #006600; }
-        .difficulty.p5 { background: #003300; }
-        .difficulty.p6 { background: #0000cc; }
-        .difficulty.p7 { background: #000099; }
-        .difficulty.p8 { background: #000066; }
-        .difficulty.p9 { background: #000033; }
-        .difficulty.p10 { background: #0000ff; }
-        .difficulty.p11 { background: #ffff00; }
-        .difficulty.p12 { background: #ffcc00; }
-        .difficulty.p13 { background: #ff9900; }
-        .difficulty.p14 { background: #ff6600; }
-        .difficulty.p15 { background: #ff3300; }
-        .difficulty.p16 { background: #ff0000; }
-        .difficulty.p17 { background: #cc0000; }
-        .difficulty.p18 { background: #990000; }
-        .difficulty.p19 { background: #660000; }
-        .difficulty.p20 { background: #330000; }
-        .difficulty.g1 { background: #000000; color: red; }
-        .difficulty.g2 { background: #000000; color: red; }
-        .difficulty.u1 { background: #000000; color: red; }
-        .difficulty.u2 { background: #000000; color: red; }
-        .difficulty.unknown { background: black; color: white; }
-        .difficulty.unknown::after { content: "?"; }
     </style>
 </head>
 <body>
@@ -485,7 +443,6 @@
                     <li>用户名: <strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
                     <li>曲名:</li>
                     <li>谱师:</li>
-                    <li>等级:</li>
                     <li>精准度:</li>
                     <li>详细结果 [
                         <ul>
@@ -503,21 +460,6 @@
                     <li>首次投稿可提供头像 (PNG格式)</li>
                 </ul>
                 <p>- 提供视频，截图</p>
-                <button onclick="closeModal()">关闭</button>
-            `;
-            modal.style.display = 'block';
-            modal.style.animation = 'slideIn 0.5s ease-out';
-        }
-
-        // 显示用户详细信息弹窗
-        function showUserDetail(name, isAdmin, ttx, allc) {
-            modal.innerHTML = `
-                <h2 class="${isAdmin === 2 ? 'adm' : ''}">${name} ${isAdmin === 2 ? '<span class="adm">[管理员]</span>' : ''}</h2>
-                <div>总分: ${isAdmin.score} | <span class="ppscr">${isAdmin.ppscore}</span></div>
-                <div>头衔:</div>
-                <div>${fttx(ttx)}</div>
-                <div>历史成绩(2025.3.2开始记入):</div>
-                <div>${fallc(allc)}</div>
                 <button onclick="closeModal()">关闭</button>
             `;
             modal.style.display = 'block';
@@ -583,24 +525,16 @@
 
         // 获取难度样式类
         function getDifficultyClass(level) {
-            if (level.toLowerCase() === 'unknown') return 'unknown';
+            if (level.toLowerCase() === 'unk') return 'unk';
             const num = parseFloat(level.replace(/[^0-9.]/g, ''));
-            if (isNaN(num)) return 'unknown';
+            if (isNaN(num)) return 'unk';
             if (num >= 1 && num <= 10) return `p${Math.floor(num)}`;
             if (num >= 11 && num <= 17) return `p${Math.floor(num)}`;
             if (num >= 18 && num <= 19.9) return `p${Math.floor(num)}`;
             if (num >= 20 && num <= 20.99) return `p${Math.floor(num)}`;
             if (num >= 21 && num <= 21.99) return `g${Math.floor(num - 20)}`;
-            if (num >= 22 && num <= 100) return 'unknown';
-            return 'unknown';
-        }
-
-        // 格式化头衔
-        function fttx(ttx) {
-            if (ttx === "null") return '';
-            return ttx.sort((a, b) => Object.values(a)[0] - Object.values(b)[0])
-                      .map(t => `<div>${Object.keys(t)[0]}</div>`)
-                      .join('');
+            if (num >= 22 && num <= 100) return 'unk';
+            return 'unk';
         }
 
         // 加载排行榜
@@ -616,7 +550,7 @@
                 ue.className = `ue ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : ''}`;
                 ue.innerHTML = `
                     ${gi(user.name, user.icon)}
-                    <span class="nm ${user.p === 2 ? 'adm' : ''}" onclick="showUserDetail('${user.name}', ${user.p}, ${JSON.stringify(user.TTX)}, ${JSON.stringify(user.allc)})">${user.name}</span>
+                    <span class="nm ${user.p === 2 ? 'adm' : ''}">${user.name}</span>
                     ${user.lastt && user.lastt !== 'none' ? `<span class="ttl ${user.lastt.toLowerCase()}" onclick="showDesc('${user.lastt}')">${user.lastt}</span>` : ''}
                     <div class="scr">
                         得分: ${user.score} | <span class="ppscr">${user.ppscore}</span>
