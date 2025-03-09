@@ -134,11 +134,12 @@
         "allc": [
             "Xyris - A prompted error:G13:9:19:90:2763:27:5:0:720.4067:0",
             "goreshit - mulligan:U2:736:731:717:1752:16:2:0:466.4017:0",
-            "Kobaryo - True hero:G1:0:1:13:1562:10:1:0:603.7207:0"
+            "Kobaryo - True hero:G1:0:1:13:1562:10:1:0:603.7207:0",
+            "kobaryo - True hero(1.25倍速):G1:3:3:39:1528:16:1:0:500:0"
         ],
-        "score": 2967.9791,
+        "score": 3467.9791,
         "ppscore": 0,
-        "lastc": "goreshit - Give me something:G18:335:454:529:1809:28:9:0:877.45:0",
+        "lastc": "kobaryo - True hero(1.25倍速):G1:3:3:39:1528:16:1:0:500:0",
         "lastt": "Ranked"
     },
     {
