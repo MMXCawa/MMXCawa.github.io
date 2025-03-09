@@ -181,5 +181,19 @@
         "ppscore": 0,
         "lastc": "Cardboard Box - He he he:U6:15:105:387:4419:68:5:0:3720:0",
         "lastt": "Ranked"
+    },
+        {
+        "name": "QQ用户1240106381",
+        "icon": "qquser.png",
+        "p": 1,
+        "TTX": null,
+        "allc": [
+            "Plum - 秘密人偶剧II:U20:0:3:12:899:9:0:0:171:-1"
+        ],
+        "score": 171,
+        "ppscore": -1,
+        "lastc": "Plum - 秘密人偶剧II:U20:0:3:12:899:9:0:0:171:-1",
+        "lastt": "Ranked"
     }
+
 ]
