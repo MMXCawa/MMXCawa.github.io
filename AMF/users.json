@@ -202,11 +202,13 @@
         "p": 1,
         "TTX": null,
         "allc": [
-            "Cardboard box - The Limit Does Not Exist:P17:0:0:0:1633:1:0:0:388.8500:0"
+            "Cardboard box - The Limit Does Not Exist:P17:0:0:0:1633:1:0:0:388.8500:0",
+            "startail:G5:8:22:51:2322:2:0:0:685.5600:0",
+            "BPM = SUB / 1450 （Nerfed):G3:3:5:21:1346:7:5:0:740:0"
         ],
-        "score": 388.8500,
+        "score": 1814.4100,
         "ppscore": 0,
-        "lastc": "Cardboard box - The Limit Does Not Exist:P17:0:0:0:1633:1:0:0:388.8500:0",
+        "lastc": "BPM = SUB / 1450 （Nerfed):G3:3:5:21:1346:7:5:0:740:0",
         "lastt": "Ranked"
     },
     {
