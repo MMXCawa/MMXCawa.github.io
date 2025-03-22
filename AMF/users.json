@@ -3,16 +3,16 @@
         "name": "Nature_9",
         "icon": "n9.png",
         "p": 2,
-        "score": 1060,
-        "ppscore": 100.114514,
+        "score": 1160,
+        "ppscore": 114.514,
         "TTX": [
             { "排行榜管理员": 1 },
             { "废物": 2 }
         ],
         "allc": [
-            "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:100.114514"
+            "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114.514"
         ],
-        "lastc": "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:100.114514",
+        "lastc": "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114.514",
         "lastt": "Ranked"
     },
     {
@@ -37,27 +37,16 @@
         "lastt": "Ranked"
     },
     {
-        "name": "冰与火之舞So",
-        "icon": "so.png",
-        "TTX": null,
-        "allc": null,
-        "p": 1,
-        "score": 0,
-        "ppscore": 0,
-        "lastc": "0:0:0:0:0:0:0:0:0:0",
-        "lastt": "Banned"
-    },
-    {
         "name": "艾莲的咸鱼布",
         "icon": "aldxyb.png",
         "p": 1,
         "TTX": null,
         "allc": [
-            "Playaphonk - Phonky Town:20.7:11:17:71:2598:31:2:0:850:0"
+            "Playaphonk - Phonky Town (Nerfed):G3:11:17:71:2598:31:2:0:660:0"
         ],
-        "score": 1850,
+        "score": 1660,
         "ppscore": 0,
-        "lastc": "Playaphonk - Phonky Town:20.7:11:17:71:2598:31:2:0:850:0",
+        "lastc": "Playaphonk - Phonky Town (Nerfed):G3:11:17:71:2598:31:2:0:660:0",
         "lastt": "Ranked"
     },
     {
@@ -74,27 +63,16 @@
         "lastt": "Ranked"
     },
     {
-        "name": "牢梦单推人🤔",
-        "icon": "lmdtr.png",
-        "p": 1,
-        "TTX": null,
-        "allc": null,
-        "score": 0,
-        "ppscore": 0,
-        "lastc": "0:0:0:0:0:0:0:0:0:0",
-        "lastt": "Failed"
-    },
-    {
         "name": "Danln",
         "icon": "DanIn.png",
         "p": 1,
         "TTX": null,
         "allc": [
-            "ALL MY FELLAS:17:2:0:3:1590:1:0:0:600:0"
+            "ALL MY FELLAS:17:2:0:3:1590:1:0:0:330:0"
         ],
-        "score": 600,
+        "score": 330,
         "ppscore": 0,
-        "lastc": "ALL MY FELLAS:17:2:0:3:1590:1:0:0:600:0",
+        "lastc": "ALL MY FELLAS:17:2:0:3:1590:1:0:0:330:0",
         "lastt": "Ranked"
     },
     {
@@ -103,12 +81,12 @@
         "p": 1,
         "TTX": null,
         "allc": [
-            "Plum - Sinkhole:P16:0:0:0:1235:12:1:0:450:0",
+            "Plum - Sinkhole:P16:0:0:0:1235:12:1:0:650:0",
             "Playaphonk - Phonky Town（nerf）（1.3）:20.1:10:27:170:2440:73:9:0:590:0"
         ],
-        "score": 1040,
+        "score": 1240,
         "ppscore": 0,
-        "lastc": "Plum - Sinkhole:P16:0:0:0:1235:12:1:0:450:0",
+        "lastc": "Plum - Sinkhole:P16:0:0:0:1235:12:1:0:650:0",
         "lastt": "Ranked"
     },
     {
@@ -148,12 +126,12 @@
         "p": 1,
         "TTX": null,
         "allc": [
-            "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:750",
-            "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:800"
+            "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:200",
+            "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:500"
         ],
         "score": 0,
-        "ppscore": 1550,
-        "lastc": "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:800",
+        "ppscore": 750,
+        "lastc": "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:200",
         "lastt": "Ranked"
     },
     {
@@ -162,11 +140,11 @@
         "p": 1,
         "TTX": null,
         "allc": [
-            "Turkish March:P12:24:46:121:1108:6:2:0:450:0"
+            "Turkish March:P12:24:46:121:1108:6:2:0:225:0"
         ],
-        "score": 450,
+        "score": 225,
         "ppscore": 0,
-        "lastc": "Turkish March:P12:24:46:121:1108:6:2:0:450:0",
+        "lastc": "Turkish March:P12:24:46:121:1108:6:2:0:225:0",
         "lastt": "Ranked"
     },
     {
@@ -189,11 +167,11 @@
         "p": 1,
         "TTX": null,
         "allc": [
-            "Plum - 秘密人偶剧II:P7:0:3:12:899:9:0:0:171:-1"
+            "Plum - 秘密人偶剧II:P7:0:3:12:899:9:0:0:95:0"
         ],
-        "score": 171,
+        "score": 95,
         "ppscore": -1,
-        "lastc": "Plum - 秘密人偶剧II:P7:0:3:12:899:9:0:0:171:-1",
+        "lastc": "Plum - 秘密人偶剧II:P7:0:3:12:899:9:0:0:95:0",
         "lastt": "Ranked"
     },
             {
