@@ -5,7 +5,7 @@
     <title>AMF排行榜 | AMF RankingList</title>
     <link rel="icon" href="https://github.com/MMXCawa/MMXCawa.github.io/blob/main/AMF.jpeg?raw=true">
     <style>
-body {
+    body {
             font-family: Arial, sans-serif;
             background-image: url('http://MMXCawa.github.io/images/1.jpg');
             background-size: cover;
@@ -368,16 +368,22 @@ body {
             background: #ccc;
             margin: 10px 0;
         }
+        .ppscr.negative {
+            color: red !important;
+            text-shadow: 0 0 8px red !important;
+        }
     </style>
 </head>
 <body>
     <div class="ct">
         <h1>AMF排行榜</h1>
         <h2>因为特殊原因:排行榜可能仅在周末接受成绩</h2>
+        <h2>(某入也可能懒得提交)</h2>
+        <h2>(分数计算为人工，有异议欢迎肘击)</h2>
         <div class="lb" id="lb"></div>
     </div>
     <div class="sm" onclick="osm()">🤠提交成绩</div>
-    <div id="version">版本号: V2.2</div>
+    <div id="version">版本号: V3</div>
     <div class="theme-toggle" onclick="toggleTheme()">🌌</div>
     <div class="loading" id="loading">正在加载中...</div>
     <div class="music-controls" id="music-controls">
@@ -398,7 +404,7 @@ body {
         }
 
         // 背景音乐
-        const audio = new Audio('bgm.wav'); // 固定为 bgm.wav
+        const audio = new Audio('bgm.wav');
         audio.autoplay = true;
         audio.loop = true;
 
@@ -440,17 +446,15 @@ body {
         modal.style.animation = 'slideIn 0.5s ease-out';
         document.body.appendChild(modal);
 
-        // 关闭弹窗
         function closeModal() {
             modal.style.animation = 'slideOut 0.5s ease-in';
             setTimeout(() => {
                 modal.style.display = 'none';
-                modal.innerHTML = ''; // 清除内容
+                modal.innerHTML = '';
             }, 500);
         }
 
-        // 显示提交成绩弹窗
-function osm() {
+        function osm() {
             modal.innerHTML = `
                 <h2>发送邮件至 2360881635@qq.com</h2>
                 <p>标题: 成绩提交</p>
@@ -484,12 +488,13 @@ function osm() {
             modal.style.animation = 'slideIn 0.5s ease-out';
         }
 
-        // 加载用户数据
+        // 加载YAML数据
         async function fusers() {
             try {
-                const r = await fetch('users.json');
+                const r = await fetch('users.yaml');
                 if (!r.ok) throw new Error('无法读取用户数据');
-                return await r.json();
+                const text = await r.text();
+                return jsyaml.load(text).users;
             } catch (e) {
                 console.error('加载用户数据出错:', e);
                 return [];
@@ -507,43 +512,29 @@ function osm() {
             return `<div style="width:50px; height:50px; background:#ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;">${nm[0]}</div>`;
         }
 
-        // 格式化最近成绩
-        function flc(lstc) {
-            const [t, l, ...st] = lstc.split(':');
+        // 格式化成绩
+        function formatScore(score) {
+            const [t, l, ...st] = score.split(':');
             const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
             const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
             const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
-            const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
+            const ppscD = st[8] != 0 ? 
+                (st[8] < 0 ? 
+                    `<span style="color: red; text-shadow: 0 0 8px red;">${st[8]}</span>` : 
+                    `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>`) : 
+                `<span>+0</span>`;
 
             return `
-                <div>最近成绩:</div>
                 <div>曲名: ${t} <img src="https://MMXCawa.github.io/AMF/Icons/${l}.png" alt="${l}" style="width: 24px; height: 24px; vertical-align: middle;"></div>
                 <div>[${stD}]</div>
                 <div>${scD} | ${ppscD}</div>
+                <hr>
             `;
-        }
-
-        // 格式化历史成绩
-        function fallc(allc) {
-            if (allc === "none") return '';
-            return allc.map(c => {
-                const [t, l, ...st] = c.split(':');
-                const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
-                const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
-                const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
-                const ppscD = st[8] != 0 ? `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>` : `<span>+0</span>`;
-                return `
-                    <div>曲名: ${t} <img src="https://MMXCawa.github.io/AMF/Icons/${l}.png" alt="${l}" style="width: 24px; height: 24px; vertical-align: middle;"></div>
-                    <div>[${stD}]</div>
-                    <div>${scD} | ${ppscD}</div>
-                    <hr>
-                `;
-            }).join('');
         }
 
         // 显示用户头衔弹窗
         function showTitles(ttx) {
-            if (ttx === "none" || ttx.length === 0) {
+            if (!ttx || ttx.length === 0) {
                 modal.innerHTML = `
                     <h2>头衔</h2>
                     <div>该用户没有头衔~</div>
@@ -571,17 +562,30 @@ function osm() {
             sortedUsers.forEach((user, index) => {
                 const ue = document.createElement('div');
                 ue.className = `ue ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : ''}`;
+                
+                // 处理ppscore显示
+                const ppscoreDisplay = user.ppscore < 0 ? 
+                    `<span class="ppscr negative">${user.ppscore}</span>` : 
+                    `<span class="ppscr">${user.ppscore}</span>`;
+                
+                // 获取所有成绩，包括lastc
+                const allScores = user.allc && user.allc !== "none" ? [...user.allc] : [];
+                if (user.lastc && user.lastc !== "none") {
+                    allScores.unshift(user.lastc);
+                }
+
                 ue.innerHTML = `
                     ${gi(user.name, user.icon)}
                     <span class="nm ${user.p === 2 ? 'adm' : ''}" onclick="showTitles(${JSON.stringify(user.TTX)})">${user.name}</span>
                     ${user.lastt && user.lastt !== 'none' ? `<span class="ttl ${user.lastt.toLowerCase()}" onclick="showDesc('${user.lastt}')">${user.lastt}</span>` : ''}
                     <div class="scr">
-                        得分: ${user.score} | <span class="ppscr">${user.ppscore}</span>
+                        得分: ${user.score} | ${ppscoreDisplay}
                     </div>
-                    ${user.lastc ? `<div class="lstc">${flc(user.lastc)}</div>` : ''}
-                    ${user.allc !== "none" ? `
-                        <div class="expand-btn" onclick="toggleAllScores(this, ${JSON.stringify(user.allc)})">全部成绩: ▶︎展开</div>
-                        <div class="all-scores" style="display: none;">${fallc(user.allc)}</div>
+                    ${allScores.length > 0 ? `
+                        <div class="expand-btn" onclick="toggleAllScores(this, ${JSON.stringify(allScores)})">全部成绩: ▶︎展开</div>
+                        <div class="all-scores" style="display: none;">
+                            ${allScores.map(score => formatScore(score)).join('')}
+                        </div>
                     ` : ''}
                 `;
                 lb.appendChild(ue);
@@ -620,9 +624,15 @@ function osm() {
         }
 
         // 初始化
-        window.onload = () => {
-            llb();
-            chbg();
+        window.onload = async () => {
+            // 加载js-yaml库
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js';
+            script.onload = async () => {
+                await llb();
+                chbg();
+            };
+            document.head.appendChild(script);
         };
 
         // 背景切换
@@ -641,7 +651,6 @@ function osm() {
                 document.body.classList.remove('fade');
             }, 1000);
 
-            // 清除旧的定时器
             if (bgInterval) clearInterval(bgInterval);
             bgInterval = setInterval(chbg, 6000);
         }
