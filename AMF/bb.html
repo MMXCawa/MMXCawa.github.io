@@ -382,15 +382,14 @@
         <h2>(分数计算为人工，有异议欢迎肘击)</h2>
         <div class="lb" id="lb"></div>
     </div>
-    <div class="sm" onclick="osm()">🤠提交成绩</div>
-    <div id="version">版本号: V3.1</div>
+    <div class="sm" onclick="showSubmitModal()">🤠提交成绩</div>
+    <div id="version">版本号: V3.2</div>
     <div class="theme-toggle" onclick="toggleTheme()">🌌</div>
     <div class="loading" id="loading">正在加载中...</div>
     <div class="music-controls" id="music-controls">
         <button id="play-pause">❙❙</button>
         <input type="range" id="progress" min="0" max="100" value="0">
     </div>
-
 <script>
     // 加载动画
     setTimeout(() => {
@@ -399,63 +398,63 @@
     }, 1000);
 
     // 主题切换
-    function tThm() {
+    function toggleTheme() {
         document.body.classList.toggle('night-mode');
     }
 
     // 背景音乐
-    const aud = new Audio('bgm.wav');
-    aud.autoplay = true;
-    aud.loop = true;
+    const audio = new Audio('bgm.wav');
+    audio.autoplay = true;
+    audio.loop = true;
 
-    const ppBtn = document.getElementById('play-pause');
-    const pBar = document.getElementById('progress');
+    const playPauseButton = document.getElementById('play-pause');
+    const progressBar = document.getElementById('progress');
 
-    ppBtn.addEventListener('click', () => {
-        if (aud.paused) {
-            aud.play();
-            ppBtn.textContent = '❙❙';
+    playPauseButton.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            playPauseButton.textContent = '❙❙';
         } else {
-            aud.pause();
-            ppBtn.textContent = '▶︎';
+            audio.pause();
+            playPauseButton.textContent = '▶︎';
         }
     });
 
-    aud.addEventListener('timeupdate', () => {
-        pBar.value = (aud.currentTime / aud.duration) * 100;
+    audio.addEventListener('timeupdate', () => {
+        progressBar.value = (audio.currentTime / audio.duration) * 100;
     });
 
-    pBar.addEventListener('input', () => {
-        aud.currentTime = (pBar.value / 100) * aud.duration;
+    progressBar.addEventListener('input', () => {
+        audio.currentTime = (progressBar.value / 100) * audio.duration;
     });
 
     // 弹窗逻辑
-    const mdl = document.createElement('div');
-    mdl.id = 'modal';
-    mdl.style.display = 'none';
-    mdl.style.position = 'fixed';
-    mdl.style.top = '50%';
-    mdl.style.left = '50%';
-    mdl.style.transform = 'translate(-50%, -50%)';
-    mdl.style.background = 'rgba(255, 255, 255, 0.9)';
-    mdl.style.borderRadius = '10px';
-    mdl.style.padding = '20px';
-    mdl.style.width = '90%';
-    mdl.style.maxWidth = '600px';
-    mdl.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.3)';
-    mdl.style.animation = 'slideIn 0.5s ease-out';
-    document.body.appendChild(mdl);
+    const modal = document.createElement('div');
+    modal.id = 'modal';
+    modal.style.display = 'none';
+    modal.style.position = 'fixed';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%)';
+    modal.style.background = 'rgba(255, 255, 255, 0.9)';
+    modal.style.borderRadius = '10px';
+    modal.style.padding = '20px';
+    modal.style.width = '90%';
+    modal.style.maxWidth = '600px';
+    modal.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.3)';
+    modal.style.animation = 'slideIn 0.5s ease-out';
+    document.body.appendChild(modal);
 
-    function cMdl() {
-        mdl.style.animation = 'slideOut 0.5s ease-in';
+    function closeModal() {
+        modal.style.animation = 'slideOut 0.5s ease-in';
         setTimeout(() => {
-            mdl.style.display = 'none';
-            mdl.innerHTML = '';
+            modal.style.display = 'none';
+            modal.innerHTML = '';
         }, 500);
     }
 
-    function osm() {
-        mdl.innerHTML = `
+    function showSubmitModal() {
+        modal.innerHTML = `
             <h2>发送邮件至 2360881635@qq.com</h2>
             <p>标题: 成绩提交</p>
             <p>正文要求:</p>
@@ -482,169 +481,215 @@
                 <li>首次投稿可提供头像 (PNG格式)</li>
             </ul>
             <p>- 提供视频，截图 (可以是链接)</p>
-            <button onclick="cMdl()">关闭</button>
+            <button onclick="closeModal()">关闭</button>
         `;
-        mdl.style.display = 'block';
-        mdl.style.animation = 'slideIn 0.5s ease-out';
+        modal.style.display = 'block';
+        modal.style.animation = 'slideIn 0.5s ease-out';
     }
 
     // 加载YAML数据
-    async function fUsrs() {
+    async function fetchUsers() {
         try {
-            const r = await fetch('users.yaml');
-            if (!r.ok) throw new Error('读取失败');
-            const t = await r.text();
-            return jsyaml.load(t).users;
+            const response = await fetch('users.yaml');
+            if (!response.ok) throw new Error('无法读取用户数据');
+            const text = await response.text();
+            return jsyaml.load(text).users;
         } catch (e) {
-            console.error('加载出错:', e);
+            console.error('加载用户数据出错:', e);
             return [];
         }
     }
 
     // 排序用户
-    function srtUs(us) {
-        return us.sort((a, b) => (b.ppscore * 2 + b.score) - (a.ppscore * 2 + a.score));
+    function sortUsers(users) {
+        return users.sort((a, b) => (b.ppscore * 2 + b.score) - (a.ppscore * 2 + a.score));
     }
 
     // 生成用户头像
-    function genIc(nm, ic) {
-        if (ic) return `<img src="${ic}" alt="${nm}">`;
-        return `<div style="width:50px;height:50px;background:#ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">${nm[0]}</div>`;
+    function generateIcon(name, icon) {
+        if (icon) return `<img src="${icon}" alt="${name}">`;
+        return `<div style="width:50px;height:50px;background:#ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">${name[0]}</div>`;
     }
 
     // 格式化单条成绩
-    function fmtSc(sc) {
-        const [t, l, ...st] = sc.split(':');
-        const cc = ["red","orange","yellow","green","yellow","orange","red"];
-        const stD = st.slice(0,7).map((v,i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
-        const scD = st[7]<0 ? `<span style="color:red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
-        const ppD = st[8]!=0 ? (st[8]<0 ? `<span class="ppscr neg">${st[8]}</span>` : `<span class="ppscr">+${st[8]}</span>`) : `<span>+0</span>`;
+    function formatScore(score) {
+        if (!score) return '';
+        const [title, level, ...stats] = score.split(':');
+        const colors = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
+        const statDisplays = stats.slice(0, 7).map((value, index) => 
+            `<span class="${colors[index]}">${value}</span>`
+        ).join(' ');
+        
+        const scoreDisplay = stats[7] < 0 ? 
+            `<span style="color: red;">-${Math.abs(stats[7])}</span>` : 
+            `<span>+${stats[7]}</span>`;
+        
+        const ppDisplay = stats[8] != 0 ? 
+            (stats[8] < 0 ? 
+                `<span class="ppscr negative">${stats[8]}</span>` : 
+                `<span class="ppscr">+${stats[8]}</span>`) : 
+            `<span>+0</span>`;
 
         return `
-            <div>曲名: ${t} <img src="https://MMXCawa.github.io/AMF/Icons/${l}.png" alt="${l}" style="width:24px;height:24px;vertical-align:middle;"></div>
-            <div>[${stD}]</div>
-            <div>${scD} | ${ppD}</div>
+            <div>曲名: ${title} <img src="https://MMXCawa.github.io/AMF/Icons/${level}.png" alt="${level}" style="width:24px;height:24px;vertical-align:middle;"></div>
+            <div>[${statDisplays}]</div>
+            <div>${scoreDisplay} | ${ppDisplay}</div>
         `;
     }
 
-    // 显示头衔
-    function shTtl(ttx) {
-        if (!ttx || ttx.length===0) {
-            mdl.innerHTML = `<h2>头衔</h2><div>无头衔</div><button onclick="cMdl()">关闭</button>`;
+    // 显示头衔弹窗
+    function showTitles(titles) {
+        if (!titles || titles.length === 0) {
+            modal.innerHTML = `
+                <h2>头衔</h2>
+                <div>该用户没有头衔~</div>
+                <button onclick="closeModal()">关闭</button>
+            `;
         } else {
-            mdl.innerHTML = `<h2>头衔</h2>${
-                ttx.map(t => {
-                    const [k,v] = Object.entries(t)[0];
-                    let col;
-                    if (/^#[\da-f]{6,8}$/i.test(v)) col = v;
-                    else switch(parseInt(v)) {
-                        case 1: col='#ff0000'; break;
-                        case 2: col='#00ff00'; break;
-                        case 3: col='#0000ff'; break;
-                        case 4: col='#ffff00'; break;
-                        case 5: col='#000000'; break;
-                        case 6: col='#ffffff'; break;
-                        default: col='gold';
+            modal.innerHTML = `
+                <h2>头衔</h2>
+                <div>${titles.map(titleObj => {
+                    const [title, colorValue] = Object.entries(titleObj)[0];
+                    let color;
+                    if (/^#[0-9a-f]{6,8}$/i.test(colorValue)) {
+                        color = colorValue;
+                    } else {
+                        switch(parseInt(colorValue)) {
+                            case 1: color = '#ff0000'; break;
+                            case 2: color = '#00ff00'; break;
+                            case 3: color = '#0000ff'; break;
+                            case 4: color = '#ffff00'; break;
+                            case 5: color = '#000000'; break;
+                            case 6: color = '#ffffff'; break;
+                            default: color = 'gold';
+                        }
                     }
-                    return `<div style="color:${col};text-shadow:0 0 5px ${col}">${k}</div>`;
-                }).join('')
-            }<button onclick="cMdl()">关闭</button>`;
+                    return `<div style="color:${color};text-shadow:0 0 5px ${color}">${title}</div>`;
+                }).join('')}</div>
+                <button onclick="closeModal()">关闭</button>
+            `;
         }
-        mdl.style.display = 'block';
+        modal.style.display = 'block';
+        modal.style.animation = 'slideIn 0.5s ease-out';
     }
 
     // 加载排行榜
-    async function ldLb() {
-        const us = await fUsrs();
-        const sUs = srtUs(us);
-        const lb = document.getElementById('lb');
-        lb.innerHTML = '';
+    async function loadLeaderboard() {
+        const users = await fetchUsers();
+        const sortedUsers = sortUsers(users);
+        const leaderboard = document.getElementById('lb');
+        leaderboard.innerHTML = '';
 
-        sUs.forEach((u,i) => {
-            const ue = document.createElement('div');
-            ue.className = `ue ${i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':''}`;
+        sortedUsers.forEach((user, index) => {
+            const userElement = document.createElement('div');
+            userElement.className = `ue ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : ''}`;
             
-            const ppD = u.ppscore<0 ? 
-                `<span class="ppscr neg">${u.ppscore}</span>` : 
-                `<span class="ppscr">${u.ppscore}</span>`;
+            // 处理ppscore显示
+            const ppDisplay = user.ppscore < 0 ? 
+                `<span class="ppscr negative">${user.ppscore}</span>` : 
+                `<span class="ppscr">${user.ppscore}</span>`;
             
-            ue.innerHTML = `
-                ${genIc(u.name, u.icon)}
-                <span class="nm ${u.p===2?'adm':''}" onclick="shTtl(${JSON.stringify(u.TTX)})">${u.name}</span>
-                ${u.lastt&&u.lastt!=='none'?`<span class="ttl ${u.lastt.toLowerCase()}" onclick="shDesc('${u.lastt}')">${u.lastt}</span>`:''}
-                <div class="scr">得分: ${u.score} | ${ppD}</div>
-                <div class="lst-cnt">
-                    <div class="lst-t">最近成绩:</div>
-                    ${u.lastc?fmtSc(u.lastc):''}
+            userElement.innerHTML = `
+                ${generateIcon(user.name, user.icon)}
+                <span class="nm ${user.p === 2 ? 'adm' : ''}" onclick="showTitles(${JSON.stringify(user.TTX)})">${user.name}</span>
+                ${user.lastt && user.lastt !== 'none' ? 
+                    `<span class="ttl ${user.lastt.toLowerCase()}" onclick="showDescription('${user.lastt}')">${user.lastt}</span>` : 
+                    ''}
+                <div class="scr">
+                    得分: ${user.score} | ${ppDisplay}
                 </div>
-                ${u.allc&&u.allc!=="none"?`
-                    <div class="tgl-btn" onclick="tglSc(this,${JSON.stringify(u.allc)})">▼ 全部成绩</div>
-                    <div class="all-sc" style="display:none;max-height:200px;overflow-y:auto;">
-                        ${u.allc.map(sc=>`<div class="sc-itm">${fmtSc(sc)}<hr></div>`).join('')}
+                <div class="score-container">
+                    <div class="recent-score">
+                        <div class="score-title">最近成绩:</div>
+                        ${user.lastc ? formatScore(user.lastc) : ''}
                     </div>
-                `:''}
+                    ${user.allc && user.allc !== "none" ? `
+                        <div class="toggle-btn" onclick="toggleScores(this)">
+                            ▼ 全部成绩
+                        </div>
+                        <div class="all-scores" style="display:none;max-height:200px;overflow-y:auto;">
+                            ${user.allc.map(score => `
+                                <div class="score-item">
+                                    ${formatScore(score)}
+                                    <hr>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
             `;
-            lb.appendChild(ue);
+            leaderboard.appendChild(userElement);
         });
     }
 
     // 切换成绩显示
-    function tglSc(btn, allc) {
-        const lstCnt = btn.previousElementSibling;
-        const allSc = btn.nextElementSibling;
+    function toggleScores(button) {
+        const scoreContainer = button.parentElement;
+        const recentScore = scoreContainer.querySelector('.recent-score');
+        const allScores = scoreContainer.querySelector('.all-scores');
         
-        if (allSc.style.display === 'none') {
-            lstCnt.querySelector('.lst-t').textContent = '全部成绩:';
-            allSc.style.display = 'block';
-            btn.textContent = '▲ 收起';
+        if (allScores.style.display === 'none') {
+            recentScore.querySelector('.score-title').textContent = '全部成绩:';
+            allScores.style.display = 'block';
+            button.textContent = '▲ 收起';
         } else {
-            lstCnt.querySelector('.lst-t').textContent = '最近成绩:';
-            allSc.style.display = 'none';
-            btn.textContent = '▼ 全部成绩';
+            recentScore.querySelector('.score-title').textContent = '最近成绩:';
+            allScores.style.display = 'none';
+            button.textContent = '▼ 全部成绩';
         }
     }
 
     // 显示描述提示
-    function shDesc(t) {
-        const desc = {
+    function showDescription(title) {
+        const descriptions = {
             "Ranked": "合规成绩",
             "UnRanked": "暂定通过",
-            "Failed": "失败提交",
+            "Failed": "失败提交，不合格",
             "Cheated": "作弊成绩",
-            "Faked": "伪造成绩",
-            "Banned": "用户封禁"
+            "Faked": "伪造/虚假成绩",
+            "Banned": "该用户已被封禁"
         };
-        const al = document.createElement('div');
-        al.className = 'cust-al';
-        al.textContent = desc[t] || "未知状态";
-        document.body.appendChild(al);
-        setTimeout(() => al.remove(), 3000);
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'custom-alert';
+        alertDiv.textContent = descriptions[title] || "未知状态";
+        document.body.appendChild(alertDiv);
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 3000);
     }
 
     // 初始化
     window.onload = async () => {
-        const scr = document.createElement('script');
-        scr.src = 'https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js';
-        scr.onload = async () => {
-            await ldLb();
-            chBg();
+        // 加载js-yaml库
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js';
+        script.onload = async () => {
+            await loadLeaderboard();
+            changeBackground();
         };
-        document.head.appendChild(scr);
+        document.head.appendChild(script);
     };
 
     // 背景切换
-    let ci = 1;
-    const ti = 8;
-    let bgInt;
+    let currentImageIndex = 1;
+    const totalImages = 8;
+    let backgroundInterval;
 
-    function chBg() {
-        ci = (ci % ti) + 1;
-        document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${ci}.jpg')`;
+    function changeBackground() {
+        currentImageIndex = (currentImageIndex % totalImages) + 1;
+        document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${currentImageIndex}.jpg')`;
         document.body.classList.add('fade');
-        setTimeout(() => document.body.classList.remove('fade'), 1000);
-        if (bgInt) clearInterval(bgInt);
-        bgInt = setInterval(chBg, 6000);
+        setTimeout(() => {
+            document.body.classList.remove('fade');
+        }, 1000);
+
+        if (backgroundInterval) clearInterval(backgroundInterval);
+        backgroundInterval = setInterval(changeBackground, 6000);
     }
+
+    // 事件监听
+    document.querySelector('.sm').addEventListener('click', showSubmitModal);
+    document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
 </script>
 </body>
 </html>
