@@ -383,7 +383,7 @@
         <div class="lb" id="lb"></div>
     </div>
     <div class="sm" onclick="osm()">🤠提交成绩</div>
-    <div id="version">版本号: V3</div>
+    <div id="version">版本号: V3.1</div>
     <div class="theme-toggle" onclick="toggleTheme()">🌌</div>
     <div class="loading" id="loading">正在加载中...</div>
     <div class="music-controls" id="music-controls">
@@ -391,269 +391,260 @@
         <input type="range" id="progress" min="0" max="100" value="0">
     </div>
 
-    <script>
-        // 加载动画
+<script>
+    // 加载动画
+    setTimeout(() => {
+        document.getElementById('loading').remove();
+        document.querySelector('.ct').style.display = 'block';
+    }, 1000);
+
+    // 主题切换
+    function tThm() {
+        document.body.classList.toggle('night-mode');
+    }
+
+    // 背景音乐
+    const aud = new Audio('bgm.wav');
+    aud.autoplay = true;
+    aud.loop = true;
+
+    const ppBtn = document.getElementById('play-pause');
+    const pBar = document.getElementById('progress');
+
+    ppBtn.addEventListener('click', () => {
+        if (aud.paused) {
+            aud.play();
+            ppBtn.textContent = '❙❙';
+        } else {
+            aud.pause();
+            ppBtn.textContent = '▶︎';
+        }
+    });
+
+    aud.addEventListener('timeupdate', () => {
+        pBar.value = (aud.currentTime / aud.duration) * 100;
+    });
+
+    pBar.addEventListener('input', () => {
+        aud.currentTime = (pBar.value / 100) * aud.duration;
+    });
+
+    // 弹窗逻辑
+    const mdl = document.createElement('div');
+    mdl.id = 'modal';
+    mdl.style.display = 'none';
+    mdl.style.position = 'fixed';
+    mdl.style.top = '50%';
+    mdl.style.left = '50%';
+    mdl.style.transform = 'translate(-50%, -50%)';
+    mdl.style.background = 'rgba(255, 255, 255, 0.9)';
+    mdl.style.borderRadius = '10px';
+    mdl.style.padding = '20px';
+    mdl.style.width = '90%';
+    mdl.style.maxWidth = '600px';
+    mdl.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.3)';
+    mdl.style.animation = 'slideIn 0.5s ease-out';
+    document.body.appendChild(mdl);
+
+    function cMdl() {
+        mdl.style.animation = 'slideOut 0.5s ease-in';
         setTimeout(() => {
-            document.getElementById('loading').remove();
-            document.querySelector('.ct').style.display = 'block';
-        }, 1000);
+            mdl.style.display = 'none';
+            mdl.innerHTML = '';
+        }, 500);
+    }
 
-        // 主题切换
-        function toggleTheme() {
-            document.body.classList.toggle('night-mode');
+    function osm() {
+        mdl.innerHTML = `
+            <h2>发送邮件至 2360881635@qq.com</h2>
+            <p>标题: 成绩提交</p>
+            <p>正文要求:</p>
+            <ul>
+                <li>用户名:</li>
+                <li><strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
+                <li>曲名:</li>
+                <li>谱师:</li>
+                <li>精准度:</li>
+                <li><strong>(必须是XAcc)</strong></li>
+                <li>详细结果 [
+                    <ul>
+                        <li>空敲:</li>
+                        <li>太快:</li>
+                        <li>稍快:</li>
+                        <li>完美:</li>
+                        <li>稍慢:</li>
+                        <li>太慢:</li>
+                    </ul>
+                    ]
+                </li>
+                <li>角度判定(是/否):</li>
+                <li>判定(角度判定可为标):</li>
+                <li>首次投稿可提供头像 (PNG格式)</li>
+            </ul>
+            <p>- 提供视频，截图 (可以是链接)</p>
+            <button onclick="cMdl()">关闭</button>
+        `;
+        mdl.style.display = 'block';
+        mdl.style.animation = 'slideIn 0.5s ease-out';
+    }
+
+    // 加载YAML数据
+    async function fUsrs() {
+        try {
+            const r = await fetch('users.yaml');
+            if (!r.ok) throw new Error('读取失败');
+            const t = await r.text();
+            return jsyaml.load(t).users;
+        } catch (e) {
+            console.error('加载出错:', e);
+            return [];
         }
+    }
 
-        // 背景音乐
-        const audio = new Audio('bgm.wav');
-        audio.autoplay = true;
-        audio.loop = true;
+    // 排序用户
+    function srtUs(us) {
+        return us.sort((a, b) => (b.ppscore * 2 + b.score) - (a.ppscore * 2 + a.score));
+    }
 
-        const playPauseButton = document.getElementById('play-pause');
-        const progressBar = document.getElementById('progress');
+    // 生成用户头像
+    function genIc(nm, ic) {
+        if (ic) return `<img src="${ic}" alt="${nm}">`;
+        return `<div style="width:50px;height:50px;background:#ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">${nm[0]}</div>`;
+    }
 
-        playPauseButton.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play();
-                playPauseButton.textContent = '❙❙';
-            } else {
-                audio.pause();
-                playPauseButton.textContent = '▶︎';
-            }
-        });
+    // 格式化单条成绩
+    function fmtSc(sc) {
+        const [t, l, ...st] = sc.split(':');
+        const cc = ["red","orange","yellow","green","yellow","orange","red"];
+        const stD = st.slice(0,7).map((v,i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
+        const scD = st[7]<0 ? `<span style="color:red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
+        const ppD = st[8]!=0 ? (st[8]<0 ? `<span class="ppscr neg">${st[8]}</span>` : `<span class="ppscr">+${st[8]}</span>`) : `<span>+0</span>`;
 
-        audio.addEventListener('timeupdate', () => {
-            progressBar.value = (audio.currentTime / audio.duration) * 100;
-        });
+        return `
+            <div>曲名: ${t} <img src="https://MMXCawa.github.io/AMF/Icons/${l}.png" alt="${l}" style="width:24px;height:24px;vertical-align:middle;"></div>
+            <div>[${stD}]</div>
+            <div>${scD} | ${ppD}</div>
+        `;
+    }
 
-        progressBar.addEventListener('input', () => {
-            audio.currentTime = (progressBar.value / 100) * audio.duration;
-        });
-
-        // 弹窗逻辑
-        const modal = document.createElement('div');
-        modal.id = 'modal';
-        modal.style.display = 'none';
-        modal.style.position = 'fixed';
-        modal.style.top = '50%';
-        modal.style.left = '50%';
-        modal.style.transform = 'translate(-50%, -50%)';
-        modal.style.background = 'rgba(255, 255, 255, 0.9)';
-        modal.style.borderRadius = '10px';
-        modal.style.padding = '20px';
-        modal.style.width = '90%';
-        modal.style.maxWidth = '600px';
-        modal.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.3)';
-        modal.style.animation = 'slideIn 0.5s ease-out';
-        document.body.appendChild(modal);
-
-        function closeModal() {
-            modal.style.animation = 'slideOut 0.5s ease-in';
-            setTimeout(() => {
-                modal.style.display = 'none';
-                modal.innerHTML = '';
-            }, 500);
+    // 显示头衔
+    function shTtl(ttx) {
+        if (!ttx || ttx.length===0) {
+            mdl.innerHTML = `<h2>头衔</h2><div>无头衔</div><button onclick="cMdl()">关闭</button>`;
+        } else {
+            mdl.innerHTML = `<h2>头衔</h2>${
+                ttx.map(t => {
+                    const [k,v] = Object.entries(t)[0];
+                    let col;
+                    if (/^#[\da-f]{6,8}$/i.test(v)) col = v;
+                    else switch(parseInt(v)) {
+                        case 1: col='#ff0000'; break;
+                        case 2: col='#00ff00'; break;
+                        case 3: col='#0000ff'; break;
+                        case 4: col='#ffff00'; break;
+                        case 5: col='#000000'; break;
+                        case 6: col='#ffffff'; break;
+                        default: col='gold';
+                    }
+                    return `<div style="color:${col};text-shadow:0 0 5px ${col}">${k}</div>`;
+                }).join('')
+            }<button onclick="cMdl()">关闭</button>`;
         }
+        mdl.style.display = 'block';
+    }
 
-        function osm() {
-            modal.innerHTML = `
-                <h2>发送邮件至 2360881635@qq.com</h2>
-                <p>标题: 成绩提交</p>
-                <p>正文要求:</p>
-                <ul>
-                    <li>用户名:</li>
-                    <li><strong>(谨慎填写，加在其他人身上就难崩了)</strong></li>
-                    <li>曲名:</li>
-                    <li>谱师:</li>
-                    <li>精准度:</li>
-                    <li><strong>(必须是XAcc)</strong></li>
-                    <li>详细结果 [
-                        <ul>
-                            <li>空敲:</li>
-                            <li>太快:</li>
-                            <li>稍快:</li>
-                            <li>完美:</li>
-                            <li>稍慢:</li>
-                            <li>太慢:</li>
-                        </ul>
-                        ]
-                    </li>
-                    <li>角度判定(是/否):</li>
-                    <li>判定(角度判定可为标):</li>
-                    <li>首次投稿可提供头像 (PNG格式)</li>
-                </ul>
-                <p>- 提供视频，截图 (可以是链接)</p>
-                <button onclick="closeModal()">关闭</button>
-            `;
-            modal.style.display = 'block';
-            modal.style.animation = 'slideIn 0.5s ease-out';
-        }
+    // 加载排行榜
+    async function ldLb() {
+        const us = await fUsrs();
+        const sUs = srtUs(us);
+        const lb = document.getElementById('lb');
+        lb.innerHTML = '';
 
-        // 加载YAML数据
-        async function fusers() {
-            try {
-                const r = await fetch('users.yaml');
-                if (!r.ok) throw new Error('无法读取用户数据');
-                const text = await r.text();
-                return jsyaml.load(text).users;
-            } catch (e) {
-                console.error('加载用户数据出错:', e);
-                return [];
-            }
-        }
-
-        // 排序用户
-        function cr(users) {
-            return users.sort((a, b) => (b.ppscore * 2 + b.score) - (a.ppscore * 2 + a.score));
-        }
-
-        // 生成用户头像
-        function gi(nm, ic) {
-            if (ic) return `<img src="${ic}" alt="${nm}">`;
-            return `<div style="width:50px; height:50px; background:#ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px;">${nm[0]}</div>`;
-        }
-
-        // 格式化成绩
-        function formatScore(score) {
-            const [t, l, ...st] = score.split(':');
-            const cc = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
-            const stD = st.slice(0, 7).map((v, i) => `<span class="${cc[i]}">${v}</span>`).join(' ');
-            const scD = st[7] < 0 ? `<span style="color: red;">-${Math.abs(st[7])}</span>` : `<span>+${st[7]}</span>`;
-            const ppscD = st[8] != 0 ? 
-                (st[8] < 0 ? 
-                    `<span style="color: red; text-shadow: 0 0 8px red;">${st[8]}</span>` : 
-                    `<span style="color: gold; text-shadow: 0 0 8px gold;">+${st[8]}</span>`) : 
-                `<span>+0</span>`;
-
-            return `
-                <div>曲名: ${t} <img src="https://MMXCawa.github.io/AMF/Icons/${l}.png" alt="${l}" style="width: 24px; height: 24px; vertical-align: middle;"></div>
-                <div>[${stD}]</div>
-                <div>${scD} | ${ppscD}</div>
-                <hr>
-            `;
-        }
-
-        // 显示用户头衔弹窗
-        function showTitles(ttx) {
-            if (!ttx || ttx.length === 0) {
-                modal.innerHTML = `
-                    <h2>头衔</h2>
-                    <div>该用户没有头衔~</div>
-                    <button onclick="closeModal()">关闭</button>
-                `;
-            } else {
-                modal.innerHTML = `
-                    <h2>头衔</h2>
-                    <div>${ttx.map(t => `<div>${Object.keys(t)[0]}</div>`).join('')}</div>
-                    <button onclick="closeModal()">关闭</button>
-                `;
-            }
-            modal.style.display = 'block';
-            modal.style.animation = 'slideIn 0.5s ease-out';
-        }
-
-        // 加载排行榜
-        async function llb() {
-            const users = await fusers();
-            const sortedUsers = cr(users);
-
-            const lb = document.getElementById('lb');
-            lb.innerHTML = '';
-
-            sortedUsers.forEach((user, index) => {
-                const ue = document.createElement('div');
-                ue.className = `ue ${index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : ''}`;
-                
-                // 处理ppscore显示
-                const ppscoreDisplay = user.ppscore < 0 ? 
-                    `<span class="ppscr negative">${user.ppscore}</span>` : 
-                    `<span class="ppscr">${user.ppscore}</span>`;
-                
-                // 获取所有成绩，包括lastc
-                const allScores = user.allc && user.allc !== "none" ? [...user.allc] : [];
-                if (user.lastc && user.lastc !== "none") {
-                    allScores.unshift(user.lastc);
-                }
-
-                ue.innerHTML = `
-                    ${gi(user.name, user.icon)}
-                    <span class="nm ${user.p === 2 ? 'adm' : ''}" onclick="showTitles(${JSON.stringify(user.TTX)})">${user.name}</span>
-                    ${user.lastt && user.lastt !== 'none' ? `<span class="ttl ${user.lastt.toLowerCase()}" onclick="showDesc('${user.lastt}')">${user.lastt}</span>` : ''}
-                    <div class="scr">
-                        得分: ${user.score} | ${ppscoreDisplay}
+        sUs.forEach((u,i) => {
+            const ue = document.createElement('div');
+            ue.className = `ue ${i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':''}`;
+            
+            const ppD = u.ppscore<0 ? 
+                `<span class="ppscr neg">${u.ppscore}</span>` : 
+                `<span class="ppscr">${u.ppscore}</span>`;
+            
+            ue.innerHTML = `
+                ${genIc(u.name, u.icon)}
+                <span class="nm ${u.p===2?'adm':''}" onclick="shTtl(${JSON.stringify(u.TTX)})">${u.name}</span>
+                ${u.lastt&&u.lastt!=='none'?`<span class="ttl ${u.lastt.toLowerCase()}" onclick="shDesc('${u.lastt}')">${u.lastt}</span>`:''}
+                <div class="scr">得分: ${u.score} | ${ppD}</div>
+                <div class="lst-cnt">
+                    <div class="lst-t">最近成绩:</div>
+                    ${u.lastc?fmtSc(u.lastc):''}
+                </div>
+                ${u.allc&&u.allc!=="none"?`
+                    <div class="tgl-btn" onclick="tglSc(this,${JSON.stringify(u.allc)})">▼ 全部成绩</div>
+                    <div class="all-sc" style="display:none;max-height:200px;overflow-y:auto;">
+                        ${u.allc.map(sc=>`<div class="sc-itm">${fmtSc(sc)}<hr></div>`).join('')}
                     </div>
-                    ${allScores.length > 0 ? `
-                        <div class="expand-btn" onclick="toggleAllScores(this, ${JSON.stringify(allScores)})">全部成绩: ▶︎展开</div>
-                        <div class="all-scores" style="display: none;">
-                            ${allScores.map(score => formatScore(score)).join('')}
-                        </div>
-                    ` : ''}
-                `;
-                lb.appendChild(ue);
-            });
-        }
+                `:''}
+            `;
+            lb.appendChild(ue);
+        });
+    }
 
-        // 切换全部成绩显示
-        function toggleAllScores(btn, allc) {
-            const allScoresDiv = btn.nextElementSibling;
-            if (allScoresDiv.style.display === 'none') {
-                allScoresDiv.style.display = 'block';
-                btn.innerHTML = '全部成绩: ❙收起';
-            } else {
-                allScoresDiv.style.display = 'none';
-                btn.innerHTML = '全部成绩: ▶︎展开';
-            }
+    // 切换成绩显示
+    function tglSc(btn, allc) {
+        const lstCnt = btn.previousElementSibling;
+        const allSc = btn.nextElementSibling;
+        
+        if (allSc.style.display === 'none') {
+            lstCnt.querySelector('.lst-t').textContent = '全部成绩:';
+            allSc.style.display = 'block';
+            btn.textContent = '▲ 收起';
+        } else {
+            lstCnt.querySelector('.lst-t').textContent = '最近成绩:';
+            allSc.style.display = 'none';
+            btn.textContent = '▼ 全部成绩';
         }
+    }
 
-        // 显示描述提示
-        function showDesc(title) {
-            const descriptions = {
-                "Ranked": "合规成绩",
-                "UnRanked": "暂定通过",
-                "Failed": "失败提交，不合格",
-                "Cheated": "作弊成绩",
-                "Faked": "伪造/虚假成绩",
-                "Banned": "该用户已被封禁"
-            };
-            const alertDiv = document.createElement('div');
-            alertDiv.className = 'custom-alert';
-            alertDiv.textContent = descriptions[title] || "未知(一看就是bydN9错别字发力了)";
-            document.body.appendChild(alertDiv);
-            setTimeout(() => {
-                alertDiv.remove();
-            }, 3000);
-        }
-
-        // 初始化
-        window.onload = async () => {
-            // 加载js-yaml库
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js';
-            script.onload = async () => {
-                await llb();
-                chbg();
-            };
-            document.head.appendChild(script);
+    // 显示描述提示
+    function shDesc(t) {
+        const desc = {
+            "Ranked": "合规成绩",
+            "UnRanked": "暂定通过",
+            "Failed": "失败提交",
+            "Cheated": "作弊成绩",
+            "Faked": "伪造成绩",
+            "Banned": "用户封禁"
         };
+        const al = document.createElement('div');
+        al.className = 'cust-al';
+        al.textContent = desc[t] || "未知状态";
+        document.body.appendChild(al);
+        setTimeout(() => al.remove(), 3000);
+    }
 
-        // 背景切换
-        let ci = 1;
-        const ti = 8;
-        let bgInterval;
+    // 初始化
+    window.onload = async () => {
+        const scr = document.createElement('script');
+        scr.src = 'https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js';
+        scr.onload = async () => {
+            await ldLb();
+            chBg();
+        };
+        document.head.appendChild(scr);
+    };
 
-        function chbg() {
-            ci = (ci % ti) + 1;
-            document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${ci}.jpg')`;
-            document.body.style.backgroundSize = "cover";
-            document.body.style.backgroundPosition = "center";
-            document.body.style.backgroundRepeat = "repeat";
-            document.body.classList.add('fade');
-            setTimeout(() => {
-                document.body.classList.remove('fade');
-            }, 1000);
+    // 背景切换
+    let ci = 1;
+    const ti = 8;
+    let bgInt;
 
-            if (bgInterval) clearInterval(bgInterval);
-            bgInterval = setInterval(chbg, 6000);
-        }
-    </script>
+    function chBg() {
+        ci = (ci % ti) + 1;
+        document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${ci}.jpg')`;
+        document.body.classList.add('fade');
+        setTimeout(() => document.body.classList.remove('fade'), 1000);
+        if (bgInt) clearInterval(bgInt);
+        bgInt = setInterval(chBg, 6000);
+    }
+</script>
 </body>
 </html>

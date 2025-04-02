@@ -5,8 +5,8 @@ users:
     score: 1160
     ppscore: 114.514
     TTX:
-      - "排行榜管理员": 1
-      - "废物": 2
+      - "排行榜管理员": 5
+      - "废物": 5
     allc:
       - "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114.514"
     lastc: "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114.514"
@@ -16,8 +16,8 @@ users:
     icon: "mmxc.png"
     p: 2
     TTX:
-      - "排行榜管理员": 1
-      - "冰火宗师": 2
+      - "排行榜管理员": 5
+      - "冰火宗师": 1
     allc:
       - "goreshit - You are everything:21.125:35:62:144:4255:13:7:0:4000:2000"
       - "Playaphonk - Phonky Town (Nerfed):G6:0:0:0:2719:0:0:0:0:500"
