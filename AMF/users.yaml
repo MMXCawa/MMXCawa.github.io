@@ -2,14 +2,15 @@ users:
   - name: "Nature_9"
     icon: "n9.png"
     p: 2
-    score: 0
+    score: 270.2814
     ppscore: 114
     TTX:
       - "排行榜管理员": 5
       - "废物": 5
     allc:
-      - "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114:HD"
-    lastc: "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114:HD"
+      - "Plum - Barrage:P4:0:6:19:370:1:0:0:270.2814:0:SD,V2"
+      - "Frums - Great Great:P6:0:0:0:355:0:0:0:0:114:HD,V2"
+    lastc: "Frums - Great Great:P6:0:0:0:355:0:0:0:0:114:HD,V2"
     lastt: "Ranked"
 
   - name: "MMXCawa"
