@@ -1,0 +1,189 @@
+users:
+  - name: "Nature_9"
+    icon: "n9.png"
+    p: 2
+    score: 0
+    ppscore: 114
+    TTX:
+      - "排行榜管理员": 5
+      - "废物": 5
+    allc:
+      - "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114"
+    lastc: "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114"
+    lastt: "Ranked"
+
+  - name: "MMXCawa"
+    icon: "mmxc.png"
+    p: 2
+    TTX:
+      - "排行榜管理员": 5
+      - "冰火宗师": 1
+    allc:
+      - "goreshit - You are everything:21.1+:35:62:144:4255:13:7:0:4000:2000"
+      - "Playaphonk - Phonky Town (Nerfed):G6:0:0:0:2719:0:0:0:0:500"
+      - "Dafikun - BPM = SUB / 1450 (Nerfed):G3:0:0:0:1934:0:0:0:0:500"
+      - "megawolf77 - Happyyyy~★♥♪!!:P17:0:0:0:2220:0:0:0:0:450"
+      - "F-777 - Ludicrous Speed:P17:0:0:0:2133:0:0:0:0:450"
+      - "Camellia - First Town of This Journey:P17:0:0:0:1920:0:0:0:0:400"
+      - "cardboard box - He He He (Nerfed) 1.2倍速:P19:0:0:0:3208:0:0:0:0:810"
+    score: 4000
+    ppscore: 5110
+    lastc: "cardboard box - He He He (Nerfed) 1.2倍速:P19:0:0:0:3208:0:0:0:0:810"
+    lastt: "Ranked"
+
+  - name: "艾莲的咸鱼布"
+    icon: "aldxyb.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Playaphonk - Phonky Town (Nerfed):G3:11:17:71:2598:31:2:0:660:0"
+    score: 660
+    ppscore: 0
+    lastc: "Playaphonk - Phonky Town (Nerfed):G3:11:17:71:2598:31:2:0:660:0"
+    lastt: "Ranked"
+
+  - name: "菜柚_"
+    icon: "cy_.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Playaphonk - Phonky Town:20.7:3:11:173:4576:35:6:0:800:0"
+      - "戦歌「オルグラリヤ」:21.2:9:40:177:3229:39:4:0:1988:0"
+    score: 2788
+    ppscore: 0
+    lastc: "戦歌「オルグラリヤ」:21.2:9:40:177:3229:39:4:0:1988:0"
+    lastt: "Ranked"
+
+  - name: "Danln"
+    icon: "DanIn.png"
+    p: 1
+    TTX: null
+    allc:
+      - "ALL MY FELLAS:17:2:0:3:1590:1:0:0:330:0"
+    score: 330
+    ppscore: 0
+    lastc: "ALL MY FELLAS:17:2:0:3:1590:1:0:0:330:0"
+    lastt: "Ranked"
+
+  - name: "天穹"
+    icon: "tianqiong.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Plum - Sinkhole:P16:0:0:0:1235:12:1:0:650:0"
+      - "Playaphonk - Phonky Town（nerf）（1.3）:20.1:10:27:170:2440:73:9:0:590:0"
+    score: 1240
+    ppscore: 0
+    lastc: "Plum - Sinkhole:P16:0:0:0:1235:12:1:0:650:0"
+    lastt: "Ranked"
+
+  - name: "751"
+    icon: "751.png"
+    p: 1
+    TTX: null
+    allc:
+      - "terminal11-Postmanic Candybar Overdose:U11:50:82:202:5213:31:6:0:4250.50:0"
+      - "The World Revolving:U2:9:9:73:5045:21:1:0:2615:0"
+      - "burning aquamarine:U1:7:10:51:4083:12:3:0:2415:0"
+      - "Sot-C - Cursed Metamorph:U8:50:56:113:4293:22:0:0:3800:0"
+    score: 13080.5
+    ppscore: 0
+    lastc: "Sot-C - Cursed Metamorph:U8:50:56:113:4293:22:0:0:3800:0"
+    lastt: "Ranked"
+
+  - name: "almigu"
+    icon: "almigu.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Xyris - A prompted error:G13:9:19:90:2763:27:5:0:900:0"
+      - "goreshit - mulligan:U2:736:731:717:1752:16:2:0:2500:0"
+      - "Kobaryo - True hero:G1:0:1:13:1562:10:1:0:603.5:0"
+      - "kobaryo - True hero(1.25倍速):G1:3:3:39:1528:16:1:0:700:0"
+      - "MEMODEMO - Milkmoon:P19:3:5:46:1919:30:0:0:450:0"
+    score: 5153.5
+    ppscore: 0
+    lastc: "MEMODEMO - Milkmoon:P19:3:5:46:1919:30:0:0:450:0"
+    lastt: "Ranked"
+
+  - name: "XF_ouo"
+    icon: "xfouo.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:200"
+      - "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:500"
+    score: 0
+    ppscore: 700
+    lastc: "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:200"
+    lastt: "Ranked"
+
+  - name: "愛玩遊戲的小說"
+    icon: "awyxdxs.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Turkish March:P12:24:46:121:1108:6:2:0:225:0"
+    score: 225
+    ppscore: 0
+    lastc: "Turkish March:P12:24:46:121:1108:6:2:0:225:0"
+    lastt: "Ranked"
+
+  - name: "qiuqiuadofai"
+    icon: "qqado.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Cardboard Box - He he he:U6:15:105:387:4419:68:5:0:3720:0"
+      - "Frums - We Want To Run(Nerfed):U6:36:120:403:3678:69:9:0:1400:0"
+    score: 4670
+    ppscore: 0
+    lastc: "Frums - We Want To Run(Nerfed):U6:36:120:403:3678:69:9:0:1400:0"
+    lastt: "Ranked"
+
+  - name: "QQ用户1240106381"
+    icon: "qquser.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Plum - 秘密人偶剧II:P7:0:3:12:899:9:0:0:95:0"
+    score: 95
+    ppscore: -1
+    lastc: "Plum - 秘密人偶剧II:P7:0:3:12:899:9:0:0:95:0"
+    lastt: "Ranked"
+
+  - name: "Lmanlakm"
+    icon: "lman.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Cardboard box - The Limit Does Not Exist:P17:0:0:0:1633:1:0:0:388.8500:0"
+      - "startail:G5:8:22:51:2322:2:0:0:685.5600:0"
+      - "BPM = SUB / 1450 （Nerfed):G3:3:5:21:1346:7:5:0:740:0"
+      - "Frums - We Want To Run（Nerfed):21.1+:304:540:25:2858:25:1:0:1750:0"
+    score: 3564.41
+    ppscore: 0
+    lastc: "Frums - We Want To Run（Nerfed):21.1+:304:540:25:2858:25:1:0:1750:0"
+    lastt: "Ranked"
+
+  - name: "寒月_Kasilanker"
+    icon: "kasil.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Frums - Wings:G1:7:15:69:1752:47:12:0:570:0"
+    score: 570
+    ppscore: 0
+    lastc: "Frums - Wings:G1:7:15:69:1752:47:12:0:570:0"
+    lastt: "Ranked"
+
+  - name: "星幻SrarIllution"
+    icon: "stari.png"
+    p: 1
+    TTX: null
+    allc:
+      - "cardboard box - He He He(nerfed):G12:0:5:38:3160:5:0:0:1385:0"
+    score: 1385
+    ppscore: 0
+    lastc: "cardboard box - He He He(nerfed):G12:0:5:38:3160:5:0:0:1385:0"
+    lastt: "Ranked"
