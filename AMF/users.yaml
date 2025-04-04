@@ -2,14 +2,14 @@ users:
   - name: "Nature_9"
     icon: "n9.png"
     p: 2
-    score: 1160
-    ppscore: 114.514
+    score: 0
+    ppscore: 114
     TTX:
       - "排行榜管理员": 5
       - "废物": 5
     allc:
-      - "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114.514"
-    lastc: "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114.514"
+      - "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114"
+    lastc: "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114"
     lastt: "Ranked"
 
   - name: "MMXCawa"
@@ -26,7 +26,7 @@ users:
       - "F-777 - Ludicrous Speed:P17:0:0:0:2133:0:0:0:0:450"
       - "Camellia - First Town of This Journey:P17:0:0:0:1920:0:0:0:0:400"
       - "cardboard box - He He He (Nerfed) 1.2倍速:P19:0:0:0:3208:0:0:0:0:810"
-    score: 5700
+    score: 4000
     ppscore: 5110
     lastc: "cardboard box - He He He (Nerfed) 1.2倍速:P19:0:0:0:3208:0:0:0:0:810"
     lastt: "Ranked"
@@ -37,7 +37,7 @@ users:
     TTX: null
     allc:
       - "Playaphonk - Phonky Town (Nerfed):G3:11:17:71:2598:31:2:0:660:0"
-    score: 1660
+    score: 660
     ppscore: 0
     lastc: "Playaphonk - Phonky Town (Nerfed):G3:11:17:71:2598:31:2:0:660:0"
     lastt: "Ranked"
@@ -49,7 +49,7 @@ users:
     allc:
       - "Playaphonk - Phonky Town:20.7:3:11:173:4576:35:6:0:800:0"
       - "戦歌「オルグラリヤ」:21.2:9:40:177:3229:39:4:0:1988:0"
-    score: 3546
+    score: 2788
     ppscore: 0
     lastc: "戦歌「オルグラリヤ」:21.2:9:40:177:3229:39:4:0:1988:0"
     lastt: "Ranked"
@@ -85,9 +85,10 @@ users:
       - "terminal11-Postmanic Candybar Overdose:U11:50:82:202:5213:31:6:0:4250.50:0"
       - "The World Revolving:U2:9:9:73:5045:21:1:0:2615:0"
       - "burning aquamarine:U1:7:10:51:4083:12:3:0:2415:0"
-    score: 9280.5
+      - "Sot-C - Cursed Metamorph:U8:50:56:113:4293:22:0:0:3800:0"
+    score: 13080.5
     ppscore: 0
-    lastc: "burning aquamarine:U1:7:10:51:4083:12:3:0:2415:0"
+    lastc: "Sot-C - Cursed Metamorph:U8:50:56:113:4293:22:0:0:3800:0"
     lastt: "Ranked"
 
   - name: "almigu"
@@ -113,7 +114,7 @@ users:
       - "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:200"
       - "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:500"
     score: 0
-    ppscore: 750
+    ppscore: 700
     lastc: "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:200"
     lastt: "Ranked"
 
@@ -135,7 +136,7 @@ users:
     allc:
       - "Cardboard Box - He he he:U6:15:105:387:4419:68:5:0:3720:0"
       - "Frums - We Want To Run(Nerfed):U6:36:120:403:3678:69:9:0:1400:0"
-    score: 5120
+    score: 4670
     ppscore: 0
     lastc: "Frums - We Want To Run(Nerfed):U6:36:120:403:3678:69:9:0:1400:0"
     lastt: "Ranked"
@@ -160,7 +161,7 @@ users:
       - "startail:G5:8:22:51:2322:2:0:0:685.5600:0"
       - "BPM = SUB / 1450 （Nerfed):G3:3:5:21:1346:7:5:0:740:0"
       - "Frums - We Want To Run（Nerfed):21.1+:304:540:25:2858:25:1:0:1750:0"
-    score: 2564.4100
+    score: 3564.41
     ppscore: 0
     lastc: "Frums - We Want To Run（Nerfed):21.1+:304:540:25:2858:25:1:0:1750:0"
     lastt: "Ranked"
