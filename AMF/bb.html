@@ -137,23 +137,23 @@
             text-shadow: 0 0 8px green;
         }
 
-        .ttl.unranked {
+        .ttl.waiting {
             color: purple;
             text-shadow: 0 0 8px purple;
         }
 
-        .ttl.failed {
+        .ttl.114514 {
             color: red;
             text-shadow: 0 0 8px red;
         }
 
-        .ttl.cheated,
-        .ttl.faked {
+        .ttl.1145141919,
+        .ttl.喵喵虫 {
             color: gray;
             text-shadow: 0 0 8px gray;
         }
 
-        .ttl.banned {
+        .ttl.1 {
             color: red;
             text-shadow: 0 0 8px red;
         }
@@ -419,7 +419,8 @@
     .red { color: #ff0000; }
     .orange { color: #ff9900; }
     .yellow { color: #ffff00; }
-    .green { color: #00ff00; }
+.green { color: #00ff00; }
+    .green2 { color: #575757; }
     
     .toggle-btn {
         cursor: pointer;
@@ -589,7 +590,7 @@
         const mods = parts.length > 11 ? parts[11] : null;
 
         // 判定颜色
-        const colors = ["red", "orange", "yellow", "green", "yellow", "orange", "red"];
+        const colors = ["red", "orange", "yellow", "green", "yellow", "orange", "green2"];
         const statDisplays = stats.map((value, index) => 
             `<span class="${colors[index]}">${value}</span>`
         ).join(' ');
@@ -731,15 +732,15 @@
     function showDescription(title) {
         const descriptions = {
             "Ranked": "合规成绩",
-            "UnRanked": "暂定通过",
-            "Failed": "失败提交，不合格",
-            "Cheated": "作弊成绩",
-            "Faked": "伪造/虚假成绩",
-            "Banned": "该用户已被封禁"
+            "Waiting": "等待算分",
+            "114514": "114514",
+            "1145141919": "1145141919",
+            "喵喵虫": "无",
+            "1": "无"
         };
         const alertDiv = document.createElement('div');
         alertDiv.className = 'custom-alert';
-        alertDiv.textContent = descriptions[title] || "未知状态";
+        alertDiv.textContent = descriptions[title] || "未知";
         document.body.appendChild(alertDiv);
         setTimeout(() => {
             alertDiv.remove();
