@@ -94,9 +94,12 @@ users:
       - "The World Revolving:U2:9:9:73:5045:21:1:0:2615:0"
       - "burning aquamarine:U1:7:10:51:4083:12:3:0:2415:0"
       - "Sot-C - Cursed Metamorph:U8:50:56:113:4293:22:0:0:3800:0"
-    score: 13080.5
+      - " se-u-ra :U8:46:82:260:3579:12:3:0:3250:0"
+      - "MEMODEMO - Not Too Long(Max 10 characters) :U5:8:8:76:4176:4:1:0:2850:0"
+      - "hugepluse - マリキュールの大地を駆けて:U3:0:2:14:2176:3:0:2550:0"
+    score: 21730.5
     ppscore: 0
-    lastc: "Sot-C - Cursed Metamorph:U8:50:56:113:4293:22:0:0:3800:0"
+    lastc: "hugepluse - マリキュールの大地を駆けて:U3:0:2:14:2176:3:0:2550:0"
     lastt: "Ranked"
 
   - name: "almigu"
@@ -113,9 +116,11 @@ users:
       - "seatrus - Black Hole:P20:0:0:20:2035:25:1:0:554.4:0:SD"
       - "かめいあ - First Town Of This Journey:P17:0:1:12:1779:24:0:0:230:0"
       - "かめいあ - First Town Of This Journey:P17:57:79:162:1643:29:7:0:328:0:NC"
-    score: 6751.9
+      - "Kobaryo - Heaven's gateway:G2:6:14:45:240:75:11:0:490:0"
+      - "BillumMoto - 100 Carat Smoke Point:U5:147:110:170:1516:38:6:0:1044:0"
+    score: 8295.9
     ppscore: 0
-    lastc: "かめいあ - First Town Of This Journey:P17:57:79:162:1643:29:7:0:328:0:NC"
+    lastc: "BillumMoto - 100 Carat Smoke Point:U5:147:110:170:1516:38:6:0:1044:0"
     lastt: "Ranked"
 
   - name: "XF_ouo"
@@ -173,9 +178,10 @@ users:
       - " startail :G5:8:22:51:2322:2:0:0:685.5600:0"
       - "BPM = SUB / 1450 （Nerfed):G3:3:5:21:1346:7:5:0:740:0"
       - "Frums - We Want To Run（Nerfed):21.1+:304:540:25:2858:25:1:0:1750:0"
-    score: 3564.41
+      - "Parodia Sonatina:20.4+:27:26:99:4354:28:6:0:750:0"
+    score: 3414.41
     ppscore: 0
-    lastc: "Frums - We Want To Run（Nerfed):21.1+:304:540:25:2858:25:1:0:1750:0"
+    lastc: "Parodia Sonatina:20.4+:27:26:99:4354:28:6:0:750:0"
     lastt: "Ranked"
 
   - name: "寒月_Kasilanker"
@@ -207,7 +213,8 @@ users:
     TTX: null
     allc:
       - "takehirotei - The Witch Hunt:G2:0:8:12:2619:40:4:0:530:0"
-    score: 530
+      - "Dot96 - MAKE IT FUNKY NOW:P18:1:2:20:1451:15:1:0:639:0:HR"
+    score: 1169
     ppscore: 0
-    lastc: "takehirotei - The Witch Hunt:G2:0:8:12:2619:40:4:0:530:0"
+    lastc: "Dot96 - MAKE IT FUNKY NOW:P18:1:2:20:1451:15:1:0:639:0:HR"
     lastt: "Ranked"
