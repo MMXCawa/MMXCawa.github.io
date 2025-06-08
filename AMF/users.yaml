@@ -218,3 +218,14 @@ users:
     ppscore: 0
     lastc: "Dot96 - MAKE IT FUNKY NOW:P18:1:2:20:1451:15:1:0:639:0:HR"
     lastt: "Ranked"
+
+  - name: "孤独千羽"
+    icon: "gdqy.png"
+    p: 1
+    TTX: null
+    allc:
+      - "cardboard box - he he he(nerfed):G12:14:36:79:3052:37:4:0:590:0:DT"
+    score: 590
+    ppscore: 0
+    lastc: "cardboard box - he he he(nerfed):G12:14:36:79:3052:37:4:0:590:0:DT"
+    lastt: "Ranked"
