@@ -1,0 +1,441 @@
+    <style>
+    
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('http://MMXCawa.github.io/AMF/szllh.ttf') format('ttf'),
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+    body {
+            font-family: 'CustomFont', sans-serif;
+            background-image: url('http://MMXCawa.github.io/images/1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: repeat;
+            margin: 0;
+            padding: 0;
+            color: #000;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        body.night-mode {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        .ct {
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            overflow-y: auto;
+            min-height: 100vh;
+            transition: background 0.5s ease;
+        }
+
+        body.night-mode .ct {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 32px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 14px;
+            font-weight: normal;
+            color: #555;
+            margin-top: 0;
+        }
+
+        .lb {
+            margin: 20px 0;
+        }
+
+        .ue {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: rgba(255, 255, 255, 0.4);
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            transition: background 0.5s ease;
+        }
+
+        body.night-mode .ue {
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+        }
+
+        .ue.rank-1::before {
+            content: "1st";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: gold;
+            text-shadow: 0 0 8px gold;
+        }
+
+        .ue.rank-2::before {
+            content: "2nd";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: silver;
+            text-shadow: 0 0 8px silver;
+        }
+
+        .ue.rank-3::before {
+            content: "3rd";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #cd7f32;
+            text-shadow: 0 0 8px #cd7f32;
+        }
+
+        .ue img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .ue .nm {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .ue .adm {
+            color: #FF4500;
+        }
+
+        .ue .ttl {
+            margin-left: 10px;
+            font-weight: bold;
+            text-shadow: 0 0 8px;
+            cursor: pointer;
+        }
+
+        .ttl.ranked {
+            color: green;
+            text-shadow: 0 0 8px green;
+        }
+
+        .ttl.waiting {
+            color: purple;
+            text-shadow: 0 0 8px purple;
+        }
+
+        .ttl.114514 {
+            color: red;
+            text-shadow: 0 0 8px red;
+        }
+
+        .ttl.1145141919,
+        .ttl.喵喵虫 {
+            color: gray;
+            text-shadow: 0 0 8px gray;
+        }
+
+        .ttl.1 {
+            color: red;
+            text-shadow: 0 0 8px red;
+        }
+
+        .ue .scr {
+            margin-left: 10px;
+        }
+
+        .ue .scr .ppscr {
+            color: gold;
+            text-shadow: 0 0 8px gold;
+        }
+
+        .ue .lstc {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .ue .lstc span {
+            display: inline-block;
+            margin: 0 2px;
+        }
+
+        .ue .lstc span.red {
+            color: red;
+        }
+
+        .ue .lstc span.orange {
+            color: orange;
+        }
+
+        .ue .lstc span.yellow {
+            color: yellow;
+        }
+
+        .ue .lstc span.green {
+            color: green;
+        }
+
+        .sm {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            transition: background 0.5s ease;
+        }
+
+        body.night-mode .sm {
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+        }
+
+        .sm:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        body.night-mode .sm:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        #sm-m, .user-detail {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        body.night-mode #sm-m, body.night-mode .user-detail {
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+        }
+
+        @keyframes slideIn {
+            from { left: -100%; }
+            to { left: 50%; }
+        }
+
+        @keyframes slideOut {
+            from { left: 50%; }
+            to { left: -100%; }
+        }
+
+        #sm-m h2 {
+            margin-top: 0;
+        }
+
+        #sm-m button, .user-detail button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            background: #ff4c4c;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #sm-m button:hover, .user-detail button:hover {
+            background: #ff0000;
+        }
+
+        #version {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #555;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .custom-alert {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease-out, slideOut 0.5s ease-in 2.5s;
+        }
+
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #555;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            transition: background 0.5s ease;
+        }
+
+        body.night-mode .theme-toggle {
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        body.night-mode .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .music-controls {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 10px;
+            border-radius: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            transition: background 0.5s ease;
+        }
+
+        body.night-mode .music-controls {
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+        }
+
+        .music-controls button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .music-controls input[type="range"] {
+            width: 100px;
+        }
+        .expand-btn {
+            cursor: pointer;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .expand-btn:hover {
+            text-decoration: underline;
+        }
+        .all-scores {
+            margin-top: 10px;
+        }
+        .all-scores hr {
+            border: 0;
+            height: 1px;
+            background: #ccc;
+            margin: 10px 0;
+        }
+        .ppscr.negative {
+            color: red !important;
+            text-shadow: 0 0 8px red !important;
+        }
+        
+            .score-line {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+    
+    .score-title {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    
+    .level-icon {
+        width: 24px;
+        height: 24px;
+        vertical-align: middle;
+    }
+    
+    .stats-line {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+    
+    .mods-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-left: 10px;
+    }
+    
+    .mod-icon {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .values-line {
+        margin-bottom: 10px;
+    }
+    
+    .score-item {
+        margin-bottom: 10px;
+    }
+    
+    .red { color: #ff0000; }
+    .orange { color: #ff9900; }
+    .yellow { color: #ffff00; }
+.green { color: #00ff00; }
+    .green2 { color: #575757; }
+    
+    .toggle-btn {
+        cursor: pointer;
+        color: #007bff;
+        margin: 10px 0;
+        font-weight: bold;
+    }
+    
+    .toggle-btn:hover {
+        text-decoration: underline;
+    }
+    
+    .all-scores {
+        transition: all 0.3s ease;
+    }
+    </style>
