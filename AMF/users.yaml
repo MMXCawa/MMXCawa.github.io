@@ -22,7 +22,7 @@ users:
       - "冰火宗师": 1
     allc:
       - "goreshit - You are everything:21.1+:35:62:144:4255:13:7:0:4000:0"
-      - "Playaphonk - Phonky Town (Nerfed):G6:0:0:0:2719:0:0:0:0:500"
+      - "Playaphonk - Phonky Town (Nerfed):G3:0:0:0:2719:0:0:0:0:500"
       - "Dafikun - BPM = SUB / 1450 (Nerfed):G3:0:0:0:1934:0:0:0:0:500"
       - "megawolf77 - Happyyyy~★♥♪!!:P17:0:0:0:2220:0:0:0:0:450"
       - "F-777 - Ludicrous Speed:P17:0:0:0:2133:0:0:0:0:450"
@@ -233,7 +233,9 @@ users:
     allc:
       - "cardboard box - he he he(nerfed):G12:14:36:79:3052:37:4:0:590:0:DT"
       - "HyuN-Infinity Heaven:P15:6:3:18:1318:4:1:0:560:0:HR"
-    score: 1150
+      - "takehirotei - Beyond the Reaches:G2:7:39:81:1960:11:0:0:690:0:HR"
+      - "Playaphonk - Phonk Town(Nerfed):G3:17:37:80:2578:19:5:0:430:0:HR"
+    score: 2270
     ppscore: 0
-    lastc: "HyuN-Infinity Heaven:P15:6:3:18:1318:4:1:0:560:0:HR"
+    lastc: "Playaphonk - Phonk Town(Nerfed):G3:17:37:80:2578:19:5:0:430:0:HR"
     lastt: "Ranked"
