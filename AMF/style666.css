@@ -28,7 +28,7 @@
     padding: 10px 20px; /* 增加内边距使按钮更大 */
     border: none; /* 移除默认边框 */
     border-radius: 25px; /* 圆角边框 */
-    background: rgba(0, 123, 255, 0.5); /* 半透明蓝色背景 */
+    background: rgba(107, 0, 105, 0.7); /* 半透明蓝色背景 */
     backdrop-filter: blur(5px); /* 毛玻璃效果 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
                 0 1px 3px rgba(0, 0, 0, 0.08); /* 添加阴影增加立体感 */
