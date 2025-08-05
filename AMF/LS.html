@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMF 谱面库</title>
     <link rel="icon" href="https://github.com/MMXCawa/MMXCawa.github.io/blob/main/AMF.jpeg?raw=true">
+    <link rel="stylesheet" href="http://MMXCawa.github.io/AMF/style666.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -186,24 +187,13 @@
             button.remove(); // 移除“在线视频”按钮
         }
 
-        function changeBackground() {
-            let currentImage = 1;
-            const totalImages = 8;
-
-            setInterval(() => {
-                document.body.style.backgroundImage = `url('http://MMXCawa.github.io/images/${currentImage}.jpg')`;
-                document.body.style.backgroundSize = "cover";
-                currentImage = (currentImage % totalImages) + 1;
-            }, 6000);
-        }
-
         document.getElementById("search-box").addEventListener("input", searchCharts);
 
         window.onload = () => {
             fetchData();
-            changeBackground();
         };
     </script>
+    <script src="http://MMXCawa.github.io/All.js"></script>
 </body>
 
 </html>
