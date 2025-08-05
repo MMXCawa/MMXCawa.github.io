@@ -19,6 +19,36 @@
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
             transition: background-color 0.5s ease, color 0.5s ease;
         }
+        
+        button {
+    cursor: pointer;
+    color: white; /* 文字颜色改为白色，在半透明背景上更显眼 */
+    margin: 10px auto; /* 上下10px，左右auto实现水平居中 */
+    font-weight: bold;
+    padding: 10px 20px; /* 增加内边距使按钮更大 */
+    border: none; /* 移除默认边框 */
+    border-radius: 25px; /* 圆角边框 */
+    background: rgba(0, 123, 255, 0.5); /* 半透明蓝色背景 */
+    backdrop-filter: blur(5px); /* 毛玻璃效果 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
+                0 1px 3px rgba(0, 0, 0, 0.08); /* 添加阴影增加立体感 */
+    display: block; /* 使margin auto生效 */
+    transition: all 0.3s ease; /* 添加过渡动画效果 */
+}
+
+button:hover {
+    background: rgba(0, 123, 255, 0.7); /* 鼠标悬停时增加不透明度 */
+    transform: translateY(-2px); /* 轻微上浮效果 */
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1), 
+                0 3px 6px rgba(0, 0, 0, 0.08); /* 悬停时阴影更明显 */
+}
+
+button:active {
+    transform: translateY(0); /* 点击时恢复原位 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 点击时阴影减小 */
+}
+
+/*没开自动修复缩减，但是VSC自带的AI太好用了*/
 
         body.night-mode {
             background-color: #1a1a1a;
