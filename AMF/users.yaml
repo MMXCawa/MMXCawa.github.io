@@ -269,7 +269,7 @@ users:
     lastc: "Laur - 国士無双:U7:0:0:3:4069:12:1:0:3250:0"
     lastt: "Ranked"
 
-    - name: "reds"
+  - name: "reds"
     icon: "reds.png"
     p: 1
     TTX: null
