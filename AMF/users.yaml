@@ -63,9 +63,10 @@ users:
     allc:
       - "Playaphonk - Phonky Town:G13:3:11:173:4576:35:6:0:800:0:V2"
       - " 戦歌「オルグラリヤ」 :U5:9:40:177:3229:39:4:0:2488:0"
+      - "Nyan - Glissando but little longer:P19:0:0:0:2185:0:0:0:0:470:PF"
     score: 3288
-    ppscore: 0
-    lastc: "戦歌「オルグラリヤ」:U5:9:40:177:3229:39:4:0:2488:0"
+    ppscore: 470
+    lastc: "Nyan - Glissando but little longer:P19:0:0:0:2185:0:0:0:0:470:PF"
     lastt: "Ranked"
 
   - name: "Danln"
@@ -94,7 +95,7 @@ users:
     score: 6215
     ppscore: 0
     lastc: "Playaphonk - Phonk Town(Nerfed):G3:1:3:31:2592:85:8:0:300:0"
-    lastt: "Waiting"
+    lastt: "Ranked"
 
   - name: "751"
     icon: "751.png"
@@ -191,9 +192,11 @@ users:
       - "Frums - We Want To Run（Nerfed):21.1+:304:540:25:2858:25:1:0:1750:0"
       - "Parodia Sonatina:20.4+:27:26:99:4354:28:6:0:750:0"
       - "Plum - Flower Rocket:G9:24:18:62:2543:18:1:0:1080:0"
-    score: 4494.41
+      - "ああああ - ほしのおとしもの:G3:23:40:51:1721:15:7:752:0"
+      - "F-777 - Ludicrous Speed (Fvrwvrd's Remix):G8:2:2:23:3344:37:7:980:0"
+    score: 6226.41
     ppscore: 0
-    lastc: "Plum - Flower Rocket:G9:24:18:62:2543:18:1:0:1080:0"
+    lastc: "F-777 - Ludicrous Speed (Fvrwvrd's Remix):G8:2:2:23:3344:37:7:980:0"
     lastt: "Ranked"
 
   - name: "寒月_Kasilanker"
