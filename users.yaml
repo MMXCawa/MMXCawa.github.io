@@ -2,14 +2,17 @@ users:
   - name: "Nature_9"
     icon: "n9.png"
     p: 2
-    score: 0
-    ppscore: 114
+    score: 314.2814
+    ppscore: 194
     TTX:
       - "排行榜管理员": 5
       - "废物": 5
     allc:
-      - "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114"
-    lastc: "Frums - Great Great:q3+:0:0:0:355:0:0:0:0:114"
+      - "Plum - Barrage:P4:0:6:19:370:1:0:0:270.2814:0:SD,V2"
+      - "Frums - Great Great:P6:0:0:0:355:0:0:0:0:114:HD,V2"
+      - "Zris - 3000Moons:P3:3:4:14:306:36:9:1:44:0:DT"
+      - "Fizzd - A Dance Of Fire And Ice:Qq:0:0:0:167:0:0:0:0:40:DT,HR"
+    lastc: "Fizzd - A Dance Of Fire And Ice:Qq:0:0:0:167:0:0:0:0:40:DT,HR"
     lastt: "Ranked"
 
   - name: "MMXCawa"
@@ -19,16 +22,28 @@ users:
       - "排行榜管理员": 5
       - "冰火宗师": 1
     allc:
-      - "goreshit - You are everything:21.1+:35:62:144:4255:13:7:0:4000:2000"
-      - "Playaphonk - Phonky Town (Nerfed):G6:0:0:0:2719:0:0:0:0:500"
+      - "goreshit - You are everything:21.1+:35:62:144:4255:13:7:0:4000:0"
+      - "Playaphonk - Phonky Town (Nerfed):G3:0:0:0:2719:0:0:0:0:500"
       - "Dafikun - BPM = SUB / 1450 (Nerfed):G3:0:0:0:1934:0:0:0:0:500"
       - "megawolf77 - Happyyyy~★♥♪!!:P17:0:0:0:2220:0:0:0:0:450"
       - "F-777 - Ludicrous Speed:P17:0:0:0:2133:0:0:0:0:450"
       - "Camellia - First Town of This Journey:P17:0:0:0:1920:0:0:0:0:400"
-      - "cardboard box - He He He (Nerfed) 1.2倍速:P19:0:0:0:3208:0:0:0:0:810"
-    score: 4000
-    ppscore: 5110
-    lastc: "cardboard box - He He He (Nerfed) 1.2倍速:P19:0:0:0:3208:0:0:0:0:810"
+      - "cardboard box - He He He (Nerfed):G12:0:0:0:3208:0:0:0:0:810:DT"
+      - "Lyamev - Я ЧО ЕМЕЛЯ:G2:0:0:0:1219:0:0:0:0:800"
+      - "REQUiRE - V0LKANIK ERUPXI0N:G20:18:48:164:3921:16:1:0:1350:0"
+      - "LeaF & Quree - M.O.P.E.-333:G19:3:11:43:2674:8:1:0:1250:0"
+      - "iTiC - Happy Birthday to You. My First Hero:P14:4:1:3:747:2:0:0:280:0"
+      - "Fvrward - Speedcore Sonata:G11:1:4:7:3361:15:0:0:950:0"
+      - " 戦歌「オルグラリヤ」:U5:1:4:7:3361:15:0:0:2000:0"
+      - "cardboard box - The Limit Does Not Exist(Dafikun Remix):P17:0:0:0:1736:0:0:0:0:500"
+      - "t+pazolite - Electric Butterfly (No Key Limit):G3:0:0:0:3823:0:0:0:0:800"
+      - "Dafikun - BPM＝SUB / 1450:G2:0:0:0:1923:0:0:0:0:650"
+      - "Fluxoid - 236bpm Insanity:P17:0:0:0:675:0:0:0:0:360"
+      - "Melted_Mint - Starlight Chaos Blaskhole:G1:0:0:0:1460:0:0:0:0:560"
+      - "Fvrwvrd - Speedcore Sonata:G11:0:0:0:3383:0:0:0:0:1200"
+    score: 9830
+    ppscore: 7980
+    lastc: "Fvrwvrd - Speedcore Sonata:G11:0:0:0:3383:0:0:0:0:1200"
     lastt: "Ranked"
 
   - name: "艾莲的咸鱼布"
@@ -47,11 +62,12 @@ users:
     p: 1
     TTX: null
     allc:
-      - "Playaphonk - Phonky Town:20.7:3:11:173:4576:35:6:0:800:0"
-      - "戦歌「オルグラリヤ」:21.2:9:40:177:3229:39:4:0:1988:0"
-    score: 2788
-    ppscore: 0
-    lastc: "戦歌「オルグラリヤ」:21.2:9:40:177:3229:39:4:0:1988:0"
+      - "Playaphonk - Phonky Town:G13:3:11:173:4576:35:6:0:800:0:V2"
+      - " 戦歌「オルグラリヤ」 :U5:9:40:177:3229:39:4:0:2488:0"
+      - "Nyan - Glissando but little longer:P19:0:0:0:2185:0:0:0:0:470:PF"
+    score: 3288
+    ppscore: 470
+    lastc: "Nyan - Glissando but little longer:P19:0:0:0:2185:0:0:0:0:470:PF"
     lastt: "Ranked"
 
   - name: "Danln"
@@ -59,10 +75,10 @@ users:
     p: 1
     TTX: null
     allc:
-      - "ALL MY FELLAS:17:2:0:3:1590:1:0:0:330:0"
+      - "ALL MY FELLAS:17:2:0:3:1590:1:0:0:330:0:V2"
     score: 330
     ppscore: 0
-    lastc: "ALL MY FELLAS:17:2:0:3:1590:1:0:0:330:0"
+    lastc: "ALL MY FELLAS:17:2:0:3:1590:1:0:0:330:0V2"
     lastt: "Ranked"
 
   - name: "天穹"
@@ -71,10 +87,15 @@ users:
     TTX: null
     allc:
       - "Plum - Sinkhole:P16:0:0:0:1235:12:1:0:650:0"
-      - "Playaphonk - Phonky Town（nerf）（1.3）:20.1:10:27:170:2440:73:9:0:590:0"
-    score: 1240
+      - "Playaphonk - Phonky Town（Nerfed):G13:10:27:170:2440:73:9:0:590:0:DT"
+      - "cardbaord box - He He He:U2:5:26:152:4432:38:0:2430:0"
+      - "cardbaord box - He He He(Nerfed):G12:1:3:43:3175:17:0:0:500:0"
+      - "Camellia - W.C.G.M.M.P (A.M.G.S):G8:6:6:33:2648:35:4:0:1185:0"
+      - "Rave Girls(Nerfed):G1:1:6:54:1566:15:2:0:560:0"
+      - "Playaphonk - Phonk Town(Nerfed):G3:1:3:31:2592:85:8:0:300:0"
+    score: 6215
     ppscore: 0
-    lastc: "Plum - Sinkhole:P16:0:0:0:1235:12:1:0:650:0"
+    lastc: "Playaphonk - Phonk Town(Nerfed):G3:1:3:31:2592:85:8:0:300:0"
     lastt: "Ranked"
 
   - name: "751"
@@ -86,9 +107,12 @@ users:
       - "The World Revolving:U2:9:9:73:5045:21:1:0:2615:0"
       - "burning aquamarine:U1:7:10:51:4083:12:3:0:2415:0"
       - "Sot-C - Cursed Metamorph:U8:50:56:113:4293:22:0:0:3800:0"
-    score: 13080.5
+      - " se-u-ra :U8:46:82:260:3579:12:3:0:3250:0"
+      - "MEMODEMO - Not Too Long(Max 10 characters) :U5:8:8:76:4176:4:1:0:2850:0"
+      - "hugepluse - マリキュールの大地を駆けて:U3:0:2:14:2176:3:0:0:2550:0"
+    score: 21730.5
     ppscore: 0
-    lastc: "Sot-C - Cursed Metamorph:U8:50:56:113:4293:22:0:0:3800:0"
+    lastc: "hugepluse - マリキュールの大地を駆けて:U3:0:2:14:2176:3:0:0:2550:0"
     lastt: "Ranked"
 
   - name: "almigu"
@@ -96,14 +120,20 @@ users:
     p: 1
     TTX: null
     allc:
-      - "Xyris - A prompted error:G13:9:19:90:2763:27:5:0:900:0"
+      - "Xyris - A prompted error:G13:9:19:90:2763:27:5:0:900:0:V2"
       - "goreshit - mulligan:U2:736:731:717:1752:16:2:0:2500:0"
       - "Kobaryo - True hero:G1:0:1:13:1562:10:1:0:603.5:0"
-      - "kobaryo - True hero(1.25倍速):G1:3:3:39:1528:16:1:0:700:0"
+      - "kobaryo - True hero:G1:3:3:39:1528:16:1:0:700:0:DT"
       - "MEMODEMO - Milkmoon:P19:3:5:46:1919:30:0:0:450:0"
-    score: 5153.5
+      - "かめぃあ - W.C.G.M.M.G.P(A.M.G.S):P20:4:13:66:2597:48:2:0:466:0"
+      - "seatrus - Black Hole:P20:0:0:20:2035:25:1:0:554.4:0:SD"
+      - "かめいあ - First Town Of This Journey:P17:0:1:12:1779:24:0:0:230:0"
+      - "かめいあ - First Town Of This Journey:P17:57:79:162:1643:29:7:0:328:0:NC"
+      - "Kobaryo - Heaven's gateway:G2:6:14:45:240:75:11:0:490:0"
+      - "BillumMoto - 100 Carat Smoke Point:U5:147:110:170:1516:38:6:0:1044:0"
+    score: 8295.9
     ppscore: 0
-    lastc: "MEMODEMO - Milkmoon:P19:3:5:46:1919:30:0:0:450:0"
+    lastc: "BillumMoto - 100 Carat Smoke Point:U5:147:110:170:1516:38:6:0:1044:0"
     lastt: "Ranked"
 
   - name: "XF_ouo"
@@ -111,8 +141,8 @@ users:
     p: 1
     TTX: null
     allc:
-      - "Plum-Sinkhole:P16:0:0:0:1257:0:0:0:0:200"
-      - "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:500"
+      - "Plum - Sinkhole:P16:0:0:0:1257:0:0:0:0:200"
+      - "Nickname - Silent Distruction:P20:0:0:0:1251:0:0:0:0:500"
     score: 0
     ppscore: 700
     lastc: "Nickname-Silent Distruction:P20:0:0:0:1251:0:0:0:0:200"
@@ -134,7 +164,7 @@ users:
     p: 1
     TTX: null
     allc:
-      - "Cardboard Box - He he he:U6:15:105:387:4419:68:5:0:3720:0"
+      - "Cardboard Box - He he he:U6:15:105:387:4419:68:5:0:3720:0:V2"
       - "Frums - We Want To Run(Nerfed):U6:36:120:403:3678:69:9:0:1400:0"
     score: 4670
     ppscore: 0
@@ -148,7 +178,7 @@ users:
     allc:
       - "Plum - 秘密人偶剧II:P7:0:3:12:899:9:0:0:95:0"
     score: 95
-    ppscore: -1
+    ppscore: 0
     lastc: "Plum - 秘密人偶剧II:P7:0:3:12:899:9:0:0:95:0"
     lastt: "Ranked"
 
@@ -157,13 +187,20 @@ users:
     p: 1
     TTX: null
     allc:
-      - "Cardboard box - The Limit Does Not Exist:P17:0:0:0:1633:1:0:0:388.8500:0"
-      - "startail:G5:8:22:51:2322:2:0:0:685.5600:0"
+      - "Cardboard box - The Limit Does Not Exist:P17:0:0:0:1633:1:0:0:388.8500:0:V2"
+      - " startail :G5:8:22:51:2322:2:0:0:685.5600:0"
       - "BPM = SUB / 1450 （Nerfed):G3:3:5:21:1346:7:5:0:740:0"
       - "Frums - We Want To Run（Nerfed):21.1+:304:540:25:2858:25:1:0:1750:0"
-    score: 3564.41
+      - "Parodia Sonatina:20.4+:27:26:99:4354:28:6:0:750:0"
+      - "Plum - Flower Rocket:G9:24:18:62:2543:18:1:0:1080:0"
+      - "ああああ - ほしのおとしもの:G3:23:40:51:1721:15:7:752:0"
+      - "F-777 - Ludicrous Speed (Fvrwvrd's Remix):G8:2:2:23:3344:37:7:0:980:0"
+      - "Cinamoro - Crimson:G8:9:15:37:2269:3:0:0:990:0"
+      - "seatrus - Fallen (2020 Rework):G8:12:14:38:1736:2:1:970:0"
+      - "xzadudu179 - Hallucination:G8:4:22:47:1949:6:2:0:856:0"
+    score: 9042.41
     ppscore: 0
-    lastc: "Frums - We Want To Run（Nerfed):21.1+:304:540:25:2858:25:1:0:1750:0"
+    lastc: "xzadudu179 - Hallucination:G8:4:22:47:1949:6:2:0:856:0"
     lastt: "Ranked"
 
   - name: "寒月_Kasilanker"
@@ -171,10 +208,10 @@ users:
     p: 1
     TTX: null
     allc:
-      - "Frums - Wings:G1:7:15:69:1752:47:12:0:570:0"
+      - "Frums - Wings:G1:7:15:69:1752:47:12:0:570:0:V2"
     score: 570
     ppscore: 0
-    lastc: "Frums - Wings:G1:7:15:69:1752:47:12:0:570:0"
+    lastc: "Frums - Wings:G1:7:15:69:1752:47:12:0:570:0:V2"
     lastt: "Ranked"
 
   - name: "星幻SrarIllution"
@@ -183,7 +220,83 @@ users:
     TTX: null
     allc:
       - "cardboard box - He He He(nerfed):G12:0:5:38:3160:5:0:0:1385:0"
-    score: 1385
+      - "Fvrward - Speedcore Sonata:G11:0:0:17:3362:4:0:0:1550.3:0:SD"
+    score: 2935.3
     ppscore: 0
-    lastc: "cardboard box - He He He(nerfed):G12:0:5:38:3160:5:0:0:1385:0"
+    lastc: "Fvrward - Speedcore Sonata:G11:0:0:17:3362:4:0:0:1550.3:0:SD"
     lastt: "Ranked"
+
+  - name: "Z.Y.Z"
+    icon: "zyz.png"
+    p: 1
+    TTX: null
+    allc:
+      - "takehirotei - The Witch Hunt:G2:0:8:12:2619:40:4:0:530:0"
+      - "Dot96 - MAKE IT FUNKY NOW:P18:1:2:20:1451:15:1:0:639:0:HR"
+      - "Kyutatsuki - Meteoric Impact:G6:9:20:85:2587:12:1:0:960:0:HR"
+    score: 2129
+    ppscore: 0
+    lastc: "Kyutatsuki - Meteoric Impact:G6:9:20:85:2587:12:1:0:960:0:HR"
+    lastt: "Ranked"
+
+  - name: "孤独千羽"
+    icon: "gdqy.png"
+    p: 1
+    TTX: null
+    allc:
+      - "cardboard box - he he he(nerfed):G12:14:36:79:3052:37:4:0:590:0:DT"
+      - "HyuN-Infinity Heaven:P15:6:3:18:1318:4:1:0:560:0:HR"
+      - "takehirotei - Beyond the Reaches:G2:7:39:81:1960:11:0:0:690:0:HR"
+      - "Playaphonk - Phonk Town(Nerfed):G3:17:37:80:2578:19:5:0:430:0:HR"
+      - "Nickname - Silent Distruction:P20:15:74:189:982:6:0:0:612:0"
+    score: 2882
+    ppscore: 0
+    lastc: "Nickname - Silent Distruction:P20:15:74:189:982:6:0:0:612:0"
+    lastt: "Ranked"
+
+  - name: "叶枫"
+    icon: "yefeng.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Playaphonk - Phonk Town :G16:11:41:213:2462:3:0:0:1590:0:DT"
+    score: 1590
+    ppscore: 0
+    lastc: "Playaphonk - Phonk Town :G16:11:41:213:2462:3:0:0:1590:0:DT"
+    lastt: "Ranked"
+
+  - name: "BaiXY"
+    icon: "baixy.png"
+    p: 1
+    TTX: null
+    allc:
+      - "Laur - 国士無双:U7:0:0:3:4069:12:1:0:3250:0"
+    score: 3250
+    ppscore: 0
+    lastc: "Laur - 国士無双:U7:0:0:3:4069:12:1:0:3250:0"
+    lastt: "Ranked"
+
+- name: "reds"
+  icon: "reds.png"
+  p: 1
+  TTX: null
+  allc:
+    - "Frums - We Want To Run:G15:14:49:148:2180:38:9:0:1720:0:HR"
+    - "Frums - We Want To Run:G15:18:62:194:2292:20:4:0:860:0"
+    - "Quree - One Forgotten Night (iTIC Remix):G1:6:4:8:1788:32:3:0:565:0"
+  score: 3145
+  ppscore: 0
+  lastc: "Frums - We Want To Run:G15:18:62:194:2292:20:4:0:860:0"
+  lastt: "Ranked"
+
+- name: "我是飞舞"
+  icon: "wsfw.png"
+  p: 1
+  TTX: null
+  allc:
+    - "Camellia - Hello (BPM) 2023:U11:10:23:72:5930:4:0:0:4316.51:0"
+  score: 4316.51
+  ppscore: 0
+  lastc: "Camellia - Hello (BPM) 2023:U11:10:23:72:5930:4:0:0:4316.51:0"
+  lastt: "Ranked"
+  
