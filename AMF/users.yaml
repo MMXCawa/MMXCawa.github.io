@@ -289,7 +289,7 @@ users:
     lastc: "Quree - One Forgotten Night (iTIC Remix):G1:6:4:8:1788:32:3:0:565:0"
     lastt: "Ranked"
 
-    - name: "我是飞舞"
+  - name: "我是飞舞"
     icon: "wsfw.png"
     p: 1
     TTX: null
