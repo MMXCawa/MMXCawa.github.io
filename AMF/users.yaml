@@ -286,16 +286,16 @@ users:
       - "Quree - One Forgotten Night (iTIC Remix):G1:6:4:8:1788:32:3:0:565:0"
     score: 3145
     ppscore: 0
-    lastc: "Frums - We Want To Run:G15:18:62:194:2292:20:4:0:860:0"
+    lastc: "Quree - One Forgotten Night (iTIC Remix):G1:6:4:8:1788:32:3:0:565:0"
     lastt: "Ranked"
 
-  - name: "我是飞舞"
+    - name: "我是飞舞"
     icon: "wsfw.png"
     p: 1
     TTX: null
     allc:
       - "Camellia - Hello (BPM) 2023:U11:10:23:72:5930:4:0:0:4316.51:0"
-    score:4316.51
-    ppscore:0
+    score: 4316.51
+    ppscore: 0
     lastc: "Camellia - Hello (BPM) 2023:U11:10:23:72:5930:4:0:0:4316.51:0"
     lastt: "Ranked"
