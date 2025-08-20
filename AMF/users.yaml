@@ -3,7 +3,7 @@ users:
     icon: "n9.png"
     p: 2
     score: 314.2814
-    ppscore: 114
+    ppscore: 194
     TTX:
       - "排行榜管理员": 5
       - "废物": 5
@@ -11,7 +11,8 @@ users:
       - "Plum - Barrage:P4:0:6:19:370:1:0:0:270.2814:0:SD,V2"
       - "Frums - Great Great:P6:0:0:0:355:0:0:0:0:114:HD,V2"
       - "Zris - 3000Moons:P3:3:4:14:306:36:9:1:44:0:DT"
-    lastc: "Zris - 3000Moons:P3:3:4:14:306:36:9:1:44:0:DT"
+      - "Fizzd - A Dance Of Fire And Ice:Qq:0:0:0:167:0:0:0:0:40:DT,HR"
+    lastc: "Fizzd - A Dance Of Fire And Ice:Qq:0:0:0:167:0:0:0:0:40:DT,HR"
     lastt: "Ranked"
 
   - name: "MMXCawa"
@@ -194,7 +195,9 @@ users:
       - "Plum - Flower Rocket:G9:24:18:62:2543:18:1:0:1080:0"
       - "ああああ - ほしのおとしもの:G3:23:40:51:1721:15:7:752:0"
       - "F-777 - Ludicrous Speed (Fvrwvrd's Remix):G8:2:2:23:3344:37:7:980:0"
-    score: 6226.41
+      - "Cinamoro - Crimson:G8:9:15:37:2269:3:0:0:990:0"
+      - "seatrus - Fallen (2020 Rework):G8:12:14:38:1736:2:1:970:0"
+    score: 8186.41
     ppscore: 0
     lastc: "F-777 - Ludicrous Speed (Fvrwvrd's Remix):G8:2:2:23:3344:37:7:980:0"
     lastt: "Ranked"
@@ -278,7 +281,8 @@ users:
     TTX: null
     allc:
       - "Frums - We Want To Run:G15:14:49:148:2180:38:9:0:1720:0:HR"
-    score: 1720
+      - "Frums - We Want To Run:G15:18:62:194:2292:20:4:0:860:0"
+    score: 2580
     ppscore: 0
-    lastc: "Frums - We Want To Run:G15:14:49:148:2180:38:9:0:1720:0:HR"
+    lastc: "Frums - We Want To Run:G15:18:62:194:2292:20:4:0:860:0"
     lastt: "Ranked"
