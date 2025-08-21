@@ -121,9 +121,9 @@ users:
     TTX: null
     allc:
       - "Xyris - A prompted error:G13:9:19:90:2763:27:5:0:900:0:V2"
-      - "goreshit - mulligan:U2:736:731:717:1752:16:2:0:2500:0"
-      - "Kobaryo - True hero:G1:0:1:13:1562:10:1:0:603.5:0"
-      - "kobaryo - True hero:G1:3:3:39:1528:16:1:0:700:0:DT"
+      - "goreshit - mulligan:U2:736:731:717:1752:16:2:0:2500:0:V2"
+      - "Kobaryo - True hero:G1:0:1:13:1562:10:1:0:700:0:V2"
+      - "kobaryo - True hero:G1:3:3:39:1528:16:1:0:603.5:0:DT,V2"
       - "MEMODEMO - Milkmoon:P19:3:5:46:1919:30:0:0:450:0"
       - "かめぃあ - W.C.G.M.M.G.P(A.M.G.S):P20:4:13:66:2597:48:2:0:466:0"
       - "seatrus - Black Hole:P20:0:0:20:2035:25:1:0:554.4:0:SD"
@@ -284,18 +284,23 @@ users:
       - "Frums - We Want To Run:G15:14:49:148:2180:38:9:0:1720:0:HR"
       - "Frums - We Want To Run:G15:18:62:194:2292:20:4:0:860:0"
       - "Quree - One Forgotten Night (iTIC Remix):G1:6:4:8:1788:32:3:0:565:0"
-    score: 3145
+      - "Kobaryo - True Hero:G2:11:6:34:1670:15:0:0:760:0"
+      - "OMFG - Hello (Nerfed):G1:22:6:17:1734:23:1:0:550:0"
+      - "Neple & Plum - Fever Time:G1:15:22:51:1561:20:3:0:620:0"
+      - "Takehirotei - Birthday song speedrun any% (Remake):G1:2:2:31:1794:18:2:0:635:0"
+    score: 5710
     ppscore: 0
-    lastc: "Quree - One Forgotten Night (iTIC Remix):G1:6:4:8:1788:32:3:0:565:0"
+    lastc: "Takehirotei - Birthday song speedrun any% (Remake):G1:2:2:31:1794:18:2:0:635:0"
     lastt: "Ranked"
 
-  - name: "我是飞舞"
+  - name: "我是飞舞😡"
     icon: "wsfw.png"
     p: 1
     TTX: null
     allc:
       - "Camellia - Hello (BPM) 2023:U11:10:23:72:5930:4:0:0:4316.51:0"
-    score: 4316.51
+      - "Camellia - Hello (BPM) 2024:U13:14:59:217:5467:34:1:0:4802:0"
+    score: 9118.51
     ppscore: 0
-    lastc: "Camellia - Hello (BPM) 2023:U11:10:23:72:5930:4:0:0:4316.51:0"
+    lastc: "Camellia - Hello (BPM) 2024:U13:14:59:217:5467:34:1:0:4802:0"
     lastt: "Ranked"
