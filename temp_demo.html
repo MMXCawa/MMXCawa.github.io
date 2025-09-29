@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小球进洞爱好者社区——Isoball Fan Community</title>
+    <style>
+        /* 清爽配色方案 - 主色调为浅蓝绿色系 */
+        :root {
+            --primary-color: #e7f4f1;  /* 浅蓝绿背景 */
+            --secondary-color: #ffffff; /* 白色卡片背景 */
+            --accent-color: #0099cc;   /* 蓝色标题 */
+            --text-color: #333333;     /* 深灰文字 */
+            --light-text: #666666;     /* 浅灰辅助文字 */
+            --border-color: #d0e8e2;   /* 浅绿边框 */
+        }
+        
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            color: var(--light-text);
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        section {
+            background-color: var(--secondary-color);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        h2 {
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            border: 3px solid var(--secondary-color);
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        
+        .highlight {
+            background-color: rgba(0, 153, 204, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>小球进洞爱好者社区——Isoball Fan Community</h1>
+            <div class="subtitle">探索物理益智游戏的魅力与历史</div>
+        </header>
+        
+        <section id="intro">
+            <h2>欢迎来到Isoball爱好者社区</h2>
+            <p>Isoball（小球进洞）是一款CandyFlame发行的，以物理为基础、考验空间想象力的经典益智游戏。玩家需要在一个固定的<strong>6x6x6的立方体空间</strong>内，巧妙放置各种积木和道具，构建安全路径，引导小球最终滚入指定的"黑洞"。游戏凭借其真实的物理引擎和富有挑战性的关卡设计，吸引了全球众多益智游戏爱好者。</p>
+        </section>
+        
+        <section id="history">
+            <h2>Isoball的发展历程</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2009年：起源与早期版本</div>
+                    <p>2009年，初代Isoball发布，核心玩法确立：在6x6x6空间引导小球入黑洞。随后在2010年推出第二、三代。2011年推出Isoball-X1之后，游戏开发杳无音讯。</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">后续：演变与平台拓展</div>
+                    <p>随着移动设备的普及，Isoball推出了iOS版本和Isoball HD，实现了从Flash平台向移动平台的跨越。<br>此外还出现了盗版Isoball Gold Edition。<br>此后Isoball关卡的制作一直处于完全停滞的状态。</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2023年：创新与社区活力</div>
+                    <p>2020年底Adobe Flash Player被淘汰，但没有影响玩家对于老游戏重见天日的执着。<br>2023年，<strong>活跃清纯的baka</strong>制作了Isoball首个改版：Isoball 5。<br>此后，<strong>plcc</strong>对Isoball4的底层代码进行了深度的修改<br>目前玩家已经制作出了20多个不同的关卡包。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2025年：展望与未来规划</div>
+                                <ul>
+                <li><strong>Isoball爱好者网站</strong>：结交同好</li>
+                <li><strong>可视化关卡编辑器</strong>：化繁为简</li>
+                <li><strong>基于Unity的Isoball</strong>：旧貌新颜</li>
+                <li><strong>Isoball Realms</strong>：重获新生</li>
+            </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="gameplay">
+            <h2>游戏的核心玩法与魅力</h2>
+            <p>Isoball的基本规则直观但富有深度：玩家需要利用游戏提供的各种积木（如方块、斜坡、桥梁）和道具，在三维空间内构建一条能让小球安全滚入目标点的路径。</p>
+            
+            <div class="highlight">
+                <p>游戏的挑战性源于<strong>真实的物理引擎</strong>。小球滚动时有惯性，速度过快可能脱轨；路径不连续或坡度不当会导致小球摔碎或倒退。成功通关需要精心<strong>规划路线、控制速度、组合不同道具功能</strong>，极大考验玩家的逻辑思维和空间想象力。</p>
+            </div>
+            
+            <p>随着关卡推进，游戏会引入更多复杂元素，如云朵方块，锁和钥匙，反按钮等全新要素，保持游戏的新鲜感和挑战性。</p>
+        </section>
+        
+        <section id="community">
+            <h2>游戏现状与社区</h2>
+            <p>Flash技术已被淘汰，但Isoball爱好者社区依然保持活力。玩家将通过以下方式延续游戏生命：</p>
+            
+            <ul>
+                <li><strong>寻找替代平台</strong>：如可靠的Flash游戏合集网站、模拟器或移动应用商店的移植版本</li>
+                <li><strong>社区交流</strong>：在贴吧、论坛等平台分享攻略、回忆和自定义内容</li>
+                <li><strong>新版本开发</strong>：爱好者开发者推出包含新机制的模式，如生存模式和沙盒模式</li>
+            </ul>
+            
+            <p>2025年初的新版本为经典玩法加入了道具管理等新元素，展现了玩家社区对这款游戏的持续热爱和创新精神。</p>
+        </section>
+        
+        <section id="getting-started">
+            <h2>开始你的Isoball之旅</h2>
+            <ul>
+            <li><a href="http://plcc2.ysepan.com">小球进洞改版网站</a></li>
+            <li><a href="https://github.com/MMXCawa/ADOFAI-Accuracy-Calculator/releases/download/Reproduction/flashplayer_34.0.330.exe">(Windows)下载Flash Player34.0.330</a></li>
+            <li><a href="https://github.com/MMXCawa/ADOFAI-Accuracy-Calculator/releases/download/Reproduction/SWFPlayerFree1.84.apk">(Android)下载SWF Player Free1.84</a></li>
+            <li><a href="https://github.com/jindrapetrik/jpexs-decompiler">开始编辑属于你的关卡</a></li>
+            <li><a href="https://www.kdocs.cn/l/cuCbzpm3uBKN">查看关卡制作教程</a></li>
+            </ul>
+        </section>
+        <section id="contact">
+            <h2>联系我们</h2>
+            <p>如果你有任何问题或建议，欢迎通过以下方式联系我们：</p>
+            <ul>
+                <li>QQ频道：<a href="https://pd.qq.com/s/c51g52zay">点击加入</a></li>
+                <li>群聊：<a href="https://qm.qq.com/q/kQeuG5FjCU">点击加入</a></li>
+            </ul>
+        </section>
+            <ul>
+                
+        <footer>
+            <p>© 2025 小球进洞爱好者社区 | 探索经典，共享乐趣</p>
+        </footer>
+    </div>
+</body>
+</html>
