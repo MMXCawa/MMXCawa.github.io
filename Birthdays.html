@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7fb;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .month {
+      background: #fff;
+      border: 1px solid #d8dde6;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    .month-header {
+      padding: 12px 14px;
+      background: #4a90e2;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      width: 14.285%;
+      border: 1px solid #e3e8f0;
+      padding: 6px 4px;
+      vertical-align: top;
+      min-height: 72px;
+    }
+    th {
+      background: #eef4fb;
+      color: #4a4a4a;
+      font-weight: 600;
+    }
+    .date {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .birthday {
+      font-size: 0.85rem;
+      color: #555;
+      line-height: 1.3;
+    }
+    td.empty {
+      background: #fafbfd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="calendar-title"></h1>
+    <!--<p>每个日期下面对应一个过生日的人。</p>-->
+  </header>
+
+  <div class="calendar" id="calendar"></div>
+
+  <script>
+    const year = 2026;
+    document.title = `${year} 年冰火圈生日日历`;
+    document.getElementById('calendar-title').textContent = `${year} 年冰火圈生日日历`;
+    const monthNames = [
+      '1月', '2月', '3月', '4月', '5月', '6月',
+      '7月', '8月', '9月', '10月', '11月', '12月'
+    ];
+    const weekdayNames = ['日', '一', '二', '三', '四', '五', '六'];
+    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    const startWeekday = new Date(year, 0, 1).getDay();
+
+    const birthdayList = [
+        { month: 1, day: 1, names: ['iri1a1c'] },
+      { month: 1, day: 2, names: ['Number冰西瓜'] },
+      { month: 1, day: 12, names: ['喵言猫喵'] },
+      { month: 2, day: 5, names: ['Snowcove','ST0NE_Ge'] },
+      { month: 2, day: 6, names: ['云蒸苑'] },
+      { month: 2, day: 11, names: ['MMXCawa'] },
+      { month: 2, day: 12, names: ['星星鸽Starry', '极光Aurxy'] },
+      { month: 3, day: 23, names: ['竹声i'] },
+      { month: 6, day: 25, names: ['Gardener_Park'] },
+      { month: 8, day: 9, names: ['Drart'] },
+      { month: 8, day: 14, names: ['Orphily'] },
+      { month: 8, day: 30, names: ['菜柚'] },
+      { month: 8, day: 31, names: ['AzureSoulQwQ',"Korzy"] },
+      { month: 9, day: 3, names: ['Suncode'] },
+      { month: 10, day: 3, names: ['7unSgELE'] },
+      { month: 10, day: 11, names: ['AP101'] },
+      { month: 10, day: 12, names: ['Vialln'] },
+      { month: 10, day: 29, names: ['dzdyhzl'] },
+      { month: 11, day: 15, names: ['HappyLamb029'] },
+      // 可以继续添加更多生日数据，支持同一天多个人
+    ];
+
+    const birthdayMap = new Map();
+    birthdayList.forEach(item => {
+      const key = `${item.month}-${item.day}`;
+      birthdayMap.set(key, item.names);
+    });
+
+    function isLeapYear(year) {
+      return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
+
+    function getDaysInMonth(month) {
+      if (month === 1 && isLeapYear(year)) {
+        return 29;
+      }
+      return daysInMonth[month];
+    }
+
+    function createCalendar() {
+      const calendar = document.getElementById('calendar');
+      let currentWeekday = startWeekday;
+      let dayOfYear = 1;
+
+      for (let month = 0; month < 12; month++) {
+        const monthSection = document.createElement('div');
+        monthSection.className = 'month';
+
+        const header = document.createElement('div');
+        header.className = 'month-header';
+        header.textContent = `${monthNames[month]} ${year}`;
+        monthSection.appendChild(header);
+
+        const table = document.createElement('table');
+        const thead = document.createElement('thead');
+        const headRow = document.createElement('tr');
+        weekdayNames.forEach(name => {
+          const th = document.createElement('th');
+          th.textContent = name;
+          headRow.appendChild(th);
+        });
+        thead.appendChild(headRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        let row = document.createElement('tr');
+        const totalDays = getDaysInMonth(month);
+        for (let i = 0; i < currentWeekday; i++) {
+          const emptyCell = document.createElement('td');
+          emptyCell.className = 'empty';
+          row.appendChild(emptyCell);
+        }
+
+        for (let day = 1; day <= totalDays; day++) {
+          const cell = document.createElement('td');
+          const dateEl = document.createElement('div');
+          dateEl.className = 'date';
+          dateEl.textContent = day;
+          const birthdayEl = document.createElement('div');
+          birthdayEl.className = 'birthday';
+          const key = `${month + 1}-${day}`;
+          const names = birthdayMap.get(key) || [];
+          birthdayEl.textContent = names.length ? names.join('、') : '';
+          cell.appendChild(dateEl);
+          cell.appendChild(birthdayEl);
+          row.appendChild(cell);
+
+          currentWeekday = (currentWeekday + 1) % 7;
+          dayOfYear++;
+
+          if (currentWeekday === 0 && day < totalDays) {
+            tbody.appendChild(row);
+            row = document.createElement('tr');
+          }
+        }
+
+        if (row.children.length > 0) {
+          while (row.children.length < 7) {
+            const emptyCell = document.createElement('td');
+            emptyCell.className = 'empty';
+            row.appendChild(emptyCell);
+          }
+          tbody.appendChild(row);
+        }
+
+        table.appendChild(tbody);
+        monthSection.appendChild(table);
+        calendar.appendChild(monthSection);
+      }
+    }
+
+    window.onload = createCalendar;
+  </script>
+</body>
+</html>
+
