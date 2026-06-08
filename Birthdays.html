@@ -9,13 +9,13 @@
 :root {
   --bg-page:#f4f7fb;--bg-card:#fff;--bg-empty:#f0f2f5;
   --text-main:#222;--text-sub:#555;--accent:#4a90e2;
-  --today:#ffe8a3;--next:#c6f6d5;--search:#ffd6d6;
+  --today:#ffd700;--next:#c6f6d5;--search:#cce5ff;
 }
 
 body.dark {
   --bg-page:#1a1c22;--bg-card:#24262e;--bg-empty:#2a2d36;
   --text-main:#e4e6eb;--text-sub:#aaa;--accent:#6ea8ff;
-  --today:#3a3118;--next:#1f3328;--search:#402828;
+  --today:#b8860b;--next:#1f3328;--search:#1a3a5f;
 }
 
 body{margin:0;padding:16px;font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg-page);color:var(--text-main);transition:.3s}
@@ -34,15 +34,22 @@ button.toggle{padding:6px 12px;border-radius:6px;border:none;background:var(--ac
 .month{background:var(--bg-card);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);overflow:hidden}
 .month-header{background:var(--accent);color:#fff;padding:10px;text-align:center;font-weight:600}
 table{width:100%;border-collapse:collapse}
-th,td{height:70px;border:1px solid #ddd;text-align:center;vertical-align:top;padding:4px;cursor:pointer}
+th,td{height:70px;border:1px solid #ddd;text-align:center;vertical-align:top;padding:4px;cursor:pointer;position:relative}
 th{font-size:.8rem;background:#eee}
 body.dark th{background:#2f313a}
-.date{font-weight:700;font-size:.95rem}
+.date{font-weight:700;font-size:.95rem;display:inline-block;margin-right:4px}
 .birthday{font-size:.72rem;color:var(--text-sub);word-break:break-word}
 td.empty{background:repeating-linear-gradient(45deg,var(--bg-empty),var(--bg-empty) 4px,#e8ebf2 4px,#e8ebf2 5px);cursor:default}
-.today{background:var(--today)!important;border:2px solid #f5b800}
+
+/* 寿星样式（优先级最高） */
+.today{background:var(--today)!important;border:2px solid #daa520!important;}
+.today::before{content:'👑';position:absolute;top:2px;right:2px;font-size:0.7rem}
+
+/* 最近生日样式 */
 .next-birthday{background:var(--next)!important;border:2px solid #38a169}
-.search-hit{background:var(--search)!important;border:2px solid #e53e3e}
+
+/* 搜索高亮样式 */
+.search-hit{background:var(--search)!important;border:2px solid #007bff}
 
 .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:99}
 .modal{background:var(--bg-card);color:var(--text-main);padding:18px 20px;border-radius:10px;width:90%;max-width:320px}
@@ -73,15 +80,17 @@ td.empty{background:repeating-linear-gradient(45deg,var(--bg-empty),var(--bg-emp
 </div>
 
 <script>
-const year=2026,today=new Date();
+const year=new Date().getFullYear(),today=new Date();
 const birthdays=[
   {m:1,d:1,n:['iri1a1c']},{m:1,d:2,n:['Number冰西瓜']},{m:1,d:12,n:['喵言猫喵']},
-  {m:2,d:5,n:['Snowcove','ST0NE_Ge']},{m:2,d:6,n:['云蒸苑',"我在_吃饭"]},{m:2,d:11,n:['MMXCawa']},
-  {m:2,d:12,n:['星星鸽Starry','极光Aurxy']},{m:3,d:23,n:['竹声i']},
-  {m:6,d:8,n:['xiaosong_qwq']},{m:6,d:25,n:['Gardener_Park']},{m:8,d:9,n:['Drart']},{m:8,d:14,n:['Orphily']},
-  {m:8,d:30,n:['菜柚']},{m:8,d:10,n:['盒饭mhya']},{m:8,d:31,n:['AzureSoulQwQ','Korzy']},{m:9,d:3,n:['Suncode']},{m:9,d:22,n:['Tuki_TY']},
-  {m:10,d:3,n:['7unSgELE']},{m:10,d:11,n:['AP101','Ucopia']},{m:10,d:12,n:['Vialln']},
-  {m:10,d:13,n:['Lanton_ADOFAI']},{m:10,d:29,n:['dzdyhzl']},{m:11,d:15,n:['HappyLamb029']},{m:12,d:6,n:['欧馨雨']}
+  {m:2,d:5,n:['Snowcove','ST0NE_Ge']},{m:2,d:6,n:['云蒸苑',"我在_吃饭"]},{m:2,d:11,n:['MMXCawa']},{m:2,d:12,n:['星星鸽Starry','极光Aurxy']},
+  {m:3,d:13,n:['Seven_mc']},{m:3,d:18,n:['Cehaby']},{m:3,d:23,n:['竹声i']},
+  {m:6,d:8,n:['xiaosong_qwq']},{m:6,d:25,n:['Gardener_Park']},
+  {m:8,d:9,n:['Drart']},{m:8,d:12,n:['你怎么神经兮兮的',"Imdaps"]},{m:8,d:14,n:['Orphily']},{m:8,d:30,n:['菜柚']},{m:8,d:10,n:['盒饭mhya']},{m:8,d:31,n:['AzureSoulQwQ','Korzy']},
+  {m:9,d:3,n:['Suncode']},{m:9,d:18,n:['莫邪Morin']},{m:9,d:22,n:['Tuki_TY']},
+  {m:10,d:3,n:['7unSgELE']},{m:10,d:11,n:['AP101','Ucopia']},{m:10,d:12,n:['Vialln']},{m:10,d:13,n:['Lanton_ADOFAI']},{m:10,d:29,n:['dzdyhzl']},
+  {m:11,d:15,n:['HappyLamb029']},{m:11,d:17,n:['Tony Limps']},
+  {m:12,d:2,n:['Grafustix']},{m:12,d:6,n:['欧馨雨']},{m:12,d:27,n:['CherySui']}
 ];
 
 const map=new Map(),cells={};
@@ -156,8 +165,10 @@ function empty(){const td=document.createElement('td');td.className='empty';retu
 function searchName(k){
   Object.values(cells).forEach(c=>c.classList.remove('search-hit'));
   if(!k)return;
+  const keyword=k.toLowerCase();
   birthdays.forEach(b=>{
-    if(b.n.some(n=>n.includes(k)))cells[`${b.m}-${b.d}`]?.classList.add('search-hit');
+    if(b.n.some(n=>n.toLowerCase().includes(keyword)))
+      cells[`${b.m}-${b.d}`]?.classList.add('search-hit');
   });
 }
 
@@ -173,4 +184,6 @@ function toggleTheme(){document.body.classList.toggle('dark');}
 createCalendar();
 </script>
 </body>
+<footer style="text-align:center;margin-top:20px;font-size:0.8rem;color:var(--text-sub);">
+  <p>网页作者: MMXCawa(feat. 腾讯元宝)</p>
 </html>
