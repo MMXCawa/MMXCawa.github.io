@@ -28,6 +28,7 @@
   { "name": "你怎么神经兮兮的",       "type": "solar", "solarMonth": 8,  "solarDay": 12  },
   { "name": "Imdaps",                "type": "solar", "solarMonth": 8,  "solarDay": 12  },
   { "name": "Orphily",               "type": "solar", "solarMonth": 8,  "solarDay": 14  },
+  { "name": "实在没必要取昵称",               "type": "solar", "solarMonth": 8,  "solarDay": 15  },
   { "name": "346丶pomegranate",      "type": "solar", "solarMonth": 8,  "solarDay": 16  },
   { "name": "菜柚",                  "type": "solar", "solarMonth": 8,  "solarDay": 30  },
   { "name": "盒饭mhya",              "type": "solar", "solarMonth": 8,  "solarDay": 10  },
@@ -51,7 +52,7 @@
   { "name": "Tony Limps",            "type": "solar", "solarMonth": 11, "solarDay": 17  },
 
   { "name": "Grafustix",             "type": "solar", "solarMonth": 12, "solarDay": 2   },
-  { "name": "欧馨雨",                "type": "solar", "solarMonth": 12, "solarDay": 6   },
+  { "name": "欧馨雨",                "type": "solar", "solarMonth": 12, "solarDay": 6,"note": "坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪坏猫咪"},
   { "name": "CherySui",              "type": "solar", "solarMonth": 12, "solarDay": 27  },
   {
   "name": "Tu_Yun",
@@ -59,5 +60,10 @@
   "lunarMonth": 7,
   "lunarDay": 25,
   "note": "农历七月廿五"
+},
+    {
+  "name": "file_name",     "type": "lunar",
+  "lunarMonth": 11, "lunarDay": 21,
+  "note": "农历冬月廿一"
 }
 ]
