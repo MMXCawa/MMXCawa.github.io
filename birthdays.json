@@ -45,6 +45,7 @@
   { "name": "Vialln",                "type": "solar", "solarMonth": 10, "solarDay": 12  },
   { "name": "Lanton_ADOFAI",         "type": "solar", "solarMonth": 10, "solarDay": 13  },
   { "name": "StArray",               "type": "solar", "solarMonth": 10, "solarDay": 23  },
+  { "name": "Ariaelle",               "type": "solar", "solarMonth": 10, "solarDay": 25  },
   { "name": "栗子酥粟",              "type": "solar", "solarMonth": 10, "solarDay": 27  },
   { "name": "dzdyhzl",               "type": "solar", "solarMonth": 10, "solarDay": 29  },
 
