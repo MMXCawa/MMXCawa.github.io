@@ -11,24 +11,20 @@
   --text-main:#222;--text-sub:#555;--accent:#4a90e2;
   --today:#ffd700;--next:#c6f6d5;--search:#cce5ff;
 }
-
-body.dark {
+body.dark{
   --bg-page:#1a1c22;--bg-card:#24262e;--bg-empty:#2a2d36;
   --text-main:#e4e6eb;--text-sub:#aaa;--accent:#6ea8ff;
   --today:#b8860b;--next:#1f3328;--search:#1a3a5f;
 }
-
 body{margin:0;padding:16px;font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg-page);color:var(--text-main);transition:.3s}
-
 header{text-align:center;margin-bottom:12px}
 h1{margin:0;font-size:clamp(1.4rem,4vw,2rem)}
 .top-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px}
 input.search{padding:6px 10px;border-radius:6px;border:1px solid #ccc;width:220px}
 button.toggle{padding:6px 12px;border-radius:6px;border:none;background:var(--accent);color:#fff;cursor:pointer}
+.countdown{font-size:.9rem;margin-top:6px;color:var(--accent)}
 
-.countdown{font-size:0.9rem;margin-top:6px;color:var(--accent)}
-
-.calendar{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;display:grid}
+.calendar{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
 @media(min-width:1080px){.calendar{grid-template-columns:repeat(4,1fr)}}
 
 .month{background:var(--bg-card);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08);overflow:hidden}
@@ -39,16 +35,11 @@ th{font-size:.8rem;background:#eee}
 body.dark th{background:#2f313a}
 .date{font-weight:700;font-size:.95rem;display:inline-block;margin-right:4px}
 .birthday{font-size:.72rem;color:var(--text-sub);word-break:break-word}
+.lunar-tag{font-size:.65rem;opacity:.7;margin-left:2px}
 td.empty{background:repeating-linear-gradient(45deg,var(--bg-empty),var(--bg-empty) 4px,#e8ebf2 4px,#e8ebf2 5px);cursor:default}
-
-/* 寿星样式（优先级最高） */
-.today{background:var(--today)!important;border:2px solid #daa520!important;}
-.today::before{content:'👑';position:absolute;top:2px;right:2px;font-size:0.7rem}
-
-/* 最近生日样式 */
+.today{background:var(--today)!important;border:2px solid #daa520!important}
+.today::before{content:'👑';position:absolute;top:2px;right:3px;font-size:.7rem}
 .next-birthday{background:var(--next)!important;border:2px solid #38a169}
-
-/* 搜索高亮样式 */
 .search-hit{background:var(--search)!important;border:2px solid #007bff}
 
 .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:99}
@@ -80,112 +71,158 @@ td.empty{background:repeating-linear-gradient(45deg,var(--bg-empty),var(--bg-emp
 </div>
 
 <script>
-const year=new Date().getFullYear(),today=new Date();
-const birthdays=[
-  {m:1,d:1,n:['iri1a1c']},{m:1,d:2,n:['Number冰西瓜']},{m:1,d:12,n:['喵言猫喵']},
-  {m:2,d:3,n:['风暴TheStorm']},{m:2,d:5,n:['Snowcove','ST0NE_Ge']},{m:2,d:6,n:['云蒸苑',"我在_吃饭"]},{m:2,d:11,n:['MMXCawa']},{m:2,d:12,n:['星星鸽Starry','极光Aurxy']},
-  {m:3,d:13,n:['Seven_mc']},{m:3,d:18,n:['Cehaby']},{m:3,d:23,n:['竹声i']},{m:3,d:27,n:['0x6D63']},
-  {m:4,d:11,n:['TQ-天穹']},
-  {m:5,d:6,n:['SYS-ADOFAI-CHT']},{m:5,d:29,n:['TannghouRemoones']},
-  {m:6,d:8,n:['xiaosong_qwq']},{m:6,d:14,n:['jin_apple']},{m:6,d:25,n:['Gardener_Park']},
-  {m:8,d:8,n:['ModsTag']},{m:8,d:9,n:['Drart']},{m:8,d:12,n:['你怎么神经兮兮的',"Imdaps"]},{m:8,d:14,n:['Orphily']},{m:8,d:16,n:['346丶pomegranate']},{m:8,d:30,n:['菜柚']},{m:8,d:10,n:['盒饭mhya']},{m:8,d:31,n:['AzureSoulQwQ','Korzy']},
-  {m:9,d:3,n:['Suncode']},{m:9,d:6,n:['Tu_Yun']},{m:9,d:8,n:['Xbodw']},{m:9,d:18,n:['莫邪Morin']},{m:9,d:22,n:['Tuki_TY']},
-  {m:10,d:3,n:['7unSgELE']},{m:10,d:11,n:['AP101','Ucopia']},{m:10,d:12,n:['Vialln']},{m:10,d:13,n:['Lanton_ADOFAI']},{m:10,d:23,n:['StArray']},{m:10,d:27,n:['栗子酥粟']},{m:10,d:29,n:['dzdyhzl']},
-  {m:11,d:15,n:['HappyLamb029']},{m:11,d:17,n:['Tony Limps']},
-  {m:12,d:2,n:['Grafustix']},{m:12,d:6,n:['欧馨雨']},{m:12,d:27,n:['CherySui']}
+/* ===== 2026 农历各月初一 → 对应公历 Date 的锚点 =====
+   正月=1 初一=2026-02-17 …… 腊月=12 初一=2027-01-08
+   2026 丙午马年 无闰月
+*/
+const LUNAR_FIRST_DAY = [
+  null,                                  // [0] 占位
+  new Date(2026,1,17),  // [1] 正月初一 = 2/17
+  new Date(2026,2,19),  // [2] 二月初一 = 3/19
+  new Date(2026,3,17),  // [3] 三月初一 = 4/17
+  new Date(2026,4,17),  // [4] 四月初一 = 5/17
+  new Date(2026,5,16),  // [5] 五月初一 = 6/16
+  new Date(2026,6,15),  // [6] 六月初一 = 7/15
+  new Date(2026,7,14),  // [7] 七月初一 = 8/14
+  new Date(2026,8,12),  // [8] 八月初一 = 9/12
+  new Date(2026,9,11),  // [9] 九月初一 = 10/11
+  new Date(2026,10,10), // [10] 十月初一 = 11/10
+  new Date(2026,11,10), // [11] 冬月初一 = 12/10
+  new Date(2027,0,8),   // [12] 腊月初一 = 2027/1/8（跨年，渲染时会跳过/标注）
 ];
 
-const map=new Map(),cells={};
-birthdays.forEach(b=>map.set(`${b.m}-${b.d}`,b.n));
-
-function isLeap(y){(y%4===0&&y%100!==0)||y%400===0}
-const dim=[31,isLeap(year)?29:28,31,30,31,30,31,31,30,31,30,31];
-
-function diffDays(m,d){
-  const t=new Date(year,m,d);
-  return Math.ceil((t-today)/86400000);
+/** 农历月日 → 公历 {year,month,day}（仅 2026 显示范围内有效） */
+function lunarToSolar(lunarMonth, lunarDay){
+  const anchor = LUNAR_FIRST_DAY[lunarMonth];
+  if(!anchor) return null;
+  const d = new Date(anchor);
+  d.setDate(d.getDate() + (lunarDay - 1));
+  return { year: d.getFullYear(), month: d.getMonth()+1, day: d.getDate() };
 }
 
-function createCalendar(){
-  const cal=document.getElementById('calendar');
-  let wd=new Date(year,0,1).getDay();
+/* ============ 加载 JSON ============ */
+const CAL_YEAR = 2026;
+const map = new Map();   // key `${m}-${d}` → [ {name,type,note} ]
+const cells = {};
+let allEntries = [];     // 扁平化后的 [{name, month, day, type, note}]
 
-  let next=null,minDiff=Infinity;
+fetch('birthdays.json')
+  .then(r => { if(!r.ok) throw Error('找不到 birthdays.json（需用 Live Server 打开）'); return r.json(); })
+  .then(data => {
+    data.forEach(entry => {
+      if(entry.type === 'lunar'){
+        const s = lunarToSolar(entry.lunarMonth, entry.lunarDay);
+        if(!s || s.year !== CAL_YEAR) return; // 跨年腊月那几天不显示在2026主日历
+        push(s.month, s.day, entry.name, 'lunar', entry.note || `农历${entry.lunarMonth}月${toChineseNum(entry.lunarDay)}`);
+      } else {
+        push(entry.solarMonth, entry.solarDay, entry.name, 'solar', null);
+      }
+    });
+    createCalendar();
+  })
+  .catch(err => {
+    document.querySelector('header').insertAdjacentHTML('beforeend',
+      `<p style="color:#c00;font-size:.85rem">⚠️ ${err.message}</p>`);
+    console.error(err);
+  });
+
+function push(m,d,name,type,note){
+  const k = `${m}-${d}`;
+  if(!map.has(k)) map.set(k, []);
+  map.get(k).push({ name, type, note });
+  allEntries.push({ name, month:m, day:d, type, note });
+}
+
+function toChineseNum(n){
+  const c=['','初一','初二','初三','初四','初五','初六','初七','初八','初九','初十',
+           '十一','十二','十三','十四','十五','十六','十七','十八','十九',
+           '二十','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','三十'];
+  return c[n]||n;
+}
+
+/* ============ 渲染 ============ */
+const today = new Date();
+
+function createCalendar(){
+  const cal = document.getElementById('calendar');
+  const dim = [31,28,31,30,31,30,31,31,30,31,30,31]; // 2026平年
+  let wd = new Date(CAL_YEAR,0,1).getDay();
+
+  let next=null, minDiff=Infinity;
 
   for(let m=0;m<12;m++){
-    const box=document.createElement('div');box.className='month';
-    box.innerHTML=`<div class="month-header">${m+1}月 ${year}</div><table><thead><tr>${['日','一','二','三','四','五','六'].map(x=>`<th>${x}</th>`)}</tr></thead><tbody></tbody></table>`;
-    const tb=box.querySelector('tbody');
-    let tr=document.createElement('tr');
+    const box = document.createElement('div');
+    box.className='month';
+    box.innerHTML=`\
+      <div class="month-header">${m+1}月 ${CAL_YEAR}</div>\
+      <table><thead><tr>${['日','一','二','三','四','五','六'].map(x=>`<th>${x}</th>`).join('')}</tr></thead>\
+      <tbody></tbody></table>`;
+    const tb = box.querySelector('tbody');
+    let tr = document.createElement('tr');
 
-    for(let i=0;i<wd;i++)tr.appendChild(empty());
+    for(let i=0;i<wd;i++) tr.appendChild(empty());
 
     for(let d=1;d<=dim[m];d++){
-      const td=document.createElement('td');
-      td.dataset.key=`${m+1}-${d}`;
-      td.innerHTML=`<div class="date">${d}</div>`;
+      const td = document.createElement('td');
+      td.dataset.key = `${m+1}-${d}`;
+      td.innerHTML = `<div class="date">${d}</div>`;
 
-      const names=map.get(td.dataset.key);
-      if(names){
-        td.innerHTML+=`<div class="birthday">${names.join('、')}</div>`;
+      const list = map.get(td.dataset.key);
+      if(list && list.length){
+        // 清洗空名
+        const names = list.map(x=>x.name).filter(Boolean);
+        const tags  = list.map(x=> x.type==='lunar' ? `<span class="lunar-tag">(农历)</span>` : '');
+        td.innerHTML += `<div class="birthday">${names.map((n,i)=>n+(tags[i]||'')).join('、')}</div>`;
 
-        const diff=diffDays(m,d);
-        if(diff>=0 && diff<minDiff){
-          minDiff=diff;
-          next=td;
-        }
+        const diff = Math.ceil((new Date(CAL_YEAR,m,d)-today)/86400000);
+        if(diff>=0 && diff<minDiff){ minDiff=diff; next=td; }
       }
 
-      if(today.getFullYear()===year&&today.getMonth()===m&&today.getDate()===d){
+      if(today.getFullYear()===CAL_YEAR && today.getMonth()===m && today.getDate()===d){
         td.classList.add('today');
       }
 
       cells[td.dataset.key]=td;
-      td.onclick=()=>openModal(m+1,d,names);
+      td.onclick = ()=> openModal(m+1,d, list||null);
       tr.appendChild(td);
-
       wd=(wd+1)%7;
-      if(wd===0&&d!==dim[m]){tb.appendChild(tr);tr=document.createElement('tr');}
+      if(wd===0&&d!==dim[m]){ tb.appendChild(tr); tr=document.createElement('tr'); }
     }
-
-    while(tr.children.length<7)tr.appendChild(empty());
+    while(tr.children.length<7) tr.appendChild(empty());
     tb.appendChild(tr);
     cal.appendChild(box);
   }
 
   if(next){
     next.classList.add('next-birthday');
-    document.getElementById('countdown').textContent=
-      minDiff===0?'🎉 今天就有生日！':`⏳ 距离下一个生日还有 ${minDiff} 天`;
-  }else{
-    document.getElementById('countdown').textContent='今年没有更多生日了 🎂';
+    document.getElementById('countdown').textContent =
+      minDiff===0 ? '🎉 今天就有生日！' : `⏳ 距离下一个生日还有 ${minDiff} 天`;
+  } else {
+    document.getElementById('countdown').textContent = '今年没有更多生日了 🎂';
   }
 }
 
-function empty(){const td=document.createElement('td');td.className='empty';return td;}
+function empty(){ const td=document.createElement('td'); td.className='empty'; return td; }
 
+/* ============ 搜索 / 弹窗 / 主题 ============ */
 function searchName(k){
   Object.values(cells).forEach(c=>c.classList.remove('search-hit'));
   if(!k)return;
-  const keyword=k.toLowerCase();
-  birthdays.forEach(b=>{
-    if(b.n.some(n=>n.toLowerCase().includes(keyword)))
-      cells[`${b.m}-${b.d}`]?.classList.add('search-hit');
+  const kw=k.toLowerCase();
+  allEntries.forEach(e=>{
+    if(e.name.toLowerCase().includes(kw))
+      cells[`${e.month}-${e.day}`]?.classList.add('search-hit');
   });
 }
-
-function openModal(m,d,n){
+function openModal(m,d,list){
   document.getElementById('modalTitle').textContent=`${m}月${d}日`;
-  document.getElementById('modalBody').innerHTML=n?.length?`<ul>${n.map(x=>`<li>${x}</li>`).join('')}</ul>`:'暂无生日';
+  document.getElementById('modalBody').innerHTML =
+    list?.length ? `<ul>${list.map(x=>`<li>${x.name}${x.note?`<br><small style="opacity:.7">${x.note}</small>`:''}</li>`).join('')}</ul>`
+               : '暂无生日';
   document.getElementById('modal').style.display='flex';
 }
-
-function closeModal(){document.getElementById('modal').style.display='none';}
-function toggleTheme(){document.body.classList.toggle('dark');}
-
-createCalendar();
+function closeModal(){ document.getElementById('modal').style.display='none'; }
+function toggleTheme(){ document.body.classList.toggle('dark'); }
 </script>
 </body>
-<footer style="text-align:center;margin-top:20px;font-size:0.8rem;color:var(--text-sub);">
-  <p>网页作者: MMXCawa(feat. 腾讯元宝)<br>想要为这个网站贡献数据? 请于QQ或B站联系作者!</p>
 </html>
