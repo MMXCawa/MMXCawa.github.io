@@ -107,24 +107,23 @@ const cells = {};
 let allEntries = [];     // 扁平化后的 [{name, month, day, type, note}]
 
 fetch('birthdays.json')
-  .then(r => { if(!r.ok) throw Error('找不到 birthdays.json（需用 Live Server 打开）'); return r.json(); })
+  .then(r => {
+    if(!r.ok) throw Error('找不到 birthdays.json（需用 Live Server / GitHub Pages 打开）');
+    return r.json();
+  })
   .then(data => {
     data.forEach(entry => {
       if(entry.type === 'lunar'){
         const s = lunarToSolar(entry.lunarMonth, entry.lunarDay);
-        if(!s || s.year !== CAL_YEAR) return; // 跨年腊月那几天不显示在2026主日历
+        if(!s || s.year !== CAL_YEAR) return;
         push(s.month, s.day, entry.name, 'lunar', entry.note || `农历${entry.lunarMonth}月${toChineseNum(entry.lunarDay)}`);
       } else {
-        push(entry.solarMonth, entry.solarDay, entry.name, 'solar', null);
+        // ✅ 关键修复：支持阳历 note
+        push(entry.solarMonth, entry.solarDay, entry.name, 'solar', entry.note || null);
       }
     });
     createCalendar();
   })
-  .catch(err => {
-    document.querySelector('header').insertAdjacentHTML('beforeend',
-      `<p style="color:#c00;font-size:.85rem">⚠️ ${err.message}</p>`);
-    console.error(err);
-  });
 
 function push(m,d,name,type,note){
   const k = `${m}-${d}`;
