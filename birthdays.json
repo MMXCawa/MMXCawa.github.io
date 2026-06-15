@@ -1,6 +1,7 @@
 [
   { "name": "iri1a1c",               "type": "solar", "solarMonth": 1,  "solarDay": 1   },
   { "name": "Number冰西瓜",          "type": "solar", "solarMonth": 1,  "solarDay": 2   },
+  { "name": "无名Noth",          "type": "solar", "solarMonth": 1,  "solarDay": 7  },
   { "name": "喵言猫喵",              "type": "solar", "solarMonth": 1,  "solarDay": 12  },
 
   { "name": "风暴TheStorm",          "type": "solar", "solarMonth": 2,  "solarDay": 3   },
