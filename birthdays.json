@@ -20,6 +20,8 @@
 
   { "name": "TQ-天穹",               "type": "solar", "solarMonth": 4,  "solarDay": 11  },
 
+  { "name": "TannghouRemoones",               "type": "solar", "solarMonth": 5,  "solarDay": 29  },
+
   { "name": "xiaosong_qwq",          "type": "solar", "solarMonth": 6,  "solarDay": 8   },
   { "name": "jin_apple",          "type": "solar", "solarMonth": 6,  "solarDay": 14   },
   { "name": "Gardener_Park",         "type": "solar", "solarMonth": 6,  "solarDay": 25  },
