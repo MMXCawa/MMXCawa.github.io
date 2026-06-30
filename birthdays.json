@@ -46,7 +46,6 @@
   { "name": "7unSgELE",              "type": "solar", "solarMonth": 10, "solarDay": 3   },
   { "name": "AP101",                 "type": "solar", "solarMonth": 10, "solarDay": 11  },
   { "name": "Ucopia",                "type": "solar", "solarMonth": 10, "solarDay": 11  },
-  { "name": "Lanton_ADOFAI",         "type": "solar", "solarMonth": 10, "solarDay": 13  },
   { "name": "StArray",               "type": "solar", "solarMonth": 10, "solarDay": 23  },
   { "name": "Ariaelle",               "type": "solar", "solarMonth": 10, "solarDay": 25  },
   { "name": "zyq090909",               "type": "solar", "solarMonth": 10, "solarDay": 26  },
@@ -60,23 +59,25 @@
   { "name": "Grafustix",             "type": "solar", "solarMonth": 12, "solarDay": 2   },
   { "name": "欧馨雨",                "type": "solar", "solarMonth": 12, "solarDay": 6},
   { "name": "CherySui",              "type": "solar", "solarMonth": 12, "solarDay": 27  },
+
+  
   {
   "name": "Tu_Yun",
   "type": "lunar",
-  "lunarMonth": 7,
-  "lunarDay": 25,
-  "note": "农历七月廿五"
+  "lunarMonth": 7,"lunarDay": 25,
+},
+    {
+  "name": "Lanton_ADOFAI",
+  "type": "lunar",
+  "lunarMonth": 8,"lunarDay": 22,
 },
     {
   "name": "-清源_ix",
   "type": "lunar",
-  "lunarMonth": 10,
-  "lunarDay": 29,
-  "note": "农历十月廿九"
+  "lunarMonth": 10,"lunarDay": 29,
 },
     {
   "name": "file_name",     "type": "lunar",
   "lunarMonth": 11, "lunarDay": 21,
-  "note": "农历冬月廿一"
 }
 ]
