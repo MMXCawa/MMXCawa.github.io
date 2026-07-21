@@ -25,7 +25,9 @@
   { "name": "xiaosong_qwq",          "type": "solar", "solarMonth": 6,  "solarDay": 8   },
   { "name": "jin_apple",          "type": "solar", "solarMonth": 6,  "solarDay": 14   },
   { "name": "Gardener_Park",         "type": "solar", "solarMonth": 6,  "solarDay": 25  },
-{ "name": "W_yeah威化饼干",         "type": "solar", "solarMonth": 7,  "solarDay": 12  },
+  
+{ "name": "W_yeah威化饼干",         "type": "solar", "solarMonth": 7,  "solarDay": 12  }  ,
+  { "name": "wesa24",         "type": "solar", "solarMonth": 7,  "solarDay": 21  },
   
   { "name": "ModsTag",               "type": "solar", "solarMonth": 8,  "solarDay": 8   },
   { "name": "Drart",                 "type": "solar", "solarMonth": 8,  "solarDay": 9   },
@@ -60,6 +62,7 @@
   { "name": "Grafustix",             "type": "solar", "solarMonth": 12, "solarDay": 2   },
   { "name": "欧馨雨",                "type": "solar", "solarMonth": 12, "solarDay": 6},
   { "name": "CherySui",              "type": "solar", "solarMonth": 12, "solarDay": 27  },
+  
   {
   "name": "Tu_Yun",
   "type": "lunar",
