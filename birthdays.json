@@ -28,6 +28,7 @@
   
 { "name": "W_yeah威化饼干",         "type": "solar", "solarMonth": 7,  "solarDay": 12  }  ,
   { "name": "wesa24",         "type": "solar", "solarMonth": 7,  "solarDay": 21  },
+  { "name": "folx",         "type": "solar", "solarMonth": 7,  "solarDay": 26  },
   
   { "name": "ModsTag",               "type": "solar", "solarMonth": 8,  "solarDay": 8   },
   { "name": "Drart",                 "type": "solar", "solarMonth": 8,  "solarDay": 9   },
