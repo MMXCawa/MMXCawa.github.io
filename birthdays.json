@@ -19,6 +19,7 @@
   { "name": "0x6D63",                "type": "solar", "solarMonth": 3,  "solarDay": 27  },
 
   { "name": "TQ-天穹",               "type": "solar", "solarMonth": 4,  "solarDay": 11  },
+  { "name": "离殇i688",               "type": "solar", "solarMonth": 4,  "solarDay": 12  },
 
   { "name": "TannghouRemoones",               "type": "solar", "solarMonth": 5,  "solarDay": 29  },
 
@@ -26,7 +27,7 @@
   { "name": "jin_apple",          "type": "solar", "solarMonth": 6,  "solarDay": 14   },
   { "name": "Gardener_Park",         "type": "solar", "solarMonth": 6,  "solarDay": 25  },
   
-{ "name": "W_yeah威化饼干",         "type": "solar", "solarMonth": 7,  "solarDay": 12  }  ,
+  { "name": "W_yeah威化饼干",         "type": "solar", "solarMonth": 7,  "solarDay": 12  }  ,
   { "name": "wesa24",         "type": "solar", "solarMonth": 7,  "solarDay": 21  },
   { "name": "folx",         "type": "solar", "solarMonth": 7,  "solarDay": 26  },
   
@@ -35,7 +36,7 @@
   { "name": "你怎么神经兮兮的",       "type": "solar", "solarMonth": 8,  "solarDay": 12  },
   { "name": "Imdaps",                "type": "solar", "solarMonth": 8,  "solarDay": 12  },
   { "name": "Orphily",               "type": "solar", "solarMonth": 8,  "solarDay": 14  },
-  { "name": "实在没必要取昵称",               "type": "solar", "solarMonth": 8,  "solarDay": 15  },
+  { "name": "实在没必要取昵称",        "type": "solar", "solarMonth": 8,  "solarDay": 15  },
   { "name": "346丶pomegranate",      "type": "solar", "solarMonth": 8,  "solarDay": 16  },
   { "name": "菜柚",                  "type": "solar", "solarMonth": 8,  "solarDay": 30  },
   { "name": "盒饭mhya",              "type": "solar", "solarMonth": 8,  "solarDay": 10  },
@@ -49,7 +50,7 @@
   { "name": "7unSgELE",              "type": "solar", "solarMonth": 10, "solarDay": 3   },
   { "name": "AP101",                 "type": "solar", "solarMonth": 10, "solarDay": 11  },
   { "name": "Ucopia",                "type": "solar", "solarMonth": 10, "solarDay": 11  },
-  { "name": "Lanton_ADOFAI",         "type": "solar", "solarMonth": 10, "solarDay": 13  },
+  { "name": "Lanton_ADOFAI",         "type": "lunar", "lunarMonth": 8, "lunarDay": 22  },
   { "name": "StArray",               "type": "solar", "solarMonth": 10, "solarDay": 23  },
   { "name": "Ariaelle",               "type": "solar", "solarMonth": 10, "solarDay": 25  },
   { "name": "zyq090909",               "type": "solar", "solarMonth": 10, "solarDay": 26  },
@@ -63,7 +64,7 @@
   { "name": "Grafustix",             "type": "solar", "solarMonth": 12, "solarDay": 2   },
   { "name": "欧馨雨",                "type": "solar", "solarMonth": 12, "solarDay": 6},
   { "name": "CherySui",              "type": "solar", "solarMonth": 12, "solarDay": 27  },
-  
+   { "name": "Lanton_ADOFAI",         "type": "lunar", "lunarMonth": 8, "lunarDay": 22  },
   {
   "name": "Tu_Yun",
   "type": "lunar",
