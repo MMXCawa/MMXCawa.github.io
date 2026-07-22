@@ -48,7 +48,7 @@
   { "name": "7unSgELE",              "type": "solar", "solarMonth": 10, "solarDay": 3   },
   { "name": "AP101",                 "type": "solar", "solarMonth": 10, "solarDay": 11  },
   { "name": "Ucopia",                "type": "solar", "solarMonth": 10, "solarDay": 11  },
-  { "name": "Lanton_ADOFAI",         "type": "lunar", "lunarMonth": 8, "lunarDay": 22  },
+  { "name": "Lanton_ADOFAI",         "type": "lunar", "lunarMonth": 8, "lunarDay": 22  ,"note":"农历八月廿二"},
   { "name": "StArray",               "type": "solar", "solarMonth": 10, "solarDay": 23  },
   { "name": "Ariaelle",               "type": "solar", "solarMonth": 10, "solarDay": 25  },
   { "name": "zyq090909",               "type": "solar", "solarMonth": 10, "solarDay": 26  },
