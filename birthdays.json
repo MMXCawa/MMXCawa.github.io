@@ -61,7 +61,7 @@
 
   { "name": "欧馨雨",                "type": "solar", "solarMonth": 12, "solarDay": 6},
   { "name": "CherySui",              "type": "solar", "solarMonth": 12, "solarDay": 27  },
-  "name": "Tu_Yun",
+  {"name": "Tu_Yun",
   "type": "lunar",
   "lunarMonth": 7,
   "lunarDay": 25,
