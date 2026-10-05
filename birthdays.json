@@ -374,5 +374,42 @@
     "lunarMonth": 11,
     "lunarDay": 21,
     "note": "农历冬月廿一"
+  },
+  {
+    "name": "RisEGT",
+    "type": "lunar",
+    "lunarMonth": 1,
+    "lunarDay": 19,
+    "note": "农历正月十九"
+  },
+  {
+    "name": "lice9",
+    "type": "solar",
+    "solarMonth": 3,
+    "solarDay": 20
+  },
+  {
+    "name": "Xmeow_Nneko",
+    "type": "solar",
+    "solarMonth": 8,
+    "solarDay": 11
+  },
+  {
+    "name": "Gardener_park",
+    "type": "solar",
+    "solarMonth": 6,
+    "solarDay": 25
+  },
+  {
+    "name": "Zhe_ye",
+    "type": "solar",
+    "solarMonth": 12,
+    "solarDay": 14
+  },
+  {
+    "name": "yyqq小元气",
+    "type": "solar",
+    "solarMonth": 11,
+    "solarDay": 16
   }
 ]
